@@ -1,2 +1,2 @@
-* [page](/page)
-* [frontend](/frontend)
+* [page](hezulong.com/page)
+* [frontend](hezulong.com/frontend)
