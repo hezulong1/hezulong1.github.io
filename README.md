@@ -1,5 +1,6 @@
 # 目录
 
-* [规范](https://hezulong.com/webrules)
+* [简介](https://hezulong.com)
+* [规范](https://cow.hezulong.com)
 * [js模块化](https://hezulong.com/study/es5)
-* [test](https://hezulong.com/frontend)
+* [web-camera](https://blog.hezulong.com/web-camera)
