@@ -1,12 +1,12 @@
 /* https://github.com/antfu/prism-theme-vars */
 @import 'prism-theme-vars/base.css';
 
-.prose {
+:root {
   --prism-font-size: 0.9rem;
   --prism-font-family: 'Input Mono', monospace;
 }
 
-html:not(.dark) .prose {
+html:not(.dark) {
   --prism-foreground: #393a34;
   --prism-background: #fbfbfb;
   --prism-comment: #a0ada0;
@@ -28,7 +28,7 @@ html:not(.dark) .prose {
   --prism-json-property: #698c96;
 }
 
-html.dark .prose {
+html.dark {
   --prism-foreground: #d4cfbf;
   --prism-background: #151515;
   --prism-comment: #758575;
