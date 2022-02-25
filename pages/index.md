@@ -1,7 +1,9 @@
 ---
 title: HeZulong
-display: 哈喽！
+display: ''
 ---
+
+<Hello />
 
 我叫何祖龙，一位坚持"[Yak-Shaving](https://zhuanlan.zhihu.com/p/373699761)"的前端软件工程师。
 

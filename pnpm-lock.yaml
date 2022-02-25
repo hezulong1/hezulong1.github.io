@@ -24,6 +24,7 @@ specifiers:
   patch-vue-directive-ssr: ^0.0.1
   pnpm: ^6.23.6
   prism-theme-vars: ^0.2.2
+  typed.js: ^2.0.12
   typescript: ^4.5.2
   unplugin-auto-import: ^0.5.1
   unplugin-icons: ^0.12.22
@@ -45,6 +46,7 @@ dependencies:
   dayjs: 1.10.7
   nprogress: 0.2.0
   prism-theme-vars: 0.2.2
+  typed.js: 2.0.12
   vue: 3.2.31
   vue-router: 4.0.12_vue@3.2.31
   vue-tippy: 6.0.0-alpha.52_vue@3.2.31
@@ -3451,6 +3453,10 @@ packages:
     resolution: {integrity: sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==}
     engines: {node: '>=8'}
     dev: true
+
+  /typed.js/2.0.12:
+    resolution: {integrity: sha512-lyACZh1cu+vpfYY3DG/bvsGLXXbdoDDpWxmqta10IQUdMXisMXOEyl+jos+YT9uBbzK4QaKYBjT3R0kTJO0Slw==}
+    dev: false
 
   /typescript/4.5.5:
     resolution: {integrity: sha512-TCTIul70LyWe6IJWT8QSYeA54WQe8EjQFU4wY52Fasj5UKx88LNYKCgBEHcOMOrFF1rKGbD8v/xcNWVUq9SymA==}
