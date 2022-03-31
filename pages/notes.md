@@ -6,6 +6,59 @@ subtitle: 快速笔记 / 小提示
 
 <article>
 
+## less, scss 函数的定义
+
+_2022/03/31_
+
+#### less
+
+一个额外的配置:
+
+```js
+{
+  less: {
+    javascriptEnabled: true
+  }
+}
+```
+
+```less
+// version: ^4.1.2
+.vwMixin() {
+@function: ~`(function() {
+  this.vw = function(size, base = 1440) {
+    const raw = size / (base / 100) // vw
+    return 'calc(' + raw + 'vw - ' + raw / 100 + ' * var(--sbw, 0px))'
+  }
+})()`;
+}
+.vwMixin();
+// test
+[test] {
+  desktop: ~`vw(60)`;
+  mobile: ~`vw(60, 375)`;
+}
+```
+
+#### scss
+
+```scss
+// version: ^1.49.10
+@use 'sass:math' as math;
+@function vw($px, $base: 1440) {
+  $raw: math.div($px, math.div($base, 100));
+  @return calc(#{$raw * 1vw} - #{$raw * 0.01} * var(--sbw, 0px));
+}
+// test
+[test] {
+  desktop: vw(60);
+  mobile: vw(60, 375);
+}
+```
+</article>
+
+<article>
+
 ## Git 查询代码行数
 
 _2022/02/23_
