@@ -127,69 +127,75 @@
     "/assets/vue-tippy.esm-browser.68b9fd94.js"
   ],
   "pages/bookmarks.md": [
-    "/assets/bookmarks.22d445f3.js"
+    "/assets/bookmarks.e4191596.js"
   ],
   "src/components/Post.vue": [
-    "/assets/Post.28611235.js"
+    "/assets/Post.e8c0b109.js"
   ],
   "\u0000/home/runner/work/hezulong1.github.io/hezulong1.github.io/node_modules/.pnpm/typed.js@2.0.12/node_modules/typed.js/lib/typed.js?commonjs-module": [
-    "/assets/index.608d7f6a.js"
+    "/assets/index.4eeb9da2.js"
   ],
   "node_modules/.pnpm/typed.js@2.0.12/node_modules/typed.js/lib/typed.js": [
-    "/assets/index.608d7f6a.js"
+    "/assets/index.4eeb9da2.js"
   ],
   "src/logics/typed.ts": [
-    "/assets/index.608d7f6a.js"
+    "/assets/index.4eeb9da2.js"
   ],
   "src/components/Hello.vue": [
-    "/assets/index.608d7f6a.js"
+    "/assets/index.4eeb9da2.js"
   ],
   "pages/index.md": [
-    "/assets/index.608d7f6a.js"
+    "/assets/index.4eeb9da2.js"
   ],
   "pages/notes.md": [
-    "/assets/notes.fb146af0.js"
+    "/assets/notes.aa28893b.js"
   ],
   "src/components/ListProjects.vue?vue&type=style&index=0&scoped=true&lang.css": [
-    "/assets/projects.c7c7be9e.js",
+    "/assets/projects.083264c1.js",
     "/assets/projects.c1ae8c69.css"
   ],
   "src/components/ListProjects.vue": [
-    "/assets/projects.c7c7be9e.js",
+    "/assets/projects.083264c1.js",
     "/assets/projects.c1ae8c69.css"
   ],
   "pages/projects.md": [
-    "/assets/projects.c7c7be9e.js",
+    "/assets/projects.083264c1.js",
     "/assets/projects.c1ae8c69.css"
   ],
   "pages/talks.md": [
-    "/assets/talks.c5805d22.js"
+    "/assets/talks.5160c4dd.js"
   ],
   "src/components/ListPosts.vue": [
-    "/assets/ListPosts.d1a33d77.js"
+    "/assets/ListPosts.598b4a99.js"
   ],
   "pages/posts/2022-02-23_new-house.md": [
-    "/assets/2022-02-23_new-house.2e84c27b.js"
+    "/assets/2022-02-23_new-house.aac48836.js"
   ],
   "pages/posts/2022-02-23_nginx-multiple-vue.md": [
-    "/assets/2022-02-23_nginx-multiple-vue.96cfe87b.js"
+    "/assets/2022-02-23_nginx-multiple-vue.4019e860.js"
   ],
   "pages/posts/2022-02-23_package-js.md": [
-    "/assets/2022-02-23_package-js.b5d1251a.js"
+    "/assets/2022-02-23_package-js.e7a1c5bf.js"
   ],
   "pages/posts/2022-02-23_talk_about-map.md": [
-    "/assets/2022-02-23_talk_about-map.3721f22c.js"
+    "/assets/2022-02-23_talk_about-map.ba0682c6.js"
   ],
   "pages/posts/2022-02-23_talk_complain-typescript.md": [
-    "/assets/2022-02-23_talk_complain-typescript.e06141f2.js"
+    "/assets/2022-02-23_talk_complain-typescript.b50f33aa.js"
   ],
   "pages/posts/2022-04-30_talk_thinking.md": [
-    "/assets/2022-04-30_talk_thinking.f3c9e38b.js"
+    "/assets/2022-04-30_talk_thinking.6e29d808.js"
+  ],
+  "../../../../../father.png": [
+    "/assets/2022-06-19_talk_father.da658442.js"
+  ],
+  "pages/posts/2022-06-19_talk_father.md": [
+    "/assets/2022-06-19_talk_father.da658442.js"
   ],
   "pages/posts/index.md": [
-    "/assets/index.61bc4dc3.js"
+    "/assets/index.61c73b6a.js"
   ],
   "pages/[...404].md": [
-    "/assets/_...404_.d95e6ddd.js"
+    "/assets/_...404_.14bda2a3.js"
   ]
 }
