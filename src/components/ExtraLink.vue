@@ -1,8 +1,8 @@
 <script setup lang="ts">
 defineProps<{
-  href: string
-  title?: string
-}>()
+  href: string;
+  title?: string;
+}>();
 </script>
 
 <template>

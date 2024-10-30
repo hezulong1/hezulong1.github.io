@@ -1,5 +1,3 @@
 {
-  "extends": [
-    "@vividcat/vue3"
-  ]
+  "extends": "h21"
 }

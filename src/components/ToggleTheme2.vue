@@ -1,3 +1,11 @@
+<script setup lang='ts'>
+import { isDark } from '~/logics';
+
+function toggleDark() {
+  isDark.value = !isDark.value;
+}
+</script>
+
 <template>
   <a class="select-none relative" @click="toggleDark">
     <div class="sun-rays" />
@@ -5,14 +13,6 @@
     <div class="moon-mask" />
   </a>
 </template>
-
-<script setup lang='ts'>
-import { isDark } from '~/logics'
-
-function toggleDark() {
-  isDark.value = !isDark.value
-}
-</script>
 
 <style>
 .sun-rays {

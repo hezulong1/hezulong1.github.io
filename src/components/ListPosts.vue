@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
-import { formatDate } from '~/logics'
+import { useRouter } from 'vue-router';
+import { formatDate } from '~/logics';
 
 const props = defineProps<{
-  type?: string
-}>()
+  type?: string;
+}>();
 
-const router = useRouter()
+const router = useRouter();
 const routes = router.getRoutes()
   .filter(i => i.path.startsWith('/posts') && i.meta.frontmatter.date)
-  .sort((a, b) => +new Date(b.meta.frontmatter.date) - +new Date(a.meta.frontmatter.date))
+  .sort((a, b) => Number(new Date(b.meta.frontmatter.date)) - Number(new Date(a.meta.frontmatter.date)));
 
 const posts = computed(() =>
-  routes.filter(i => !i.path.endsWith('.html') && i.meta.frontmatter.type === props.type)
-)
+  routes.filter(i => !i.path.endsWith('.html') && i.meta.frontmatter.type === props.type),
+);
 </script>
 
 <template>
