@@ -4,14 +4,6 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
-    CarbonAlignBoxTopLeft: typeof import('~icons/carbon/align-box-top-left')['default']
-    CarbonBookmark: typeof import('~icons/carbon/bookmark')['default']
-    CarbonCropGrowth: typeof import('~icons/carbon/crop-growth')['default']
-    CarbonIdea: typeof import('~icons/carbon/idea')['default']
-    CarbonLogoGithub: typeof import('~icons/carbon/logo-github')['default']
-    CarbonMoon: typeof import('~icons/carbon/moon')['default']
-    CarbonNotebook: typeof import('~icons/carbon/notebook')['default']
-    CarbonSun: typeof import('~icons/carbon/sun')['default']
     ExtraLink: typeof import('./components/ExtraLink.vue')['default']
     Footer: typeof import('./components/Footer.vue')['default']
     GitbookLink: typeof import('./components/GitbookLink.vue')['default']
