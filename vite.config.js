@@ -1,4 +1,4 @@
-import path from 'node:path'
+import path from 'node:path';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
@@ -10,7 +10,7 @@ export default defineConfig({
     ],
   },
   build: {
-    minify: false,
+    minify: true,
     emptyOutDir: true,
     rollupOptions: {
       output: {
