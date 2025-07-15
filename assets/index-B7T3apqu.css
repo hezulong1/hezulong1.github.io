@@ -1,0 +1,120 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  border: 0px solid var(--border-color);
+}
+
+:where(body) {
+  line-height: 1.5;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:where(img, picture, video, canvas, svg) {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+:where(input, button, textarea, select) {
+  font: inherit;
+}
+
+:where(p, h1, h2, h3, h4, h5, h6) {
+  overflow-wrap: break-word;
+}
+
+:where(p) {
+  text-wrap: pretty;
+}
+
+:where(h1, h2, h3, h4, h5, h6) {
+  text-wrap: balance;
+}
+
+:where(iframe) {
+  border-style: none;
+}
+
+:where(ol, ul, menu) {
+  margin: 0;
+  list-style: none;
+}
+
+:where(table) {
+  text-indent: 0;
+  border-collapse: collapse;
+}
+
+:where(a) {
+  text-decoration: none;
+}
+
+:where(hr) {
+  height: 0;
+  color: inherit;
+  border-top-width: 1px;
+}
+
+:where(code, kbd, samp, pre) {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 1em;
+}
+
+:where(summary) {
+  display: list-item;
+}.mac:lang(zh-CN) {
+  font-family: -apple-system, Inter, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", sans-serif;
+}
+
+.windows:lang(zh-CN) {
+  font-family: Inter, "Segoe WPC", "Segoe UI", "Microsoft YaHei", sans-serif;
+}
+
+.linux:lang(zh-CN) {
+  font-family: system-ui, Inter, "Ubuntu", "Droid Sans", "Source Han Sans SC", "Source Han Sans CN", "Source Han Sans", sans-serif;
+}
+
+.container {
+  width: 1440px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+@media (max-width: 1759.9999px) {
+  .container {
+    width: 1120px;
+  }
+}
+@media (max-width: 1219.9999px) {
+  .container {
+    width: calc(100% - 100px);
+  }
+}
+@media (max-width: 559.9999px) {
+  .container {
+    width: 100%;
+  }
+}
+
+:root {
+  --accent-color: #c73262;
+  --border-color: #ddd;
+}
+
+html {
+  scrollbar-color: #000 rgba(0, 0, 0, 0);
+}
+
+body {
+  color: #333;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: Inter, sans-serif;
+}
