@@ -1,9 +1,9 @@
 import Typed from 'typed.js';
-import { css } from '@emotion/css'
-import * as Browser from './logic/browser'
+import { css } from '@emotion/css';
+import * as Browser from './logic/browser';
 
 function setAppStyle(domNode: HTMLElement) {
-  const domNodeStyle = domNode.style
+  const domNodeStyle = domNode.style;
 
   domNodeStyle.position = 'relative';
   domNodeStyle.top = '0';
@@ -83,10 +83,11 @@ function setAppContent(domNode: HTMLElement) {
         <a href="https://www.cnblogs.com/blackcat" target="_blank">博客园</a>
       </p>
     </div>
-  `
+  `;
 
   const helloDomNode = introDomNode.querySelector<HTMLElement>('#hello');
 
+  // eslint-disable-next-line no-new
   new Typed(helloDomNode!, {
     typeSpeed: 125,
     backSpeed: 100,
@@ -95,22 +96,22 @@ function setAppContent(domNode: HTMLElement) {
     backDelay: 1500,
     showCursor: false,
     loop: true,
-    strings: ['哈喽', 'Hello', 'こんにちは', 'Hola', 'Bonjour']
-  })
+    strings: ['哈喽', 'Hello', 'こんにちは', 'Hola', 'Bonjour'],
+  });
 
-  domNode.appendChild(introDomNode)
+  domNode.appendChild(introDomNode);
 }
 
 function onWindowResize(domNode: HTMLElement) {
-  const domNodeStyle = domNode.style
+  const domNodeStyle = domNode.style;
 
   const onResize = () => {
-    domNodeStyle.setProperty('--window-width', innerWidth + 'px')
-    domNodeStyle.setProperty('--window-height', innerHeight + 'px')
-  }
+    domNodeStyle.setProperty('--window-width', innerWidth + 'px');
+    domNodeStyle.setProperty('--window-height', innerHeight + 'px');
+  };
 
-  onResize()
-  window.addEventListener('resize', onResize)
+  onResize();
+  window.addEventListener('resize', onResize);
 }
 
 export function setupApp() {
@@ -119,7 +120,7 @@ export function setupApp() {
   domNode.setAttribute('role', 'application');
   document.body.appendChild(domNode);
 
-  setAppStyle(domNode)
+  setAppStyle(domNode);
   setAppContent(domNode);
   onWindowResize(domNode);
 }
