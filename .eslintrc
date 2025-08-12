@@ -1,3 +1,6 @@
 {
-  "extends": "h21"
+  "extends": "h21",
+  "rules": {
+    "no-console": "off"
+  }
 }

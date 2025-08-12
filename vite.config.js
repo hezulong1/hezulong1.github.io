@@ -1,5 +1,9 @@
 import path from 'node:path';
 import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react-swc';
+import vike from 'vike/plugin';
+import mdx from '@mdx-js/rollup';
+import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 
 export default defineConfig({
   base: '/',
@@ -9,9 +13,14 @@ export default defineConfig({
       { find: /^(dayjs)(?!\/esm)/, replacement: '$1/esm' },
     ],
   },
+  plugins: [
+    vanillaExtractPlugin(),
+    vike(),
+    mdx(),
+    react(),
+  ],
   build: {
-    minify: true,
-    emptyOutDir: true,
+    target: 'es2022',
     rollupOptions: {
       output: {
         manualChunks(id) {
