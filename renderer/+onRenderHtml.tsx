@@ -10,6 +10,8 @@ import type { OnRenderHtmlAsync } from 'vike/types';
 export const onRenderHtml: OnRenderHtmlAsync = async (pageContext): ReturnType<OnRenderHtmlAsync> => {
   const { Page } = pageContext;
 
+  console.log('onRenderHtml');
+
   const stream = await renderToStream(
     <Layout pageContext={pageContext}>
       <Page />

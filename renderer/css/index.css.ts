@@ -1,7 +1,7 @@
 import { globalStyle } from '@vanilla-extract/css';
+import { rainbowColor } from './common/rainbow.css.ts';
+import './common/reset.css.ts';
 import * as vars from './vars.css.ts';
-import { rainbowColor } from './rainbow.css.ts';
-import './reset.css.ts';
 
 globalStyle(':root', {
   vars: {
@@ -11,5 +11,6 @@ globalStyle(':root', {
     [vars.colorText2]: '#1d1c1c',
     [vars.colorFill1]: '#f5f4f1',
     [vars.colorFill2]: '#fffefb',
+    [vars.radius]: '2px',
   },
 });

@@ -8,6 +8,8 @@ import type { OnRenderClientAsync } from 'vike/types';
 let root: ReactDOM.Root;
 export const onRenderClient: OnRenderClientAsync = async (pageContext): ReturnType<OnRenderClientAsync> => {
   const { Page } = pageContext;
+
+  console.log('onRenderClient');
   const page = (
     <Layout pageContext={pageContext}>
       <Page />

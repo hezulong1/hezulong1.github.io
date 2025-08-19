@@ -1,0 +1,77 @@
+import type { UserConfig } from 'vitepress';
+import type { MyTheme } from './theme/type.ts';
+import { defineConfig } from 'vitepress';
+
+// https://vitepress.dev/reference/site-config
+export default defineConfig<MyTheme.Config>({
+  title: 'HeZulong',
+  description: 'Writing & Learning',
+  head: [
+    ['link', { rel: 'icon', type: 'image/png', href: '/logo.png' }],
+    ['meta', { name: 'theme-color', content: '#000000' }],
+    ['meta', { name: 'renderer', content: 'webkit' }],
+  ],
+  lang: 'zh-Hans',
+  base: '/',
+  srcDir: 'posts',
+  outDir: 'dist',
+  lastUpdated: true,
+  sitemap: {
+    hostname: 'https://hezulong1.github.io/',
+  },
+  cleanUrls: true,
+  themeConfig: myThemeConfig(),
+  vite: getViteConfig(),
+});
+
+function myThemeConfig(): MyTheme.Config {
+  return {
+    github: 'https://github.com/hezulong1',
+    nav: [
+      {
+        text: '写作',
+        link: '/writing.html',
+      },
+      {
+        text: '文章',
+        link: '/article.html',
+      },
+    ],
+  };
+}
+
+function getViteConfig() {
+  return {
+    publicDir: '../public',
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              return 'vendor';
+            }
+          },
+        },
+      },
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          charset: false,
+        },
+      },
+      postcss: {
+        plugins: [
+          {
+            postcssPlugin: '_postcss_plugin_local',
+            AtRule: {
+              charset(atRule) {
+                atRule.name === 'charset' && atRule.remove();
+              },
+            },
+          },
+        ],
+      },
+    },
+  } satisfies UserConfig['vite'];
+}

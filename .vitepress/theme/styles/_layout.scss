@@ -1,0 +1,22 @@
+.container {
+  width: 100%;
+  max-width: 21cm;
+  margin: 0 auto;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: var(--vp-font-family-base);
+  font-weight: 400;
+  color: var(--vp-c-text-1);
+  background-color: var(--vp-c-bg);
+}
+
+a {
+  color: var(--vp-c-text-1);
+}
+
+ul {
+  padding: 0;
+}

@@ -6,3 +6,5 @@ export const colorText1 = createVar();
 export const colorText2 = createVar();
 export const colorFill1 = createVar();
 export const colorFill2 = createVar();
+
+export const radius = createVar();

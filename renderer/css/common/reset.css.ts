@@ -1,5 +1,5 @@
 import { globalStyle } from '@vanilla-extract/css';
-import { vars } from './theme.css.ts';
+import { colorBorder } from '../vars.css.ts';
 
 globalStyle(`*, *::before, *::after`, {
   boxSizing: 'border-box',
@@ -7,7 +7,7 @@ globalStyle(`*, *::before, *::after`, {
 
 globalStyle(`*`, {
   margin: 0,
-  border: `0px solid ${vars.color.border}`,
+  border: `0px solid ${colorBorder}`,
 });
 
 globalStyle(`:where(body)`, {

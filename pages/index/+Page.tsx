@@ -1,6 +1,6 @@
 import React from 'react';
 import { navigate } from 'vike/client/router';
-import { Counter } from '../../components/Counter';
+import { Counter } from '@/components/Counter.tsx';
 
 export default function Page() {
   return (

@@ -1,5 +1,6 @@
-import { usePageContext } from './usePageContext';
-import * as css from './Link.css';
+import { cn } from '@/utils/classNames.ts';
+import { usePageContext } from './usePageContext.tsx';
+import { link, linkActive } from './Link.css.ts';
 
 type LinkProps = React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
 
@@ -8,6 +9,5 @@ export function Link(props: LinkProps) {
   const { urlPathname } = pageContext;
   const { href = '' } = props;
   const isActive = href === '/' ? urlPathname === href : urlPathname.startsWith(href);
-  const className = [props.className, css.link, isActive && css.linkActive].filter(Boolean).join(' ');
-  return <a {...props} className={className} />;
+  return <a {...props} className={cn([props.className, link, isActive && linkActive])} />;
 }
