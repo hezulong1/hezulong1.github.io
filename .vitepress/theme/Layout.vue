@@ -35,7 +35,7 @@ const {
   --page-space: 24px;
 
   position: relative;
-  max-width: 900px;
+  max-width: 960px;
   margin: 0 auto;
 }
 </style>

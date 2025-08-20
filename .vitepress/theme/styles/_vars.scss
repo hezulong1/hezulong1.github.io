@@ -1,0 +1,37 @@
+@use '_radix-colors';
+
+:root {
+  --vp-opacity-base: 0.05;
+  --vp-opacity-bg-subtle: 0.1;
+  --vp-opacity-bg: 0.15;
+  --vp-opacity-bg-hover: 0.2;
+  --vp-opacity-bg-active: 0.3;
+  --vp-opacity-line: 0.4;
+  --vp-opacity-border: 0.5;
+  --vp-opacity-border-hover: 0.6;
+  --vp-opacity-solid: 0.7;
+  --vp-opacity-solid-hover: 0.8;
+  --vp-opacity-text: 0.9;
+  --vp-opacity-text-contrast: 0.95;
+
+  --vp-accent-base: var(--vp-blue-a1);
+  --vp-accent-bg-subtle: var(--vp-blue-a2);
+  --vp-accent-bg: var(--vp-blue-a3);
+  --vp-accent-bg-hover: var(--vp-blue-a4);
+  --vp-accent-bg-active: var(--vp-blue-a5);
+  --vp-accent-line: var(--vp-blue-a6);
+  --vp-accent-border: var(--vp-blue-a7);
+  --vp-accent-border-hover: var(--vp-blue-a8);
+  --vp-accent-solid: var(--vp-blue-a9);
+  --vp-accent-solid-hover: var(--vp-blue-a10);
+  --vp-accent-text: var(--vp-blue-a11);
+  --vp-accent-text-contrast: var(--vp-blue-a12);
+  --vp-accent-contrast: hsl(0, 0%, 100%);
+}
+
+:root {
+  --vp-header-anchor-symbol: '#';
+  --vp-code-copy-copied-text-content: '已复制';
+  --vp-font-family-base: 'Söhne Mono','STSong','SimSun','MingLiU','宋体','Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji', serif;
+  --vp-font-family-mono: 'Söhne Mono','Courier New', monospace;
+}

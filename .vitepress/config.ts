@@ -31,10 +31,12 @@ function myThemeConfig(): MyTheme.Config {
       {
         text: '写作',
         link: '/writing.html',
+        activeMatch: '^/writing(?:/|$)',
       },
       {
         text: '文章',
         link: '/article.html',
+        activeMatch: '^/article(?:/|$)',
       },
     ],
   };

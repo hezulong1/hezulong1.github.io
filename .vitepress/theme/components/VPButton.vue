@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { motion } from 'motion-v';
-import { computed, type Component } from 'vue';
+import { computed } from 'vue';
 import { isExternal } from '../utils/utils.ts';
 
 const props = defineProps<{
   href?: string;
   span?: boolean;
-  icon?: Component;
 }>();
 
 const tag = computed(() => props.span ? 'span' : 'a');
@@ -14,29 +12,26 @@ const tag = computed(() => props.span ? 'span' : 'a');
 
 <template>
   <component
-    :is="motion[tag]"
+    :is="tag"
     class="VPButton"
     :class="{
-      link: tag === 'a',
-      icon,
       'external-link-icon': isExternal(href),
     }"
     :href="href"
     :target="isExternal(href) ? '_blank' : undefined"
     :rel="isExternal(href) ? 'noreferrer' : undefined"
-    :while-hover="{ color: '#fff' }"
-    :while-press="{ y: 1 }"
+    :tabindex="tag === 'a' ? 0 : undefined"
   >
-    <component :is="icon" v-if="icon" />
     <slot />
   </component>
 </template>
 
 <style lang="scss" scoped>
 .VPButton {
-  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: top;
   position: relative;
-  display: block;
   font-size: 14px;
   line-height: 22px;
   padding: 3px 5px;
@@ -44,10 +39,12 @@ const tag = computed(() => props.span ? 'span' : 'a');
   cursor: pointer;
   text-decoration: none;
   color: inherit;
+  user-select: none;
+  outline: none;
 
-  &.icon {
-    padding: 5px;
-    font-size: 18px;
+  &:focus-visible {
+    outline: 2px solid var(--vp-accent-line);
+    outline-offset: 2px;
   }
 }
 

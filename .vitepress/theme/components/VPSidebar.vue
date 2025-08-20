@@ -46,5 +46,9 @@ defineProps<{
   :deep(.VPSetting) {
     margin-top: auto;
   }
+
+  :deep(.VPSidebarItem) {
+    align-self: flex-end;
+  }
 }
 </style>

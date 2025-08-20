@@ -1,15 +1,11 @@
 <script setup lang="ts">
-import { useData } from '../utils/composables';
-import Github from './icons/Github.vue';
-import VPButton from './VPButton.vue';
-import VPSwitchAppearance from './VPSwitchAppearance.vue';
-
-const { theme } = useData();
+import VPSwitchAppearance from './VPThemeButton.vue';
+import VPGithubButton from './VPGithubButton.vue';
 </script>
 
 <template>
   <div class="VPSettingActions">
-    <VPButton :icon="Github" :href="theme.github" />
+    <VPGithubButton />
     <VPSwitchAppearance />
   </div>
 </template>

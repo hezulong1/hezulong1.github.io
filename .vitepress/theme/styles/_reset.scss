@@ -1,6 +1,4 @@
-*,
-*::before,
-*::after {
+*,::before,::after {
   box-sizing: border-box;
 }
 
@@ -18,7 +16,7 @@
 }
 
 :where(body) {
-  line-height: 1.5;
+  // line-height: 1.5;
   font-synthesis: style;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -75,34 +73,4 @@
 // Make elements with the HTML hidden attribute stay hidden by default.
 [hidden]:where(:not([hidden="until-found"])) {
   display: none !important;
-}
-
-
-:where(ol, ul, menu) {
-  margin: 0;
-  list-style: none;
-}
-
-:where(table) {
-  text-indent: 0;
-  border-collapse: collapse;
-}
-
-:where(a) {
-  text-decoration: none;
-}
-
-:where(hr) {
-  block-size: 0;
-  color: inherit;
-  border-block-start-width: 1px;
-}
-
-:where(code, kbd, samp, pre) {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 1em;
-}
-
-:where(summary) {
-  display: 'list-item'
 }

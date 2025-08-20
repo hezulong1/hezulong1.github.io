@@ -16,6 +16,8 @@
     "@types/node": "^20.19.9",
     "eslint": "^8.57.1",
     "eslint-config-h21": "*",
+    "sass-embedded": "^1.90.0",
+    "typescript": "^5.9.2",
     "vitepress": "^2.0.0-alpha.10"
   },
   "engines": {

@@ -3,7 +3,6 @@ import { computed } from 'vue';
 import { useRoute } from 'vitepress';
 import { data as rawPosts } from '../../posts.data';
 import { normalize } from '../utils/utils';
-import VPButton from './VPButton.vue';
 import dayjs from 'dayjs';
 import type { MyTheme } from '../type';
 
@@ -11,7 +10,7 @@ const route = useRoute();
 const posts = computed(() => rawPosts
   .filter(x => x.url.includes(normalize(route.path)))
   .map(x => ({
-    url: x.url,
+    url: normalize(x.url),
     date: dayjs(x.date).format('YYYY-MM-DD'),
     title: x.title,
   } as MyTheme.Post))
@@ -34,8 +33,8 @@ const isSameGroup = (a: MyTheme.Post, b?: MyTheme.Post) => (isFuture(a.date) ===
           <!-- <span>{{ getGroupName(post) }}</span> -->
         </div>
         <div class="item">
-          <time>{{ post.date }}</time>
-          <VPButton :href="post.url">{{ post.title }}</VPButton>
+          <a :href="post.url">{{ post.title }}</a>
+          <time>{{ dayjs(post.date).format('YYYY年MM月DD日') }}</time>
         </div>
       </template>
     </template>
@@ -47,37 +46,33 @@ const isSameGroup = (a: MyTheme.Post, b?: MyTheme.Post) => (isFuture(a.date) ===
 
 <style lang="scss" scoped>
 .VPListPosts {
-  margin: 0;
-  padding: 0;
 
   > .item {
     display: flex;
-    align-items: baseline;
+    align-items: flex-start;
+    gap: 8px;
 
     &.placeholder {
       position: relative;
       pointer-events: none;
       user-select: none;
-      height: 64px;
+      block-size: 32px;
     }
 
     > time {
-      min-width: 60px;
+      flex: 0 0 80px;
+      margin-inline-start: auto;
+      min-inline-size: 80px;
       font-size: 10px;
+      font-style: italic;
     }
   }
 
   > .nothing {
-    margin-top: 64px;
+    margin-block-start: 64px;
     padding: 12px 0;
     font-size: 12px;
     text-align: center;
-  }
-
-  :deep(.VPButton) {
-    margin-right: auto;
-    color: inherit !important;
-    font-size: 14px;
   }
 }
 </style>
