@@ -18,18 +18,19 @@ defineProps<{
 </template>
 
 <style lang="scss" scoped>
+@use '../styles/utils' as utils;
+
 .VPSidebar {
   position: fixed;
-  top: 0;
-  bottom: 0;
+  inset-block-start: 0;
+  inset-block-end: 0;
   z-index: 10;
-  width: var(--siderbar-width);
+  inline-size: var(--siderbar-width);
   padding: calc(var(--page-space) + 64px) 16px 16px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid var(--vp-c-divider);
-  text-align: center;
+  border-block-end: 1px solid var(--vp-c-divider);
   backdrop-filter: blur(10px);
   transform: translateX(-100%);
   transition: transform 0.2s;
@@ -38,13 +39,12 @@ defineProps<{
     transform: translateX(0);
   }
 
-  @media (min-width: 768px) {
+  @include utils.tablet {
     transform: translateX(0);
-    text-align: right;
   }
 
   :deep(.VPSetting) {
-    margin-top: auto;
+    margin-block-start: auto;
   }
 
   :deep(.VPSidebarItem) {

@@ -5,14 +5,16 @@
 </template>
 
 <style lang="scss" scoped>
+@use '../styles/utils' as utils;
+
 .VPPage {
   padding: 24px;
-  margin-left: 0;
-  min-height: 100vh;
-  transition: margin-left 0.2s;
+  margin-inline-start: 0;
+  min-block-size: 100vh;
+  transition: margin-inline-start 0.2s;
 
-  @media (min-width: 768px) {
-    margin-left: var(--siderbar-width);
+  @include utils.tablet {
+    margin-inline-start: var(--siderbar-width);
   }
 }
 </style>

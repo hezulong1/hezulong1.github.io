@@ -1,6 +1,10 @@
 @use '_fonts';
 @use '_vars';
 @use '_reset';
+@use '_icons';
 @use '_layout';
 @use '_prose';
-@use '_vp-doc';
+@use 'components/vp-doc';
+@use 'components/custom-block';
+@use 'components/vp-code';
+@use 'components/vp-code-group';

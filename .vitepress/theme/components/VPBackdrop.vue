@@ -27,7 +27,7 @@ defineProps<{
     transition-duration: .25s;
   }
 
-  @media (min-width: 1280px) {
+  @media (min-inline-size: 1280px) {
     display: none;
   }
 }
