@@ -26,10 +26,11 @@ const tag = computed(() => props.span ? 'span' : 'a');
   </component>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .VPButton {
   display: inline-flex;
   align-items: center;
+  gap: 4px;
   vertical-align: top;
   position: relative;
   font-size: 14px;
@@ -38,13 +39,22 @@ const tag = computed(() => props.span ? 'span' : 'a');
   border-radius: 2px;
   cursor: pointer;
   text-decoration: none;
-  color: inherit;
   user-select: none;
   outline: none;
 
   &:focus-visible {
-    outline: 2px solid var(--vp-accent-line);
+    outline: 2px solid var(--vp-accent-solid);
     outline-offset: 2px;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      color: hsl(var(--vp-netural-hsl));
+    }
+  }
+
+  &.active {
+    color: hsl(var(--vp-netural-hsl));
   }
 }
 

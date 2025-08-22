@@ -9,6 +9,7 @@ const { isDark } = useData();
 
 <template>
   <VPIconButton
+    class="VPThemeButton"
     :aria-checked="isDark"
     @click="isDark = !isDark"
   >

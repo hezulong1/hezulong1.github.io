@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import VPButton from './VPButton.vue';
 
 </script>
 
 <template>
-  <header class="VPPageHeader">
-    <div class="end">
-      <VPButton />
-    </div>
-  </header>
+  <header id="VPPageHeader" class="VPPageHeader" />
 </template>
+
+<style lang="scss" scoped>
+.VPPageHeader {
+  block-size: 32px;
+}
+</style>

@@ -1,19 +1,6 @@
 @use '_radix-colors';
 
 :root {
-  --vp-opacity-base: 0.05;
-  --vp-opacity-bg-subtle: 0.1;
-  --vp-opacity-bg: 0.15;
-  --vp-opacity-bg-hover: 0.2;
-  --vp-opacity-bg-active: 0.3;
-  --vp-opacity-line: 0.4;
-  --vp-opacity-border: 0.5;
-  --vp-opacity-border-hover: 0.6;
-  --vp-opacity-solid: 0.7;
-  --vp-opacity-solid-hover: 0.8;
-  --vp-opacity-text: 0.9;
-  --vp-opacity-text-contrast: 0.95;
-
   --vp-accent-base: var(--vp-blue-a1);
   --vp-accent-bg-subtle: var(--vp-blue-a2);
   --vp-accent-bg: var(--vp-blue-a3);
@@ -29,9 +16,145 @@
   --vp-accent-contrast: hsl(0, 0%, 100%);
 }
 
+// Typography
+
+:root {
+  --vp-font-family-base: 'Punctuation SC', system-ui, serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --vp-font-family-mono: 'Söhne Mono','Courier New', monospace;
+}
+
 :root {
   --vp-header-anchor-symbol: '#';
   --vp-code-copy-copied-text-content: '已复制';
-  --vp-font-family-base: 'Söhne Mono','STSong','SimSun','MingLiU','宋体','Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji', serif;
-  --vp-font-family-mono: 'Söhne Mono','Courier New', monospace;
+}
+
+// Layout
+
+:root {
+  --vp-netural-hsl: 0,0%,0%;
+  --vp-netural-reverse-hsl: 0,0%,100%;
+
+  --vp-opacity-base: 0.05;
+  --vp-opacity-bg-subtle: 0.1;
+  --vp-opacity-bg: 0.15;
+  --vp-opacity-bg-hover: 0.2;
+  --vp-opacity-bg-active: 0.3;
+  --vp-opacity-line: 0.4;
+  --vp-opacity-border: 0.5;
+  --vp-opacity-border-hover: 0.6;
+  --vp-opacity-solid: 0.7;
+  --vp-opacity-solid-hover: 0.8;
+  --vp-opacity-text: 0.9;
+  --vp-opacity-text-contrast: 0.95;
+
+  --vp-layout-text: hsla(var(--vp-netural-hsl), 0.8);
+  --vp-layout-bg: hsl(0, 0%, 100%);
+}
+
+// Component: Code
+
+:root {
+  --vp-code-line-height: 1.7;
+  --vp-code-font-size: 0.875em;
+  --vp-code-color: hsl(var(--vp-netural-hsl));
+  --vp-code-link-color: var(--vp-c-brand-1);
+  --vp-code-link-hover-color: var(--vp-c-brand-2);
+  --vp-code-bg: var(--vp-gray-a3);
+
+  --vp-code-block-color: var(--vp-c-text-2);
+  --vp-code-block-bg: var(--vp-c-bg-alt);
+  --vp-code-block-divider-color: var(--vp-c-gutter);
+
+  --vp-code-lang-color: var(--vp-c-text-2);
+
+  --vp-code-line-highlight-color: var(--vp-c-default-soft);
+  --vp-code-line-number-color: var(--vp-c-text-2);
+
+  --vp-code-line-diff-add-color: var(--vp-green-a3);
+  --vp-code-line-diff-add-symbol-color: var(--vp-green-a9);
+
+  --vp-code-line-diff-remove-color: var(--vp-red-a3);
+  --vp-code-line-diff-remove-symbol-color: var(--vp-red-a9);
+
+  --vp-code-line-warning-color: var(--vp-yellow-a3);
+  --vp-code-line-error-color: var(--vp-red-a3);
+
+  --vp-code-copy-code-border-color: var(--vp-c-divider);
+  --vp-code-copy-code-bg: var(--vp-c-bg-soft);
+  --vp-code-copy-code-hover-border-color: var(--vp-c-divider);
+  --vp-code-copy-code-hover-bg: var(--vp-c-bg);
+  --vp-code-copy-code-active-text: var(--vp-c-text-2);
+  --vp-code-copy-copied-text-content: 'Copied';
+
+  --vp-code-tab-divider: var(--vp-gray-a6);
+  --vp-code-tab-text-color: var(--vp-layout-text);
+  --vp-code-tab-bg: var(--vp-code-block-bg);
+  --vp-code-tab-hover-text-color: var(--vp-c-text-1);
+  --vp-code-tab-active-text-color: hsla(var(--vp-netural-reverse-hsl), var(--vp-opacity-text-contrast));
+  --vp-code-tab-active-bar-color: var(--vp-accent-solid);
+}
+
+// Component: Custom Block
+
+:root {
+  --vp-custom-block-font-size: 14px;
+  --vp-custom-block-code-font-size: 13px;
+
+  --vp-custom-block-info-border: var(--vp-blue-a7);
+  --vp-custom-block-info-text: var(--vp-blue-a11);
+  --vp-custom-block-info-bg: var(--vp-blue-surface);
+  --vp-custom-block-info-code-bg: var(--vp-blue-a3);
+
+  --vp-custom-block-note-border: var(--vp-purle-surface);
+  --vp-custom-block-note-text: var(--vp-c-text-1);
+  --vp-custom-block-note-bg: var(--vp-c-default-soft);
+  --vp-custom-block-note-code-bg: var(--vp-c-default-soft);
+
+  --vp-custom-block-tip-border: var(--vp-purple-a7);
+  --vp-custom-block-tip-text: var(--vp-purple-a11);
+  --vp-custom-block-tip-bg: var(--vp-purple-surface);
+  --vp-custom-block-tip-code-bg: var(--vp-purple-a3);
+
+  --vp-custom-block-important-border: transparent;
+  --vp-custom-block-important-text: var(--vp-c-text-1);
+  --vp-custom-block-important-bg: var(--vp-c-important-soft);
+  --vp-custom-block-important-code-bg: var(--vp-c-important-soft);
+
+  --vp-custom-block-warning-border: var(--vp-yellow-a7);
+  --vp-custom-block-warning-text: var(--vp-yellow-a11);
+  --vp-custom-block-warning-bg: var(--vp-yellow-surface);
+  --vp-custom-block-warning-code-bg: var(--vp-yellow-a3);
+
+  --vp-custom-block-danger-border: var(--vp-red-a7);
+  --vp-custom-block-danger-text: var(--vp-red-a11);
+  --vp-custom-block-danger-bg: var(--vp-red-surface);
+  --vp-custom-block-danger-code-bg: var(--vp-red-a3);
+
+  --vp-custom-block-caution-border: transparent;
+  --vp-custom-block-caution-text: var(--vp-c-text-1);
+  --vp-custom-block-caution-bg: var(--vp-c-caution-soft);
+  --vp-custom-block-caution-code-bg: var(--vp-c-caution-soft);
+
+  --vp-custom-block-details-border: var(--vp-custom-block-info-border);
+  --vp-custom-block-details-text: var(--vp-custom-block-info-text);
+  --vp-custom-block-details-bg: var(--vp-custom-block-info-bg);
+  --vp-custom-block-details-code-bg: var(--vp-custom-block-info-code-bg);
+}
+
+// Shadow
+
+:root {
+  --vp-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --vp-shadow-2: 0 3px 12px rgba(0, 0, 0, 0.07), 0 1px 4px rgba(0, 0, 0, 0.07);
+  --vp-shadow-3: 0 12px 32px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.08);
+  --vp-shadow-4: 0 14px 44px rgba(0, 0, 0, 0.12), 0 3px 9px rgba(0, 0, 0, 0.12);
+  --vp-shadow-5: 0 18px 56px rgba(0, 0, 0, 0.16), 0 4px 12px rgba(0, 0, 0, 0.16);
+}
+
+// Theme Dark
+
+.dark {
+  --vp-netural-hsl: 0,0%,100%;
+  --vp-netural-reverse-hsl: 0,0%,0%;
+  --vp-layout-bg: var(--vp-gray-a1);
 }

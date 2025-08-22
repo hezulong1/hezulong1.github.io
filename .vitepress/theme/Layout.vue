@@ -7,7 +7,7 @@ import VPHome from './components/VPHome.vue';
 import VPDoc from './components/VPDoc.vue';
 import VPBackdrop from './components/VPBackdrop.vue';
 import { useSidebarControl } from './utils/composables';
-import VPBackup from './components/VPBackup.vue';
+import VPBackupButton from './components/VPBackupButton.vue';
 
 const { frontmatter, page } = useData();
 const {
@@ -25,7 +25,7 @@ const {
       <VPHome v-else-if="frontmatter.home" />
       <VPDoc v-else />
     </VPPage>
-    <VPBackup />
+    <VPBackupButton />
   </div>
 </template>
 

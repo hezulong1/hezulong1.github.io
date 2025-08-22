@@ -1,10 +1,10 @@
 .custom-block {
-  border: 1px solid transparent;
+  border: 1px solid currentColor;
   border-radius: 8px;
   padding: 16px 16px 8px;
   line-height: 24px;
   font-size: var(--vp-custom-block-font-size);
-  color: var(--vp-c-text-2);
+  color: var(--vp-gray-a12);
 }
 
 .custom-block.info {
@@ -189,12 +189,12 @@
   color: inherit;
   font-weight: 600;
   text-decoration: underline;
-  text-underline-offset: 2px;
   transition: opacity 0.25s;
 }
 
 .custom-block a:hover {
   opacity: 0.75;
+  text-decoration-color: currentColor;
 }
 
 .custom-block code {

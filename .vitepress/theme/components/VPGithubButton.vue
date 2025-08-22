@@ -7,7 +7,7 @@ const { theme } = useData();
 </script>
 
 <template>
-  <VPIconButton :href="theme.github">
+  <VPIconButton class="VPGithubButton" :href="theme.github">
     <Github />
   </VPIconButton>
 </template>

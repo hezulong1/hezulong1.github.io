@@ -3,12 +3,12 @@ import VPButton from './VPButton.vue';
 </script>
 
 <template>
-  <VPButton class="VPIconButton" v-bind="$attrs">
+  <VPButton class="VPIconButton">
     <slot />
   </VPButton>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .VPIconButton {
   display: flex;
   align-items: center;

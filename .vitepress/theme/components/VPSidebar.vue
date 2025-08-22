@@ -12,6 +12,7 @@ defineProps<{
 
 <template>
   <aside class="VPSidebar" :class="{ show }">
+    <VPSidebarItem :item="{ link: '/', text: '主页' }" style="margin-block-end: 16px" />
     <VPSidebarItem v-for="item in theme.nav ?? []" :key="JSON.stringify(item)" :item />
     <VPSetting />
   </aside>
@@ -30,7 +31,6 @@ defineProps<{
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  border-block-end: 1px solid var(--vp-c-divider);
   backdrop-filter: blur(10px);
   transform: translateX(-100%);
   transition: transform 0.2s;
@@ -43,12 +43,12 @@ defineProps<{
     transform: translateX(0);
   }
 
-  :deep(.VPSetting) {
-    margin-block-start: auto;
+  > * {
+    align-self: flex-end;
   }
 
-  :deep(.VPSidebarItem) {
-    align-self: flex-end;
+  :deep(.VPSetting) {
+    margin-block-start: auto;
   }
 }
 </style>
