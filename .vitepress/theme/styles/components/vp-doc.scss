@@ -106,16 +106,35 @@
 }
 
 .vp-doc a {
+  position: relative;
+  color: var(--vp-layout-text-contrast);
   font-weight: 500;
   border-radius: 2px;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  text-decoration-color: var(--vp-gray-a6);
-  transition: text-decoration-color .3s ease-in-out;
 
-  @media (hover: hover) {
-    &:hover {
-      text-decoration-color: var(--vp-layout-text);
+  &:not(.header-anchor) {
+    &::after,
+    &::before {
+      content: '';
+    }
+
+    &::before {
+      position: absolute;
+      inset-inline-start: 0;
+      inset-block-end: -1px;
+      inline-size: 100%;
+      block-size: 1px;
+
+      transition: background-color .3s;
+    }
+
+    &:not(:focus-visible)::before {
+      background-color: var(--vp-gray-a6);
+    }
+
+    @media (hover: hover) {
+      &:hover:not(:focus-visible)::before {
+        background-color: currentColor;
+      }
     }
   }
 }
@@ -132,7 +151,6 @@
   &:focus-visible {
     outline: 2px solid var(--vp-accent-solid);
     outline-offset: 1px;
-    text-decoration-color: transparent;
   }
 }
 
@@ -279,7 +297,7 @@
 .vp-block {
   position: relative;
   margin: 16px -24px;
-  background-color: var(--vp-gray-a3);
+  background-color: var(--vp-code-block-bg);
   overflow-x: auto;
   transition: background-color 0.5s;
 }
@@ -415,7 +433,7 @@
   left: 0;
   z-index: 3;
   /*rtl:ignore*/
-  border-right: 1px solid var(--vp-code-block-divider-color);
+  border-right: 1px solid var(--vp-gray-a6);
   padding-top: 20px;
   width: 32px;
   text-align: center;
@@ -440,6 +458,7 @@
   border-radius: 4px;
   width: 40px;
   height: 40px;
+  padding: 0;
   background-color: var(--vp-code-copy-code-bg);
   opacity: 0;
   cursor: pointer;
@@ -546,4 +565,21 @@
 .external-link-icon-enabled :is(.vp-doc a[href*='://'], .vp-doc a[target='_blank']):not(:is(.no-icon, svg a, :has(img, svg)))::after {
   content: '';
   color: currentColor;
+}
+
+.vp-code-block-title [data-title]:before,
+.vp-code-group [data-title]:before {
+  background: var(--icon)no-repeat center/contain;
+  width: 1em;
+  height: 1em;
+  margin-bottom: -.2em;
+  display: inline-block;
+}
+
+:where([dir=ltr]) .vp-code-block-title [data-title]:before,:where([dir=ltr]) .vp-code-group [data-title]:before {
+  margin-right: .5em;
+}
+
+:where([dir=rtl]) .vp-code-block-title [data-title]:before,:where([dir=rtl]) .vp-code-group [data-title]:before {
+  margin-left: .5em;
 }

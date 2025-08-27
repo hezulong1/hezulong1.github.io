@@ -19,8 +19,9 @@
 // Typography
 
 :root {
-  --vp-font-family-base: 'Punctuation SC', system-ui, serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  --vp-font-family-mono: 'Söhne Mono','Courier New', monospace;
+  --vp-font-family-base: 'Punctuation SC', 'Söhne Mono', 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --vp-font-family-mono: ui-monospace, 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
+  font-optical-sizing: auto;
 }
 
 :root {
@@ -47,8 +48,10 @@
   --vp-opacity-text: 0.9;
   --vp-opacity-text-contrast: 0.95;
 
-  --vp-layout-text: hsla(var(--vp-netural-hsl), 0.8);
-  --vp-layout-bg: hsl(0, 0%, 100%);
+  --vp-layout-text: hsla(var(--vp-netural-hsl), 0.65);
+  --vp-layout-text-contrast: hsla(var(--vp-netural-hsl), 0.95);
+  --vp-layout-bg: #ffffff;
+  --vp-layout-bg-contrast: #f6f6f7;
 }
 
 // Component: Code
@@ -62,13 +65,13 @@
   --vp-code-bg: var(--vp-gray-a3);
 
   --vp-code-block-color: var(--vp-c-text-2);
-  --vp-code-block-bg: var(--vp-c-bg-alt);
+  --vp-code-block-bg: var(--vp-layout-bg-contrast);
   --vp-code-block-divider-color: var(--vp-c-gutter);
 
   --vp-code-lang-color: var(--vp-c-text-2);
 
   --vp-code-line-highlight-color: var(--vp-c-default-soft);
-  --vp-code-line-number-color: var(--vp-c-text-2);
+  --vp-code-line-number-color: hsla(var(--vp-netural-hsl), var(--vp-opacity-border));
 
   --vp-code-line-diff-add-color: var(--vp-green-a3);
   --vp-code-line-diff-add-symbol-color: var(--vp-green-a9);
@@ -79,19 +82,23 @@
   --vp-code-line-warning-color: var(--vp-yellow-a3);
   --vp-code-line-error-color: var(--vp-red-a3);
 
-  --vp-code-copy-code-border-color: var(--vp-c-divider);
-  --vp-code-copy-code-bg: var(--vp-c-bg-soft);
-  --vp-code-copy-code-hover-border-color: var(--vp-c-divider);
-  --vp-code-copy-code-hover-bg: var(--vp-c-bg);
-  --vp-code-copy-code-active-text: var(--vp-c-text-2);
-  --vp-code-copy-copied-text-content: 'Copied';
+  --vp-code-copy-code-border-color: var(--vp-gray-a6);
+  --vp-code-copy-code-bg: transparent;
+  --vp-code-copy-code-hover-border-color: var(--vp-gray-a6);
+  --vp-code-copy-code-hover-bg: hsl(var(--vp-netural-reverse-hsl));
+  --vp-code-copy-code-active-text: var(--vp-layout-text-contrast);
+  --vp-code-copy-copied-text-content: '已复制';
+}
 
+// Component: Code Group
+
+:root {
   --vp-code-tab-divider: var(--vp-gray-a6);
   --vp-code-tab-text-color: var(--vp-layout-text);
   --vp-code-tab-bg: var(--vp-code-block-bg);
   --vp-code-tab-hover-text-color: var(--vp-c-text-1);
-  --vp-code-tab-active-text-color: hsla(var(--vp-netural-reverse-hsl), var(--vp-opacity-text-contrast));
-  --vp-code-tab-active-bar-color: var(--vp-accent-solid);
+  --vp-code-tab-active-text-color: hsla(var(--vp-netural-hsl), var(--vp-opacity-text-contrast));
+  --vp-code-tab-active-bar-color: hsla(var(--vp-netural-hsl), var(--vp-opacity-text-contrast));
 }
 
 // Component: Custom Block
@@ -105,20 +112,10 @@
   --vp-custom-block-info-bg: var(--vp-blue-surface);
   --vp-custom-block-info-code-bg: var(--vp-blue-a3);
 
-  --vp-custom-block-note-border: var(--vp-purle-surface);
-  --vp-custom-block-note-text: var(--vp-c-text-1);
-  --vp-custom-block-note-bg: var(--vp-c-default-soft);
-  --vp-custom-block-note-code-bg: var(--vp-c-default-soft);
-
   --vp-custom-block-tip-border: var(--vp-purple-a7);
   --vp-custom-block-tip-text: var(--vp-purple-a11);
   --vp-custom-block-tip-bg: var(--vp-purple-surface);
   --vp-custom-block-tip-code-bg: var(--vp-purple-a3);
-
-  --vp-custom-block-important-border: transparent;
-  --vp-custom-block-important-text: var(--vp-c-text-1);
-  --vp-custom-block-important-bg: var(--vp-c-important-soft);
-  --vp-custom-block-important-code-bg: var(--vp-c-important-soft);
 
   --vp-custom-block-warning-border: var(--vp-yellow-a7);
   --vp-custom-block-warning-text: var(--vp-yellow-a11);
@@ -129,11 +126,6 @@
   --vp-custom-block-danger-text: var(--vp-red-a11);
   --vp-custom-block-danger-bg: var(--vp-red-surface);
   --vp-custom-block-danger-code-bg: var(--vp-red-a3);
-
-  --vp-custom-block-caution-border: transparent;
-  --vp-custom-block-caution-text: var(--vp-c-text-1);
-  --vp-custom-block-caution-bg: var(--vp-c-caution-soft);
-  --vp-custom-block-caution-code-bg: var(--vp-c-caution-soft);
 
   --vp-custom-block-details-border: var(--vp-custom-block-info-border);
   --vp-custom-block-details-text: var(--vp-custom-block-info-text);
@@ -156,5 +148,6 @@
 .dark {
   --vp-netural-hsl: 0,0%,100%;
   --vp-netural-reverse-hsl: 0,0%,0%;
-  --vp-layout-bg: var(--vp-gray-a1);
+  --vp-layout-bg: #212121;
+  --vp-layout-bg-contrast: #161618;
 }

@@ -21,6 +21,12 @@ export default defineConfig<MyTheme.Config>({
   },
   cleanUrls: true,
   themeConfig: myThemeConfig(),
+  markdown: {
+    theme: {
+      light: 'vitesse-light',
+      dark: 'vitesse-dark',
+    },
+  },
   vite: getViteConfig(),
 });
 

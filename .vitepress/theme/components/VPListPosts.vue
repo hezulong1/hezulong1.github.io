@@ -37,8 +37,9 @@ const posts = computed(() => rawPosts
 
   > .item {
     display: grid;
-    grid-template-columns: 1fr 80px;
-    grid-gap: var(--page-space);
+    grid-template-columns: 1fr 102px;
+    grid-gap: 16px;
+    cursor: pointer;
 
     &.placeholder {
       position: relative;
@@ -47,16 +48,19 @@ const posts = computed(() => rawPosts
       block-size: 32px;
     }
 
+    @media (hover: hover) {
+      &:hover {
+        color: var(--vp-layout-text-contrast);
+      }
+    }
+
     > time {
-      flex: 0 0 80px;
-      margin-inline-start: auto;
-      min-inline-size: 80px;
-      font-size: 10px;
-      font-style: italic;
+      font-size: 11px;
+      justify-self: end;
     }
 
     &+.item {
-      margin-block-start: 4px;
+      margin-block-start: 8px;
     }
   }
 

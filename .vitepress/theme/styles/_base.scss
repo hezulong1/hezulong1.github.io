@@ -31,7 +31,7 @@
 }
 
 :where(summary) {
-  display: 'list-item';
+  display: list-item;
 }
 
 ::selection {
@@ -46,7 +46,7 @@
 body {
   min-inline-size: 320px;
   min-block-size: 100vh;
-  font: 400 14px / 22px var(--vp-font-family-base);
+  font: 400 16px / 24px var(--vp-font-family-base);
   color: var(--vp-layout-text);
   background-color: var(--vp-layout-bg);
 
