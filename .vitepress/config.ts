@@ -40,9 +40,23 @@ function myThemeConfig(): MyTheme.Config {
         activeMatch: '^/writing(?:/|$)',
       },
       {
-        text: '文章',
-        link: '/article.html',
-        activeMatch: '^/article(?:/|$)',
+        text: '笔记',
+        link: '/note.html',
+        activeMatch: '^/note(?:/|$)',
+      },
+      {
+        text: '摘录',
+        link: '/excerpt.html',
+        activeMatch: '^/excerpt(?:/|$)',
+      },
+      {
+        text: '说谈',
+        link: '/speak.html',
+        activeMatch: '^/speak(?:/|$)',
+      },
+      {
+        text: '书签',
+        link: '/bookmark.html',
       },
     ],
   };

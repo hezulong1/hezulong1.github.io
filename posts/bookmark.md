@@ -1,10 +1,4 @@
----
-title: Bookmarks - HeZulong
-display: Bookmarks
-subtitle: 我的日常收集！！！
----
-
-### Design 设计
+### 设计（Design）{#she-ji}
 
 - [collectui](https://collectui.com/) - 各种素材收集
 - [Happy Hues](https://www.happyhues.co/) - 色彩搭配
@@ -13,7 +7,7 @@ subtitle: 我的日常收集！！！
 - [cssbuttons.io](https://cssbuttons.io/) - 按钮设计
 - [MyFonts](https://www.myfonts.com/) - 字体设计
 
-#### Discover 灵感
+### 灵感（Discover）{#ling-gan}
 
 - [VueTelescope](https://vuetelescope.com/)
 - [awwwards](https://www.awwwards.com/)
@@ -21,7 +15,7 @@ subtitle: 我的日常收集！！！
 - [siteinspire](https://www.siteinspire.com/)
 
 
-### Dev 开发
+### 开发（Dev）{#kai-fa}
 
 - [esm](https://esm.sh/) - 现代浏览器 cdn
 - [caniuse](https://caniuse.com/) - 浏览器能力检测
@@ -29,7 +23,7 @@ subtitle: 我的日常收集！！！
 - [开发者搜索](https://kaifa.baidu.com/searchPage)
 - [Photopea](https://www.photopea.com/) - 在线版 photoshop
 
-#### Animation 动画
+### 动画（Animation）{#dong-hua}
 
 - [Green Sock](https://greensock.com/)
 - [Green Sock](https://www.tweenmax.com.cn) - 中文网
@@ -43,7 +37,7 @@ subtitle: 我的日常收集！！！
 - [ScrollMagic](http://scrollmagic.io/) - 滚动特效库
 - [Isotope](https://isotope.metafizzy.co/) - 布局动画
 
-#### Playground 体验
+### 体验（Playground）{#ti-yan} 
 
 - [Regex 101](https://regex101.com/) - 正则验证
 - [transform](https://transform.tools/) - 代码转换
@@ -53,7 +47,7 @@ subtitle: 我的日常收集！！！
 - [typescript-play](https://typescript-play.js.org/)
 - [AstExplorer](https://astexplorer.net/)
 
-#### Genarator 生成器
+### 生成器（Genarator）{#sheng-cheng-qi}
 
 - [carbon](https://carbon.now.sh/) - 代码截图
 - [convertio](https://convertio.co/zh/) - 图片格式无损转换器
@@ -68,7 +62,7 @@ subtitle: 我的日常收集！！！
 - [neumorphism](https://neumorphism.io/) - 新拟态
 
 
-### Resources 素材
+### 素材（Resources）{#su-cai}
 
 - [设计导航](http://hao.shejidaren.com/)
 - [考拉新媒体导航](https://www.kaolamedia.com/)
@@ -81,7 +75,7 @@ subtitle: 我的日常收集！！！
 - [chinaz](https://sc.chinaz.com/)
 - [字魂](https://izihun.com/) - 字体
 
-#### Free Image 免费图片
+### 免费图片（Free Image）{#wu-fei-tu-pian}
 
 - [Unsplash](https://unsplash.com)
 - [Pixabay](https://pixabay.com/)
@@ -96,7 +90,7 @@ subtitle: 我的日常收集！！！
 - [500px](https://500px.com/) - 需要注册登录
 - [彼岸图](https://pic.netbian.com/) - 超高清电脑壁纸，可白嫖，需要注册登录
 
-#### Icon 图标
+### 图标（Icon）{#tu-pian} 
 
 - [Icônes](http://icones.js.org/) - 多达十几种图标集合
 - [ionicons](https://ionic.io/ionicons)
@@ -104,7 +98,7 @@ subtitle: 我的日常收集！！！
 - [Font Awesome](https://fontawesome.com/)
 - [Unicode 字符百科](https://unicode-table.com/cn/)
 
-#### Template 模板
+### 模板（Template）{#mu-ban} 
 
 - [Vue资源精选](http://vue.awesometiny.com/)
 - [Hello Girl](https://www.jqhtml.com/) - jQuery 库
@@ -113,7 +107,7 @@ subtitle: 我的日常收集！！！
 - [JOOMSHAPER](https://www.joomshaper.com/joomla-templates/category/personal-blog)
 - [UX & Bootstrap](https://themes.3rdwavemedia.com/)
 
-### 其他工具
+### 其他工具 #{qi-ta-gong-ju}
 
 - [翻译](https://smodin.me/translate-one-text-into-multiple-languages)
 - [拾取地图坐标](http://api.map.baidu.com/lbsapi/getpoint/)

@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "dayjs": "^1.11.13",
-    "motion-v": "^1.7.0"
+    "motion-v": "^1.7.0",
+    "typed.js": "^2.1.0"
   },
   "devDependencies": {
     "@types/node": "^20.19.9",

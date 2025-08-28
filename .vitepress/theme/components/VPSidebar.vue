@@ -31,7 +31,7 @@ defineProps<{
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  backdrop-filter: blur(10px);
+  // backdrop-filter: blur(10px);
   transform: translateX(-100%);
   transition: transform 0.2s;
 

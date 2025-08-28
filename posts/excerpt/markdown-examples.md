@@ -3,8 +3,6 @@ title: markdown example
 date: 2025-08-22T00:00:00
 ---
 
-# Markdown 扩展 {#markdown-extensions}
-
 VitePress 带有内置的 Markdown 扩展。
 
 ## 标题锚点 {#header-anchors}

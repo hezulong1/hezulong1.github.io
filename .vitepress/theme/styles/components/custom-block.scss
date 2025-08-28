@@ -40,12 +40,12 @@
 
 .custom-block a {
   color: inherit;
-  transition: opacity 0.25s;
+  // transition: opacity 0.25s;
 }
 
-.custom-block a:hover {
-  opacity: 0.75;
-}
+// .custom-block a:hover {
+//   opacity: 0.75;
+// }
 
 .custom-block code {
   font-size: var(--vp-custom-block-code-font-size);

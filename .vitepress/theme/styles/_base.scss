@@ -43,21 +43,24 @@
   border: 0px solid var(--vp-gray-a6);
 }
 
+html {
+
+  &.dark {
+    color-scheme: dark;
+  }
+}
+
 body {
   min-inline-size: 320px;
   min-block-size: 100vh;
   font: 400 16px / 24px var(--vp-font-family-base);
   color: var(--vp-layout-text);
+  background: url(../assets/texture.png) repeat;
   background-color: var(--vp-layout-bg);
+  background-attachment: fixed;
 
   @media (min-width: 960px) {
     inline-size: 100vw;
     overflow-x: hidden;
   }
-}
-
-// Theme Dark
-
-.dark {
-  color-scheme: dark;
 }
