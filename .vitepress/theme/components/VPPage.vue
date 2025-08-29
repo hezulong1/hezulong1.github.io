@@ -1,12 +1,17 @@
 <script setup lang="ts">
+import { useData } from '../utils/composables.ts';
 import VPPageHeader from './VPPageHeader.vue';
+import VPPost from './VPPost.vue';
+import VPNotFound from './VPNotFound.vue';
 
+const { page } = useData();
 </script>
 
 <template>
   <article id="page" class="VPPage">
     <VPPageHeader />
-    <slot />
+    <VPNotFound v-if="page.isNotFound" />
+    <VPPost v-else />
   </article>
 </template>
 
@@ -14,7 +19,6 @@ import VPPageHeader from './VPPageHeader.vue';
 @use '../styles/utils' as utils;
 
 .VPPage {
-  padding: 24px 24px 50px 32px;
   margin-inline-start: 0;
   min-block-size: 100vh;
   transition: margin-inline-start 0.2s;

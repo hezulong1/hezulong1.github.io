@@ -9,7 +9,7 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  block-size: 52px;
+  block-size: 48px;
   // backdrop-filter: blur(10px);
 
   @include utils.tablet {

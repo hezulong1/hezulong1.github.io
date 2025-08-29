@@ -27,7 +27,7 @@ defineProps<{
   inset-block-end: 0;
   z-index: 10;
   inline-size: var(--siderbar-width);
-  padding: calc(var(--page-space) + 64px) 16px 16px;
+  padding: 84px 16px 16px;
   overflow: hidden;
   display: flex;
   flex-direction: column;

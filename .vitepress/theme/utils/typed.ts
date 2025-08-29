@@ -3,7 +3,8 @@ import type { TypedOptions } from 'typed.js';
 
 import Typed from 'typed.js';
 import { watch } from 'vue';
-import { tryOnUnmounted, unrefElement } from '@vueuse/core';
+import { tryOnScopeDispose, unrefElement } from '@vueuse/core';
+import { inBrowser } from 'vitepress';
 
 export function useTypedJS(target: MaybeElementRef, options: TypedOptions) {
   let typed: Typed | undefined;
@@ -13,17 +14,19 @@ export function useTypedJS(target: MaybeElementRef, options: TypedOptions) {
   const toggle = () => typed && typed.toggle();
   const reset = () => typed && typed.reset();
 
-  target && watch(target, () => {
-    const el = unrefElement(target);
+  if (inBrowser) {
+    target && watch(target, () => {
+      const el = unrefElement(target);
 
-    if (!el) return;
+      if (!el) return;
 
-    typed = new Typed(el, options);
-  }, {
-    flush: 'post',
-  });
+      typed = new Typed(el, options);
+    }, {
+      flush: 'post',
+    });
 
-  tryOnUnmounted(() => typed && typed.destroy());
+    tryOnScopeDispose(() => typed?.destroy());
+  }
 
   return {
     start,

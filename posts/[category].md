@@ -2,4 +2,4 @@
 home: true
 ---
 
-<ListPosts />
+<VPPostList />

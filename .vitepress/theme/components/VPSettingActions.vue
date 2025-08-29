@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import VPSwitchAppearance from './VPThemeButton.vue';
+import VPThemeButton from './VPThemeButton.vue';
 import VPGithubButton from './VPGithubButton.vue';
 </script>
 
 <template>
   <div class="VPSettingActions">
     <VPGithubButton />
-    <VPSwitchAppearance />
+    <VPThemeButton />
   </div>
 </template>
 

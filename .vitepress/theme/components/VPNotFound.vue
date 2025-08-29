@@ -1,37 +1,29 @@
-<script setup lang="ts">
-import { useTemplateRef } from 'vue';
-import { useTypedJS } from '../utils/typed';
-
-const helloRef = useTemplateRef('hello');
-
-useTypedJS(helloRef, {
-  typeSpeed: 125,
-  backSpeed: 100,
-  smartBackspace: false,
-  startDelay: 100,
-  backDelay: 1500,
-  showCursor: false,
-  loop: true,
-  strings: ['哈喽', 'Hello', 'こんにちは', 'Hola', 'Bonjour'],
-});
-</script>
-
 <template>
   <div class="VPNotFound">
-    <span class="hello"><span ref="hello">哈喽</span>，</span>
-    <span>很高兴认识<strong>你</strong>！</span>
+    <span class="code">404</span>
+    <span class="divider" />
+    <span>未找到当前页面</span>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .VPNotFound {
   display: flex;
-  flex-direction: column;
-  font-size: 14px;
+  align-items: baseline;
+  font-size: 12px;
+  padding: 36px 24px;
 
-  .hello {
-    font-size: 22px;
-    margin-bottom: 12px;
+  .code {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .divider {
+    inline-size: 1px;
+    block-size: 16px;
+    align-self: center;
+    margin-inline: 1em;
+    background: var(--vp-layout-text);
   }
 }
 </style>

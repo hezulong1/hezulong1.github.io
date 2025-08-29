@@ -3,11 +3,11 @@ import type { Theme } from 'vitepress';
 import './styles/index.scss';
 import Layout from './Layout.vue';
 
-import VPListPosts from './components/VPListPosts.vue';
+import VPPostList from './components/VPPostList.vue';
 
 export default {
   Layout,
   enhanceApp({ app, router, siteData }) {
-    app.component('ListPosts', VPListPosts);
+    app.component('VPPostList', VPPostList);
   },
 } satisfies Theme;

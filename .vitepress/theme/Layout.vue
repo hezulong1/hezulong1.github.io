@@ -1,38 +1,40 @@
 <script setup lang="ts">
-import { useData } from 'vitepress';
-import VPNotFound from './components/VPNotFound.vue';
+import { useTemplateRef } from 'vue';
+import { useRouter } from 'vitepress';
+
+import { useSidebarControl } from './utils/composables';
 import VPSidebar from './components/VPSidebar.vue';
 import VPPage from './components/VPPage.vue';
-import VPHome from './components/VPHome.vue';
-import VPDoc from './components/VPDoc.vue';
 import VPBackdrop from './components/VPBackdrop.vue';
-import { useSidebarControl } from './utils/composables';
-import VPBackupButton from './components/VPBackupButton.vue';
+import VPBackToTop from './components/VPBackToTop.vue';
+import VPProgressbar from './components/VPProgressbar.vue';
 
-const { frontmatter, page } = useData();
-const {
-  isOpen: isSidebarOpen,
-  close: closeSidebar,
-} = useSidebarControl();
+const router = useRouter();
+const progressbarRef = useTemplateRef('progressbar');
+const { isOpen: isSidebarOpen, close: closeSidebar } = useSidebarControl();
+
+router.onBeforeRouteChange = () => {
+  progressbarRef.value?.start();
+};
+
+router.onAfterRouteChange = () => {
+  progressbarRef.value?.finish();
+};
 </script>
 
 <template>
   <div class="VPLayout" :class="{ 'open-sidebar': isSidebarOpen }">
+    <VPBackToTop />
     <VPBackdrop class="backdrop" :show="isSidebarOpen" @click="closeSidebar" />
+    <VPProgressbar ref="progressbar" />
     <VPSidebar :show="isSidebarOpen" />
-    <VPPage>
-      <VPNotFound v-if="page.isNotFound" />
-      <VPHome v-else-if="frontmatter.home" />
-      <VPDoc v-else />
-    </VPPage>
-    <VPBackupButton />
+    <VPPage />
   </div>
 </template>
 
 <style>
 .VPLayout {
   --siderbar-width: 180px;
-  --page-space: 24px;
 
   position: relative;
   max-width: 960px;

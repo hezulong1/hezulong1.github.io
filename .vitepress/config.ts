@@ -79,6 +79,12 @@ function getViteConfig() {
             }
           },
         },
+        // TODO 未找到问题所在，临时解决方案
+        onwarn(warning, rollupWarn) {
+          if (!warning.code || !['UNUSED_EXTERNAL_IMPORT'].includes(warning.code)) {
+            rollupWarn(warning);
+          }
+        },
       },
     },
     css: {

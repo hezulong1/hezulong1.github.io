@@ -1,13 +1,9 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { clamp, useIntervalFn } from '@vueuse/core';
 
 const percent = ref(0);
 const show = ref(false);
-const started = ref(false);
-
-const size = computed(() => percent.value + '%');
-const op = computed(() => show.value ? 1 : 0);
 
 function rand() {
   let num = 0;
@@ -27,37 +23,27 @@ function rand() {
   return num;
 }
 
-function increase() {
-  if (!started.value) {
-    start();
-    return;
-  }
-
-  percent.value += rand();
-  percent.value = clamp(percent.value, 0, 99.85);
-}
-
-const { pause, resume } = useIntervalFn(increase, 200, { immediate: false });
+const repeatController = useIntervalFn(() => {
+  percent.value = clamp(percent.value + rand(), 0, 99.85);
+}, 200, { immediate: false });
 
 function hide() {
-  pause();
+  repeatController.pause();
   show.value = false;
   setTimeout(() => {
     percent.value = 0;
-  }, 200);
+  }, 500);
 }
 
 function finish() {
   percent.value = 100;
-  started.value = false;
   hide();
 }
 
 function start() {
   percent.value = 0;
-  started.value = true;
   show.value = true;
-  resume();
+  repeatController.resume();
 }
 
 defineExpose({
@@ -67,23 +53,24 @@ defineExpose({
 </script>
 
 <template>
-  <Teleport to="body">
-    <Transition name="fade">
-      <div v-show="show" class="VPProgress" />
-    </Transition>
-  </Teleport>
+  <Transition name="fade">
+    <div v-show="show" class="VPProgressbar" :style="{ inlineSize: `${percent}%` }" />
+  </Transition>
 </template>
 
 <style lang="scss" scoped>
-.VPProgress {
+.VPProgressbar {
   position: fixed;
   inset-block-start: 0;
   inset-inline-start: 0;
   z-index: 3000;
   block-size: 4px;
-  inline-size: v-bind(size);
   background-color: var(--vp-accent-solid);
-  opacity: v-bind(op);
   transition: opacity 0.4s, inline-size 0.2s;
+
+  &.fade-enter-from,
+  &.fade-leave-to {
+    opacity: 0;
+  }
 }
 </style>

@@ -16,7 +16,7 @@ const { y } = useWindowScroll();
 
 <template>
   <VPIconButton
-    class="VPBackup"
+    class="VPBackToTop"
     :class="{ show: y > 300 }"
     title="回到顶部"
     @click="toTop"
@@ -26,7 +26,7 @@ const { y } = useWindowScroll();
 </template>
 
 <style lang="scss" scoped>
-.VPBackup {
+.VPBackToTop {
   position: fixed;
   z-index: 100;
   inset-inline-end: 12px;
