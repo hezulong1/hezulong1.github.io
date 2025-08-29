@@ -1,13 +1,19 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
-  <header id="VPPageHeader" class="VPPageHeader" />
+  <header id="page-header" class="VPPageHeader" />
 </template>
 
 <style lang="scss" scoped>
+@use '../styles/utils' as utils;
+
 .VPPageHeader {
-  block-size: 32px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  block-size: 52px;
+  // backdrop-filter: blur(10px);
+
+  @include utils.tablet {
+    position: static;
+  }
 }
 </style>
