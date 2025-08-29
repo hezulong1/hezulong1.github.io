@@ -5,6 +5,7 @@ import VPIconButton from './VPIconButton.vue';
 
 function toTop() {
   window.scrollTo({
+    left: 0,
     top: 0,
     behavior: 'smooth',
   });
@@ -15,7 +16,7 @@ const { y } = useWindowScroll();
 
 <template>
   <VPIconButton
-    class="VPBackupButton"
+    class="VPBackup"
     :class="{ show: y > 300 }"
     title="回到顶部"
     @click="toTop"
@@ -25,7 +26,7 @@ const { y } = useWindowScroll();
 </template>
 
 <style lang="scss" scoped>
-.VPBackupButton {
+.VPBackup {
   position: fixed;
   z-index: 100;
   inset-inline-end: 12px;

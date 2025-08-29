@@ -20,6 +20,11 @@ export default defineConfig<MyTheme.Config>({
     hostname: 'https://hezulong1.github.io/',
   },
   cleanUrls: true,
+  ignoreDeadLinks: [
+    /^https?:\/\/localhost/,
+    /^https?:\/\/abc\.com/,
+    url => url.includes('/reference/'),
+  ],
   themeConfig: myThemeConfig(),
   markdown: {
     theme: {
@@ -50,7 +55,7 @@ function myThemeConfig(): MyTheme.Config {
         activeMatch: '^/excerpt(?:/|$)',
       },
       {
-        text: '说谈',
+        text: '杂谈',
         link: '/speak.html',
         activeMatch: '^/speak(?:/|$)',
       },
