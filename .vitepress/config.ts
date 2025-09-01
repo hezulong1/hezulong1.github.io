@@ -8,7 +8,6 @@ export default defineConfig<MyTheme.Config>({
   description: 'Writing & Learning',
   head: [
     ['link', { rel: 'icon', type: 'image/png', href: '/logo.png' }],
-    ['meta', { name: 'theme-color', content: '#000000' }],
     ['meta', { name: 'renderer', content: 'webkit' }],
   ],
   lang: 'zh-Hans',

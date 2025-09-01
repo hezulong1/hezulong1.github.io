@@ -14,9 +14,10 @@ defineProps<{
 .VPBackdrop {
   position: fixed;
   inset: 0;
-  z-index: var(--vp-z-index-backdrop);
-  background: var(--vp-backdrop-bg-color);
+  z-index: 5;
+  background: hsla(0,0%,0%,.5);
   transition: opacity 0.5s;
+  backdrop-filter: blur(2px);
 
   &.fade-enter-from,
   &.fade-leave-to {

@@ -6,12 +6,12 @@ import { useData } from '../utils/composables.ts';
 const { theme } = useData();
 
 defineProps<{
-  show?: boolean;
+  open?: boolean;
 }>();
 </script>
 
 <template>
-  <aside class="VPSidebar" :class="{ show }">
+  <aside class="VPSidebar" :class="{ open }">
     <VPSidebarItem :item="{ link: '/', text: '主页' }" style="margin-block-end: 16px" />
     <VPSidebarItem v-for="item in theme.nav ?? []" :key="JSON.stringify(item)" :item />
     <VPSetting />
@@ -28,27 +28,37 @@ defineProps<{
   z-index: 10;
   inline-size: var(--siderbar-width);
   padding: 84px 16px 16px;
+  padding: calc(env(safe-area-inset-top, 0px) + 84px) 16px calc(env(safe-area-inset-bottom, 0px) + 16px);
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  // backdrop-filter: blur(10px);
+  align-items: center;
+  background-color: var(--vp-layout-bg);
+  overscroll-behavior: contain;
   transform: translateX(-100%);
-  transition: transform 0.2s;
+  opacity: 0;
+  transition: opacity .25s,transform .5s cubic-bezier(.19,1,.22,1);
 
   &.open {
+    opacity: 1;
     transform: translateX(0);
   }
 
   @include utils.tablet {
+    opacity: 1;
     transform: translateX(0);
   }
 
-  > * {
+  &:not(.open) > * {
     align-self: flex-end;
   }
 
   :deep(.VPSetting) {
     margin-block-start: auto;
+  }
+
+  .dark & {
+    box-shadow: var(--vp-shadow-1);
   }
 }
 </style>

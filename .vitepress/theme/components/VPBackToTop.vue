@@ -29,9 +29,10 @@ const { y } = useWindowScroll();
 <style lang="scss" scoped>
 .VPBackToTop {
   position: fixed;
-  z-index: 100;
+  z-index: 4;
   inset-inline-end: 12px;
   inset-block-end: 38px;
+  inset-block-end: calc(env(safe-area-inset-top) + 38px);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s;
