@@ -19,6 +19,7 @@ const { y } = useWindowScroll();
     class="VPBackToTop"
     :class="{ show: y > 300 }"
     title="回到顶部"
+    tabindex="-1"
     @click="toTop"
   >
     <ArrowUp />

@@ -54,6 +54,16 @@ const posts = computed(() => rawPosts
       }
     }
 
+    > a {
+      outline: none;
+    }
+
+    &:has(:focus-visible) {
+      outline: 2px solid var(--vp-accent-solid);
+      border-radius: 2px;
+      outline-offset: 2px;
+    }
+
     > time {
       font-size: 11px;
       justify-self: end;

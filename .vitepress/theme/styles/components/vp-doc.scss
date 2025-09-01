@@ -146,18 +146,20 @@
   outline: none;
 }
 
-.vp-doc a,
-.vp-doc button {
-  &:focus-visible {
-    outline: 2px solid var(--vp-accent-solid);
-    outline-offset: 1px;
-  }
-}
-
+.vp-doc a:focus-visible,
+.vp-doc button:focus-visible,
 .vp-doc table[tabindex='0']:focus-visible,
 .vp-doc details:has(summary:focus-visible),
 .vp-doc div[class*=language-]:has(pre[tabindex='0']:focus-visible) {
   outline: 2px solid var(--vp-accent-solid);
+}
+
+.vp-doc a:focus-visible {
+  outline-offset: 1px;
+}
+
+.vp-doc button:focus-visible {
+  outline-offset: -1px;
 }
 
 .vp-doc strong {

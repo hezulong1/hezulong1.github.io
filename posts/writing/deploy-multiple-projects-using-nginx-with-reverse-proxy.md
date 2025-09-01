@@ -23,7 +23,7 @@ date: 2019-02-27T00:00:00
 
 - config 文件夹下的 index.js，因为是打包，所以我们需要在 `build.assetsPublicPath` 更改对应项目名，譬如
 
-``` javascript
+```js
 // project1
 module.exports = {
   dev: {},
@@ -43,7 +43,7 @@ module.exports = {
 
 - config 文件夹下的 prod.env.js 修改成这样：
 
-``` javascript
+```js
 // project1
 module.exports = {
   NODE_ENV: '"production"',
@@ -60,7 +60,7 @@ module.exports = {
 
 - 因为每个人的 `vue-router` 文件配置不一样，你需要找到你的 router 配置文件，内部修改为：
 
-``` javascript
+```js
 // 我采用了 history 模式，hash 模式我没有测试，感觉应该是一样的效果
 // project1
 export default new Router({

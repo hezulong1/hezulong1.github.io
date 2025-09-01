@@ -34,16 +34,15 @@
   display: list-item;
 }
 
-::selection {
-  background-color: var(--vp-accent-bg-active);
-  color: hsla(var(--vp-netural-hsl), var(--vp-opacity-solid));
-}
-
 * {
   border: 0px solid var(--vp-gray-a6);
 }
 
 html {
+
+  &::selection {
+    background-color: var(--vp-accent-bg-active);
+  }
 
   &.dark {
     color-scheme: dark;
