@@ -16,7 +16,6 @@ const active = computed(() => isActive(page.value.relativePath, props.item.activ
     class="VPSidebarItem"
     :class="{ active }"
     :href="item.link"
-    :span="active"
     tabindex="0"
     @click="close"
   >
