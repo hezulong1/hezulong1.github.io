@@ -1,0 +1,1 @@
+- display: flex / table 下 text-overflow 失效
