@@ -3,23 +3,30 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vitepress dev",
+    "dev": "vitepress dev --host",
     "build": "vitepress build",
     "preview": "vitepress preview",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "inspect": "chii start -p 8080"
   },
   "dependencies": {
     "dayjs": "^1.11.13",
     "motion-v": "^1.7.0",
-    "typed.js": "^2.1.0"
+    "typed.js": "^2.1.0",
+    "vue-tippy": "^6.7.1"
   },
   "devDependencies": {
+    "@iconify-json/carbon": "^1.2.16",
+    "@iconify-json/logos": "^1.2.10",
+    "@iconify-json/vscode-icons": "^1.2.38",
+    "@iconify/utils": "^3.1.0",
     "@types/node": "^20.19.9",
     "eslint": "^8.57.1",
     "eslint-config-h21": "*",
     "sass-embedded": "^1.90.0",
     "typescript": "^5.9.2",
-    "vitepress": "^2.0.0-alpha.10"
+    "vitepress": "^2.0.0-alpha.15",
+    "vitepress-plugin-group-icons": "^1.6.5"
   },
   "engines": {
     "node": ">=20.19"

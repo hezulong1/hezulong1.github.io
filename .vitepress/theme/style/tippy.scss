@@ -1,0 +1,130 @@
+@use "sass:math" as math;
+
+$arrow-size: 10px;
+
+[data-tippy-root] {
+  max-width: calc(100vw - 10px);
+}
+
+.tippy-arrow {
+  width: $arrow-size;
+  height: $arrow-size;
+  z-index: -1;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--tippy-bg);
+    border: 1px solid var(--tippy-border);
+    transform: rotate(45deg);
+    box-sizing: border-box;
+  }
+}
+
+.tippy-box {
+  --tippy-color: var(--body-color);
+  --tippy-bg: var(--body-bg);
+  --tippy-border: var(--border-color);
+
+  color: var(--tippy-color);
+  border-radius: 4px;
+  white-space: initial;
+  background-clip: padding-box;
+  background-color: var(--tippy-bg);
+  outline: 0;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  transform: translate3d(0, 0, 0);
+  // transition-property: transform, visibility, opacity;
+
+  &[data-inertia][data-state='visible'] {
+    transition-timing-function: cubic-bezier(0.54, 1.5, 0.38, 1.11);
+  }
+
+  $placements: (
+    'top': 'bottom',
+    'bottom': 'top',
+    'left': 'right',
+    'right': 'left',
+  );
+
+  @each $placement, $opposite in $placements {
+    &[data-placement^='#{$placement}'] > .tippy-arrow {
+      #{$opposite}: 0;
+
+      &::before {
+        #{$opposite}: math.div($arrow-size, -2);
+
+        @if $placement == top {
+          border-bottom-right-radius: 2px;
+        }
+        @if $placement == bottom {
+          border-top-left-radius: 2px;
+        }
+        @if $placement == left {
+          border-top-right-radius: 2px;
+        }
+        @if $placement == right {
+          border-bottom-left-radius: 2px;
+        }
+      }
+    }
+  }
+
+  @each $placement, $adjacency in ('top': 'left', 'bottom': 'right', 'left': 'bottom', 'right': 'top') {
+    &[data-placement^='#{$placement}'] > .tippy-arrow::before {
+      border-#{$placement}-color: transparent !important;
+      border-#{$adjacency}-color: transparent !important;
+    }
+  }
+
+  &[data-animation="scale-subtle"] {
+    @each $placement, $opposite in $placements {
+      &[data-placement^='#{$placement}'] {
+        transform-origin: #{$opposite};
+      }
+    }
+
+    &[data-state='hidden'] {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+  }
+
+  &[data-theme="tooltip"] {
+    // --tippy-color: var(--tooltip-color);
+    // --tippy-bg: var(--tooltip-bg);
+    // --tippy-border: var(--tooltip-border);
+
+    padding: 6px 8px;
+    border: 1px solid var(--tippy-border);
+    font-size: 12px;
+    line-height: 1;
+
+    kbd {
+      margin-top: 0;
+      margin-bottom: 0;
+      padding-left: 4px;
+      padding-right: 4px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      border-radius: 4px;
+      background-color: rgba(107, 114, 128, 0.45);
+    }
+  }
+
+  &[data-theme="popover"] {
+    --tippy-color: var(--popover-color);
+    --tippy-bg: var(--popover-bg);
+    --tippy-border: var(--popover-border);
+
+    border: none;
+
+    .tippy-content {
+      border-radius: inherit;
+      overflow: hidden;
+    }
+  }
+}

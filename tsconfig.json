@@ -14,11 +14,15 @@
     "strict": true,
     "useUnknownInCatchVariables": false,
     "forceConsistentCasingInFileNames": true,
-    "allowImportingTsExtensions": true,
     "esModuleInterop": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./.vitepress/theme/*"],
+    }
   },
   "include": [
     ".vitepress/**/*.ts",
     ".vitepress/**/*.vue"
-, ".vitepress/theme/posts.data.ts"  ]
+  ]
 }

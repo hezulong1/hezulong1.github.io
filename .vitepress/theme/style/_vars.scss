@@ -1,0 +1,84 @@
+
+:root {
+  // Base
+  --fill-color: #f9f9f9;
+  --fill-deep-color: #f5f5f5;
+  --fill-deeper-color: #f1f1f1;
+
+  --accent-color: #268bd2; // 色彩对比度不够
+  // --accent-color: #217ABA;
+  --border-color: #dfdfdf;
+
+  --body-color: #515151;
+  --body-bg: #fff;
+
+  --leading-color: #313131;
+  --leading-anchor-symbol: '#';
+
+  --link-color: var(--accent-color);
+
+  // Code
+  --code-font:  ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas," Liberation Mono", "Courier New", monospace;
+  // --code-color: #bf616a;
+  --code-color: #B8515A; // 4.57 : 1(#f9f9f9)
+  --code-bg: var(--fill-color);
+
+  --code-copy-copied-bg: var(--body-bg);
+
+  --code-line-highlight-color: rgba(142, 150, 170, 0.14); // var(--vp-c-default-soft);
+  --code-line-number-color: var(--home-date-color);
+
+  --code-line-diff-add-color: var(--green-a3);
+  --code-line-diff-add-symbol-color: var(--green-a9);
+
+  --code-line-diff-remove-color: var(--red-a3);
+  --code-line-diff-remove-symbol-color: var(--red-a9);
+
+  --code-line-warning-color: var(--yellow-a3);
+  --code-line-error-color: var(--red-a3);
+
+  --code-tab-bg: var(--fill-deeper-color);
+  --code-tab-color: #888;
+
+  // Custom Block
+
+  --custom-block-info-border: var(--blue-a7);
+  --custom-block-info-text: var(--blue-a11);
+  --custom-block-info-bg: var(--blue-surface);
+  --custom-block-info-code-bg: var(--blue-a3);
+
+  --custom-block-tip-border: var(--purple-a7);
+  --custom-block-tip-text: var(--purple-a11);
+  --custom-block-tip-bg: var(--purple-surface);
+  --custom-block-tip-code-bg: var(--purple-a3);
+
+  --custom-block-warning-border: var(--yellow-a7);
+  --custom-block-warning-text: var(--yellow-a11);
+  --custom-block-warning-bg: var(--yellow-surface);
+  --custom-block-warning-code-bg: var(--yellow-a3);
+
+  --custom-block-danger-border: var(--red-a7);
+  --custom-block-danger-text: var(--red-a11);
+  --custom-block-danger-bg: var(--red-surface);
+  --custom-block-danger-code-bg: var(--red-a3);
+
+  --home-date-color: #949494;
+}
+
+:lang(zh-Hans) {
+  --code-copy-copied-text-content: '已复制';
+}
+
+// Theme Dark
+
+.dark {
+  color-scheme: dark;
+
+  --fill-color: #171717;
+  --fill-deep-color: #141414;
+  --fill-deeper-color: #101010;
+  --border-color: #292929;
+  --body-bg: #080808;
+  --body-color: #a1a1a1;
+  --leading-color: #c1c1c1;
+}
