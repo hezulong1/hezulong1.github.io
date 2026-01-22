@@ -52,11 +52,6 @@ browserClass && document.documentElement.classList.add(browserClass);
     },
     cleanUrls: true,
     metaChunk: true,
-    ignoreDeadLinks: [
-      /^https?:\/\/localhost/,
-      /^https?:\/\/abc\.com/,
-      url => url.includes('/reference/') || url === '/',
-    ],
     markdown: {
       codeCopyButtonTitle: '复制代码',
       theme: {
