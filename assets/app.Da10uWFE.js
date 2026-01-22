@@ -12582,6 +12582,7 @@ const _sfc_main$d = /* @__PURE__ */ defineComponent({
         renderSlot(_ctx.$slots, "default")
       ], 2)) : __props.href ? (openBlock(), createBlock(Link2, {
         key: 1,
+        href: __props.href,
         class: normalizeClass(extraClassNames.value),
         tabindex: "0"
       }, {
@@ -12589,7 +12590,7 @@ const _sfc_main$d = /* @__PURE__ */ defineComponent({
           renderSlot(_ctx.$slots, "default")
         ]),
         _: 3
-      }, 8, ["class"])) : (openBlock(), createElementBlock("button", {
+      }, 8, ["href", "class"])) : (openBlock(), createElementBlock("button", {
         key: 2,
         class: normalizeClass(extraClassNames.value),
         disabled: __props.disabled
