@@ -12174,7 +12174,7 @@ function normalizePath(path) {
 }
 function isActivePath(currentPath, matchPath, asRegex = false) {
   if (typeof matchPath === "undefined") return false;
-  currentPath = normalizePath(`/${currentPath}`);
+  currentPath = normalizePath(currentPath.startsWith("/") ? currentPath : `/${currentPath}`);
   if (asRegex) new RegExp(matchPath).test(currentPath);
   if (normalizePath(matchPath) !== currentPath) return false;
   const hashMatch = matchPath.match(HASH_RE);
@@ -12346,7 +12346,7 @@ function registerWatchers() {
     headers.value = getHeaders([2, 3]);
   });
 }
-const data = JSON.parse('[{"url":"/posts/about-mywebsite","draft":true,"title":"聊一聊我的个人网站","date":"2025-08-28T15:32:00.000Z","layout":"post","category":"随谈"},{"url":"/posts/browser","title":"浏览器辅助函数","date":"2025-08-28T14:55:00.000Z","layout":"post","category":"笔记"},{"url":"/posts/life-hack-js","title":"奇思妙想的脚本","date":"2025-08-28T14:52:00.000Z","layout":"post","category":"笔记"},{"url":"/posts/markdown-examples","title":"markdown example","date":"2025-08-22T00:00:00.000Z","layout":"post","category":"摘录"},{"url":"/posts/cli","title":"脚手架（CLI）辅助函数","date":"2024-04-02T00:10:59.000Z","layout":"post","category":"笔记"},{"url":"/posts/git-multiple-account-configuration","title":"Git 多账户配置","date":"2022-07-10T00:00:00.000Z","lastUpdate":"2025-08-28T09:58:00.000Z","layout":"post","category":"写作"},{"url":"/posts/about-marry-one","title":"说下结婚（一）","date":"2022-04-30T10:09:00.000Z","layout":"post","category":"随谈"},{"url":"/posts/implementation-of-vw-function","title":"编写响应式（vw）函数","date":"2022-03-31T00:00:00.000Z","layout":"post","category":"笔记"},{"url":"/posts/git-command-reference","title":"Git 命令参考","date":"2022-02-23T00:00:00.000Z","layout":"post","category":"笔记"},{"url":"/posts/about-typescript","title":"小白学 TypeScript 有感","date":"2022-02-23T00:00:00.000Z","layout":"post","category":"随谈"},{"url":"/posts/frondend-packaging-tools","title":"前端常规打包工具","date":"2020-07-14T00:00:00.000Z","layout":"post","category":"写作"},{"url":"/posts/2020-04-04-introduction","title":"Introduction Poole","date":"2020-04-04T00:00:00.000Z","layout":"post","category":"摘录"},{"url":"/posts/deploy-multiple-projects-using-nginx-with-reverse-proxy","title":"使用 nginx 同域名下部署多个 vue 项目，并使用反向代理","date":"2019-02-27T00:00:00.000Z","layout":"post","category":"写作","tags":["部署"],"foo":{"a":1,"b":false}}]');
+const data = JSON.parse('[{"url":"/posts/my-blog","title":"我的博客","date":"2026-01-22T00:00:00.000Z","layout":"post"},{"url":"/posts/git-multiple-account-configuration","title":"配置 Git 多账户指南","date":"2022-07-10T00:00:00.000Z","layout":"post"}]');
 function usePostList() {
   return /* @__PURE__ */ readonly(data);
 }
@@ -12363,90 +12363,8 @@ function usePrevNext() {
     ];
   });
 }
-const _hoisted_1$d = {
-  href: "/",
-  title: "Home"
-};
+const _hoisted_1$d = ["href", "target", "rel", "tabindex"];
 const _sfc_main$j = /* @__PURE__ */ defineComponent({
-  __name: "Header",
-  setup(__props) {
-    const { site } = useApp();
-    return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("header", {
-        class: normalizeClass(_ctx.$style.header)
-      }, [
-        createBaseVNode("h3", {
-          class: normalizeClass(_ctx.$style.logo)
-        }, [
-          createBaseVNode("a", _hoisted_1$d, toDisplayString(unref(site).title), 1)
-        ], 2)
-      ], 2);
-    };
-  }
-});
-const header = "ngecjshw";
-const logo = "kbcnmp21";
-const style0$c = {
-  header,
-  logo
-};
-const _export_sfc = (sfc, props2) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props2) {
-    target[key] = val;
-  }
-  return target;
-};
-const cssModules$c = {
-  "$style": style0$c
-};
-const Header = /* @__PURE__ */ _export_sfc(_sfc_main$j, [["__cssModules", cssModules$c]]);
-const _sfc_main$i = {};
-const _hoisted_1$c = {
-  xmlns: "http://www.w3.org/2000/svg",
-  "data-category": "Carbon",
-  width: "1em",
-  height: "1em",
-  viewBox: "0 0 32 32"
-};
-function _sfc_render$6(_ctx, _cache) {
-  return openBlock(), createElementBlock("svg", _hoisted_1$c, [..._cache[0] || (_cache[0] = [
-    createBaseVNode("path", {
-      fill: "currentColor",
-      d: "M8 18c-3.3 0-6 2.7-6 6s2.7 6 6 6s6-2.7 6-6s-2.7-6-6-6m0 10c-2.2 0-4-1.8-4-4s1.8-4 4-4s4 1.8 4 4s-1.8 4-4 4m22-4h-2C28 13 19 4 8 4V2c12.1 0 22 9.9 22 22"
-    }, null, -1),
-    createBaseVNode("path", {
-      fill: "currentColor",
-      d: "M22 24h-2c0-6.6-5.4-12-12-12v-2c7.7 0 14 6.3 14 14"
-    }, null, -1)
-  ])]);
-}
-const Cnblog = /* @__PURE__ */ _export_sfc(_sfc_main$i, [["render", _sfc_render$6]]);
-const _sfc_main$h = {};
-const _hoisted_1$b = {
-  xmlns: "http://www.w3.org/2000/svg",
-  "data-category": "Lucide",
-  width: "1em",
-  height: "1em",
-  viewBox: "0 0 24 24"
-};
-function _sfc_render$5(_ctx, _cache) {
-  return openBlock(), createElementBlock("svg", _hoisted_1$b, [..._cache[0] || (_cache[0] = [
-    createBaseVNode("g", {
-      fill: "none",
-      stroke: "currentColor",
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      "stroke-width": "2"
-    }, [
-      createBaseVNode("path", { d: "M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5c.08-1.25-.27-2.48-1-3.5c.28-1.15.28-2.35 0-3.5c0 0-1 0-3 1.5c-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5c-.39.49-.68 1.05-.85 1.65S8.93 17.38 9 18v4" }),
-      createBaseVNode("path", { d: "M9 18c-4.51 2-5-2-7-2" })
-    ], -1)
-  ])]);
-}
-const Github = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["render", _sfc_render$5]]);
-const _hoisted_1$a = ["href", "target", "rel", "tabindex"];
-const _sfc_main$g = /* @__PURE__ */ defineComponent({
   __name: "Link",
   props: {
     href: {},
@@ -12465,18 +12383,130 @@ const _sfc_main$g = /* @__PURE__ */ defineComponent({
         tabindex: __props.tabindex ? __props.tabindex : __props.href ? 0 : void 0
       }, [
         renderSlot(_ctx.$slots, "default")
-      ], 10, _hoisted_1$a);
+      ], 10, _hoisted_1$d);
     };
   }
 });
 const inherit = "kze9qsvl";
-const style0$b = {
+const style0$c = {
   inherit
+};
+const _export_sfc = (sfc, props2) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props2) {
+    target[key] = val;
+  }
+  return target;
+};
+const cssModules$c = {
+  "$style": style0$c
+};
+const Link2 = /* @__PURE__ */ _export_sfc(_sfc_main$j, [["__cssModules", cssModules$c]]);
+const _hoisted_1$c = {
+  href: "/",
+  title: "Home"
+};
+const _sfc_main$i = /* @__PURE__ */ defineComponent({
+  __name: "Header",
+  setup(__props) {
+    const route = useRoute();
+    const { site } = useApp();
+    const links = [
+      { href: "/bookmark", text: "Bookmark" },
+      { href: "/gist", text: "gist" }
+    ];
+    return (_ctx, _cache) => {
+      return openBlock(), createElementBlock("header", {
+        class: normalizeClass(_ctx.$style.header)
+      }, [
+        createBaseVNode("h3", {
+          class: normalizeClass(_ctx.$style.logo)
+        }, [
+          createBaseVNode("a", _hoisted_1$c, toDisplayString(unref(site).title), 1)
+        ], 2),
+        _cache[0] || (_cache[0] = createBaseVNode("span", null, ":", -1)),
+        createBaseVNode("ul", {
+          class: normalizeClass(_ctx.$style.breadcrumb)
+        }, [
+          (openBlock(), createElementBlock(Fragment, null, renderList(links, (item2) => {
+            return createBaseVNode("li", {
+              key: item2.href
+            }, [
+              createVNode(Link2, {
+                href: item2.href,
+                "color-mode": "inherit",
+                class: normalizeClass(unref(isActivePath)(unref(route).path, item2.href) ? _ctx.$style.active : "")
+              }, {
+                default: withCtx(() => [
+                  createTextVNode(toDisplayString(item2.text), 1)
+                ]),
+                _: 2
+              }, 1032, ["href", "class"])
+            ]);
+          }), 64))
+        ], 2)
+      ], 2);
+    };
+  }
+});
+const header = "ngecjshw";
+const logo = "kbcnmp21";
+const active = "hln63f8x";
+const breadcrumb = "rdvnksp5";
+const style0$b = {
+  header,
+  logo,
+  active,
+  breadcrumb
 };
 const cssModules$b = {
   "$style": style0$b
 };
-const Link2 = /* @__PURE__ */ _export_sfc(_sfc_main$g, [["__cssModules", cssModules$b]]);
+const Header = /* @__PURE__ */ _export_sfc(_sfc_main$i, [["__cssModules", cssModules$b]]);
+const _sfc_main$h = {};
+const _hoisted_1$b = {
+  xmlns: "http://www.w3.org/2000/svg",
+  "data-category": "Carbon",
+  width: "1em",
+  height: "1em",
+  viewBox: "0 0 32 32"
+};
+function _sfc_render$6(_ctx, _cache) {
+  return openBlock(), createElementBlock("svg", _hoisted_1$b, [..._cache[0] || (_cache[0] = [
+    createBaseVNode("path", {
+      fill: "currentColor",
+      d: "M8 18c-3.3 0-6 2.7-6 6s2.7 6 6 6s6-2.7 6-6s-2.7-6-6-6m0 10c-2.2 0-4-1.8-4-4s1.8-4 4-4s4 1.8 4 4s-1.8 4-4 4m22-4h-2C28 13 19 4 8 4V2c12.1 0 22 9.9 22 22"
+    }, null, -1),
+    createBaseVNode("path", {
+      fill: "currentColor",
+      d: "M22 24h-2c0-6.6-5.4-12-12-12v-2c7.7 0 14 6.3 14 14"
+    }, null, -1)
+  ])]);
+}
+const Cnblog = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["render", _sfc_render$6]]);
+const _sfc_main$g = {};
+const _hoisted_1$a = {
+  xmlns: "http://www.w3.org/2000/svg",
+  "data-category": "Lucide",
+  width: "1em",
+  height: "1em",
+  viewBox: "0 0 24 24"
+};
+function _sfc_render$5(_ctx, _cache) {
+  return openBlock(), createElementBlock("svg", _hoisted_1$a, [..._cache[0] || (_cache[0] = [
+    createBaseVNode("g", {
+      fill: "none",
+      stroke: "currentColor",
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      "stroke-width": "2"
+    }, [
+      createBaseVNode("path", { d: "M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5c.08-1.25-.27-2.48-1-3.5c.28-1.15.28-2.35 0-3.5c0 0-1 0-3 1.5c-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5c-.39.49-.68 1.05-.85 1.65S8.93 17.38 9 18v4" }),
+      createBaseVNode("path", { d: "M9 18c-4.51 2-5-2-7-2" })
+    ], -1)
+  ])]);
+}
+const Github = /* @__PURE__ */ _export_sfc(_sfc_main$g, [["render", _sfc_render$5]]);
 const _sfc_main$f = {};
 const _hoisted_1$9 = {
   xmlns: "http://www.w3.org/2000/svg",
@@ -12625,7 +12655,7 @@ const _hoisted_1$6 = ["datetime"];
 const _sfc_main$b = /* @__PURE__ */ defineComponent({
   __name: "Footer",
   setup(__props) {
-    const { theme: theme2 } = useApp();
+    const { theme: theme2, site } = useApp();
     const now = toLocalDayjs();
     const datetime = now.format();
     const year = now.format("YYYY");
@@ -12635,7 +12665,7 @@ const _sfc_main$b = /* @__PURE__ */ defineComponent({
       }, [
         createBaseVNode("small", null, [
           createBaseVNode("time", { datetime: unref(datetime) }, toDisplayString(unref(year)), 9, _hoisted_1$6),
-          _cache[0] || (_cache[0] = createTextVNode(" © HeZulong. ", -1))
+          createTextVNode(" © " + toDisplayString(unref(site).title) + ". ", 1)
         ]),
         createBaseVNode("div", {
           class: normalizeClass(_ctx.$style.socials)
