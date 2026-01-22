@@ -1,19 +1,16 @@
 ---
-title: markdown example
-date: 2025-08-22
+title: 我的博客
+date: 2026-01-22
 layout: post
-category: 摘录
 ---
 
-VitePress 带有内置的 Markdown 扩展。
+[Vitepress](https://vitepress.dev/zh/) 是一款静态内容生成器(SSG)，它内置了诸多高效 Markdown 扩展特性，可以大幅提升文档编写体验，所以我选择它构建了自己的网络日志。设计风格上参考了 [Lanyon](https://jekyllthemes.io/theme/lanyon) 主题并做了个性化适配，它非常简约，我很喜欢。
 
-## 标题锚点 {#header-anchors}
+本文梳理了核心特性及实操用法，方便后续复用与查阅。
 
-标题会自动应用锚点。可以使用 `markdown.anchor` 选项配置锚点的渲染。
+## 标题锚点 {#custom-anchors}
 
-### 自定义锚点 {#custom-anchors}
-
-要为标题指定自定义锚点而不是使用自动生成的锚点，请向标题添加后缀：
+标题会自动应用锚点，可以使用 `markdown.anchor` 选项配置锚点的渲染，也可以直接使用自定义描点。
 
 ```
 # 使用自定义锚点 {#my-anchor}
@@ -21,94 +18,7 @@ VitePress 带有内置的 Markdown 扩展。
 
 这允许将标题链接为 `#my-anchor`，而不是默认的 `#使用自定义锚点`。
 
-## 链接 {#links}
-
-内部和外部链接都会被特殊处理。
-
-### 内部链接 {#internal-links}
-
-内部链接将转换为单页导航的路由链接。此外，子目录中包含的每个 `index.md` 都会自动转换为 `index.html`，并带有相应的 URL `/`。
-
-例如，给定以下目录结构：
-
-```
-.
-├─ index.md
-├─ foo
-│  ├─ index.md
-│  ├─ one.md
-│  └─ two.md
-└─ bar
-   ├─ index.md
-   ├─ three.md
-   └─ four.md
-```
-
-假设现在处于 `foo/one.md` 文件中：
-
-```md
-[Home](/) <!-- 将用户导航至根目录下的 index.html -->
-[foo](/foo/) <!-- 将用户导航至目录 foo 下的 index.html -->
-[foo heading](./#heading) <!-- 将用户锚定到目录 foo 下的index文件中的一个标题上 -->
-[bar - three](../bar/three) <!-- 可以省略扩展名 -->
-[bar - three](../bar/three.md) <!-- 可以添加 .md -->
-[bar - four](../bar/four.html) <!-- 或者可以添加 .html -->
-```
-
-### 页面后缀 {#page-suffix}
-
-默认情况下，生成的页面和内部链接带有 `.html` 后缀。
-
-* e
-  1. 如果你的 Markdown 文件名是 `index.md`，则生成的页面和内部链接将带有 `.html` 后缀。
-  2. 如果你的 Markdown 文件名是 `index.html`，则生成的页面和内部链接将带有 `.html` 后缀。
-
-* ff
-* dd
-
----
-
-a. Lorem
-
-b. Norem
-
----
-
- ```json [package.json]
-  {
-    "scripts": {
-      "docs:build": "vitepress build docs",
-      "docs:preview": "vitepress preview docs"
-    }
-  }
-  ```
-
-A. Lorem
-
-B. Norem
-
----
-
-壹. Lorem
-
-贰. Norem
-
----
-
-I. Lorem
-
-II. Norem
-
----
-
-### 外部链接 {#external-links}
-
-外部链接带有 `target="_blank" rel="noreferrer"`：
-
-- [vuejs.org](https://cn.vuejs.org)
-- [VitePress on GitHub](https://github.com/vuejs/vitepress)
-
-## frontmatter {#frontmatter}
+## Frontmatter {#frontmatter}
 
 [YAML 格式的 frontmatter](https://jekyllrb.com/docs/front-matter/) 开箱即用：
 
@@ -122,26 +32,6 @@ lang: en-US
 此数据将可用于页面的其余部分，以及所有自定义和主题组件。
 
 更多信息，参见 [frontmatter](../reference/frontmatter-config)。
-
-## GitHub 风格的表格 {#github-style-tables}
-
-**输入**
-
-```
-| Tables        |      Are      |  Cool |      Are      |  Cool |      Are      |
-| ------------- | :-----------: | ----: | :-----------: | ----: | :-----------: |
-| col 3 is      | right-aligned | $1600 | right-aligned | $1600 | right-aligned |
-| col 2 is      |   centered    |   $12 |   centered    |   $12 |   centered    |
-| zebra stripes |   are neat    |    $1 |   are neat    |    $1 |   are neat    |
-```
-
-**输出**
-
-| Tables        |      Are      |   Cool |      Are      |   Cool |      Are      |
-| ------------- | :-----------: | -----: | :-----------: | -----: | :-----------: |
-| col 3 is      | right-aligned | \$1600 | right-aligned | \$1600 | right-aligned |
-| col 2 is      |   centered    |   \$12 |   centered    |   \$12 |   centered    |
-| zebra stripes |   are neat    |    \$1 |   are neat    |    \$1 |   are neat    |
 
 ## Emoji :tada:
 
@@ -181,46 +71,46 @@ lang: en-US
 
 ```md
 ::: info
-This is an info box.`code`, [aaalink](//a)
+This is an info box.
 :::
 
 ::: tip
-This is a tip.`code`, [aaalink](//a)
+This is a tip.
 :::
 
 ::: warning
-This is a warning.`code`, [aaalink](//a)
+This is a warning.
 :::
 
 ::: danger
-This is a dangerous warning.`code`, [aaalink](//a)
+This is a dangerous warning.
 :::
 
 ::: details
-This is a details block.`code`, [aaalink](//a)
+This is a details block.
 :::
 ```
 
 **输出**
 
 ::: info
-This is an info box.`code`, [aaalink](//a)
+This is an info box.
 :::
 
 ::: tip
-This is a tip.`code`, [aaalink](//a)
+This is a tip.
 :::
 
 ::: warning
-This is a warning.`code`, [aaalink](//a)
+This is a warning.
 :::
 
 ::: danger
-This is a dangerous warning.`code`, [aaalink](//a)
+This is a dangerous warning.
 :::
 
 ::: details
-This is a details block.`code`, [aaalink](//a)
+This is a details block.
 :::
 
 ### 自定义标题 {#custom-title}
@@ -743,4 +633,4 @@ export default defineConfig({
 })
 ```
 
-请查看[配置参考：站点配置](../reference/site-config#markdown)来获取完整的可配置属性列表。
+请查看[配置参考：站点配置](https://vitepress.dev/zh/reference/site-config#markdown)来获取完整的可配置属性列表。

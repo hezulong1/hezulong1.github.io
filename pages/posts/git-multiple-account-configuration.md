@@ -1,20 +1,22 @@
 ---
-title: Git 多账户配置
+title: 配置 Git 多账户指南
 date: 2022-07-10
-lastUpdate: 2025-08-28 09:58:00
 layout: post
-category: 写作
 ---
 
-当一位开发者拥有多个 Git 账户，在操作（如：commit）Git 时应该注意下当前账户，若随意使用不同账户，那么操作记录的所属人会变得混乱不堪，如果需要统计数据也会增加复杂度。
+当开发者同时拥有多个 Git 账户（如个人账户、公司账户）时，若操作时未留意当前账户，会导致提交记录(commit)的所属人混乱，不仅影响提交历史的整洁性，还会增加数据统计、权限管理的复杂度。
 
-下面我们通过配置做到一劳永逸，在 Git 中，配置可分为：
+本文将通过 Git 多级别配置结合 SSH 公私钥方案，实现多账户的精准区分与自动匹配，彻底解决这一问题。
 
-- system（系统级别）
-- global（全局级别）
-- local（本地级别）
+在 Git 中，配置分为三个层级，优先级依次递增（后者覆盖前者）：
 
-以下命令查看各自配置：
+- **系统级别(system)**：对当前系统所有用户生效
+- **全局级别(global)**：仅对当前用户所有仓库生效
+- **本地级别(local)**：仅对当前所在仓库生效
+
+## 查看各层级配置
+
+通过以下命令可分别查看对应级别的所有配置项：
 
 ```sh
 $ git config --system --list
@@ -22,134 +24,187 @@ $ git config --global --list
 $ git config --local --list
 ```
 
-配置中遇到相同关键字（key）采用覆盖模式，覆盖规则：`system` < `global` < `local`，后者覆盖前者。
+配置优先级规则：`system` < `global` < `local`，当不同层级存在相同关键字时，优先级高的配置会覆盖优先级低的。
 
-多数网络教程中，通常教大家配置全局级别（global）的用户名（user.name）和邮箱（user.email）。
+多数教程会直接配置全局级别的 `user.name` 和 `user.email`，这会导致多账户场景下提交归属混乱，因此我们需采用「全局清空 + 仓库本地配置」的方案。
 
-::: warning 注意
-步骤 1 到 7 中，如果 Git 使用 `http(s)`，那么只需要看[步骤 1](#chong-zhi-quan-ju-pei-zhi) 和[步骤 7](#tian-jia-xiang-mu-zhang-hu)。
+::: warning
+
+若你的 Git 仓库使用 `HTTP(s)` 协议连接，无需配置 SSH 公私钥及相关文件，仅需执行「[重置全局配置](#reset-global-configuration)」和「[项目配置本地账户](#configure-local-account-for-project)」两步即可。
+
 :::
 
-## 1.重置全局配置 {#chong-zhi-quan-ju-pei-zhi}
+## 重置全局配置 {#reset-global-configuration}
+
+首先清空全局级别的用户名和邮箱配置，避免其覆盖本地仓库配置：
 
 ```sh
-# 查看全局配置
+# 查看全局配置，确认是否存在 user.name 和 user.email
 $ git config --global --list
 
-# 若存在用户名和邮箱则清除
+# 若存在，执行以下命令清除（无对应配置则跳过）
 $ git config --global --unset user.name
 $ git config --global --unset user.email
 ```
 
-## 2.生成不同账户的公私钥 {#sheng-cheng-bu-tong-zhang-hu-de-gong-si-yao}
+## 生成不同账户的公私钥 {#generate-public-and-private-keys-for-different-accounts}
 
-启动终端，通过命令进入到 `.ssh` 文件夹（如果自定义，进入自定义文件夹）中（这步网络上多数教程没有教，新手很容易不知道怎么回事），输入以下命令生成不同账户的公私钥。
+通过 SSH 公私钥实现不同账户的身份认证，需为每个账户生成独立的密钥对，步骤如下：
 
-假设现在有两个账户:
-
-- 个人
-  - 账户：`personal`
-  - 邮箱：`personal@abc.com`
-
-- 公司
-  - 账户：`company`
-  - 邮箱：`company@abc.com`
+1. 打开终端，进入 `.ssh` 目录（默认路径为用户根目录下，Windows 路径：`C:\Users\你的用户名\.ssh`，Mac/Linux 路径：`~/.ssh`）：
 
 ```sh
-$ ssh-keygen -t rsa -C "你的邮箱" # 输入完回车（Enter）
-
-# 回车后提示需要键入关键字（也是文件名），一定需要输入，因为默认生成的文件就叫做 id_rsa，如果不输入后续出提示覆盖文件
-
-# 个人账户
-# ssh-keygen -t rsa -C "personal@abc.com"
-# Enter file in which to save the key (~/.ssh/id_rsa): personal
-# ...(直接回车到结束)
-
-# 公司账户
-# ssh-keygen -t rsa -C "company@abc.com"
-# Enter file in which to save the key (~/.ssh/id_rsa): company
-# ...(直接回车到结束)
+$ cd ~/.ssh
 ```
 
-## 3.配置远程仓库公私钥 {#deng-lu-dui-ying-de-cang-ku-she-zhi-gong-si-yao}
+2. 为每个账户生成公私钥，以「个人账户」和「公司账户」为例：
 
-gitee，gitlab，github 各自设置教程请网上查阅。
+  - 个人账户：账户名 `personal`，邮箱 `personal@abc.com`
+  - 公司账户：账户名 `company`，邮箱 `company@abc.com`
 
-## 4.配置参数 {#pei-zhi-can-shu}
-
-还是之前的 `.ssh` 文件夹（如果是自定义，进入自定义文件夹），在根级目录下新建 `config` 文件（注意无尾缀），键入以下信息。
+执行生成命令，关键是**自定义密钥文件名**（避免默认 `id_rsa` 覆盖）：
 
 ```sh
-# 个人
-Host PersonalHost # 区分大小写，建议全部小写，输入命令会好看点（此处为了说明采用首字母大写）
-HostName gitee.com
-IdentityFile /.ssh/personal # 绝对路径
-PreferredAuthentications publickey # 可省略不写
-User "你的个人账户名（本次模拟中填写 personal）" # 可省略不写
+# 生成个人账户公私钥
+$ ssh-keygen -t rsa -C "personal@abc.com"
+# 提示输入密钥保存路径时，输入自定义名称（如 personal），回车确认
+Enter file in which to save the key (~/.ssh/id_rsa): personal
+# 后续提示设置密码（可选，直接回车跳过），直至密钥生成完成
 
-# 公司
-Host CompanyHost
-HostName gitee.com
-IdentityFile /.ssh/company
+# 生成公司账户公私钥
+$ ssh-keygen -t rsa -C "company@abc.com"
+# 输入自定义名称（如 company），回车确认
+Enter file in which to save the key (~/.ssh/id_rsa): company
+# 跳过密码设置，完成生成
+```
+
+3. 生成后，`.ssh` 目录下会新增 4 个文件：`personal`（个人私钥）、`personal.pub`（个人公钥）、`company`（公司私钥）、`company.pub`（公司公钥）。
+
+## 配置远程仓库公私钥 {#configure-public-and-private-keys-for-remote-repository}
+
+将每个账户的公钥配置到对应远程仓库（GitHub、GitLab 等），以实现身份认证：
+
+1. 查看公钥内容（以个人账户为例）：
+
+```sh
+# Mac/Linux
+$ cat ~/.ssh/personal.pub
+# Windows（PowerShell）
+$ type ~/.ssh/personal.pub
+```
+
+2. 复制输出的公钥内容（完整字符串，包含邮箱后缀）。
+3. 登录对应远程仓库，进入「个人设置 → SSH 密钥」页面，粘贴公钥并保存（不同平台操作类似，可查阅对应平台官方教程）。
+4. 重复上述步骤，将公司账户的 `company.pub` 配置到公司对应的远程仓库。
+
+## 配置 SSH Config 文件 {#configure-the-ssh-config-file}
+
+在 `.ssh` 目录下新建 `config` 文件（无后缀名），通过配置规则实现不同仓库自动匹配对应账户的密钥，内容如下：
+
+```sh
+# 个人账户配置
+Host personal-host # 自定义别名（区分大小写，建议全部小写）
+HostName github.com # 远程仓库域名（个人仓库所在平台，如 github.com）
+IdentityFile ~/.ssh/personal # 个人私钥绝对路径
+PreferredAuthentications publickey # 认证方式（优先公钥，可省略）
+User personal # 个人账户名（可省略）
+
+# 公司账户配置
+Host company-host
+HostName gitlab.com # 公司仓库所在平台域名
+IdentityFile ~/.ssh/company  # 公司私钥绝对路径
 PreferredAuthentications publickey
-User "你的公司账户名（本次模拟中填写 company）"
+User company # 公司账户名（可省略）
 ```
 
-## 5.添加私钥到本地 {#tian-jia-si-yao-dao-ben-di}
+### 配置说明 {#configuration-instructions}
 
-回到终端上，键入以下信息。
+- 每个 `Host` 对应一个账户的配置，别名可自由定义，但会影响后续 Git 命令的仓库地址格式。
+- 若个人仓库在 GitHub、公司仓库在 Gitlab，只需修改对应 `HostName` 为 `github.com` 即可。
+
+## 添加私钥到本地 SSH 代理 {#add-private-key-to-local-ssh-proxy}
+
+将生成的私钥添加到本地 SSH 代理，避免每次操作都需重新指定密钥：
 
 ```sh
-# personal，company 是私钥文件名称，也就是刚刚键入的关键字
+# 切换到 .ssh 目录
+$ cd ~/.ssh
+
+# 添加个人私钥
 $ ssh-add ./personal
+
+# 添加公司私钥
 $ ssh-add ./company
+
+# 验证私钥是否添加成功
+$ ssh-add -l
 ```
 
-## 6.测试 {#ce-shi}
+::: tip
+若执行 `ssh-add` 提示「Could not open a connection to your authentication agent」，先执行 `ssh-agent bash` 启动代理，再重新添加私钥。
+:::
 
-继续使用终端上，键入以下信息。
+## 测试 SSH 连接 {#test-ssh-connection}
+
+验证配置是否生效，通过自定义的 `Host` 别名测试与远程仓库的连接：
 
 ```sh
-# PersonalHost，CompanyHost 是 config 文件中 Host 属性的对应名称
-$ git git@PersonalHost:xxx/xxx.git
-$ git git@CompanyHost:xxx/xxx.git
+# 测试个人账户连接（对应 personal-host 配置）
+$ ssh -T git@personal-host
+# 或者
+$ git git@personal-host:xxx/xxx.git
+
+# 测试公司账户连接（对应 company-host 配置）
+$ ssh -T git@company-host
+# 或者
+$ git git@company-host:xxx/xxx.git
 ```
 
-## 7.添加项目账户 {#tian-jia-xiang-mu-zhang-hu}
+若输出「Hi 用户名！You've successfully authenticated...」，说明连接成功。
 
-使用终端，通过命令进入**项目的根目录**，键入以下命令来配置本地级别（local）：
+## 项目配置本地账户 {#configure-local-account-for-project}
+
+进入具体项目的根目录，配置该仓库专属的本地级别用户名和邮箱，确保提交记录归属正确：
 
 ```sh
-# 注意账号和邮箱需要对应上
-$ git config user.name "你的账户" 
-$ git config user.email "你的邮箱"
+# 进入项目根目录
+$ cd /path/to/your/project
+
+# 配置本地账户（个人项目用个人信息，公司项目用公司信息，假设进入个人项目）
+$ git config --local user.name "personal"  # 对应账户名
+$ git config --local user.email "personal@abc.com"  # 对应邮箱
+
+# 验证本地配置是否正确
+$ git config --local --list
 ```
 
-以上结束。
+每个项目需单独配置一次，配置后仅对当前项目生效。
 
-## `config` 文件属性介绍 {#config-wen-jian-shu-xing-jie-shao}
+## `config` 文件属性介绍 {#introduce-config}
+
+`config` 文件中每个 `Host` 节点的核心属性说明如下，按需配置即可：
+
+| 属性名 | 取值说明 |
+|-|-|
+| Host | 自定义别名，将替代远程仓库域名出现在 Git 命令中，如 `Host mygithub`，那么 `git@` 后面紧跟的名字改为 `mygithub`, 例：`git clone git@mygithub:用户名/仓库名.git` |
+| HostName | 远程仓库真实域名 |
+| IdentityFile | 私钥文件(id_rsa)的的绝对路径，确保路径正确，否则无法匹配密钥 |
+| PreferredAuthentications | 认证优先级，可设为 `publickey`, `password`, `keyboard-interactive`，建议设为 `publickey` |
+| User | 远程仓库用户名，可省略，SSH 认证主要依赖密钥，用户名仅作为辅助标识 |
 
 每个账号单独配置一个 `Host`，每个 `Host`要取一个别名，每个 `Host` 主要配置 `HostName` 和 `IdentityFile` 两个属性即可。
 
-| 属性名 | 值 |
-|-|-|
-| Host | 随意取，不过会影响命令，如 `Host mygithub`，那么 `git@` 后面紧跟的名字改为 mygithub`git clone git@mygithub:xxx.git` |
-| HostName | 真实的域名地址 |
-| IdentityFile | id_rsa 的地址，使用绝对地址 |
-| PreferredAuthentications | 配置登录时用什么权限认证，可设为 `publickey`, `password`, `keyboard-interactive` |
-| User | 配置使用用户名 |
+## 修正历史提交的用户名和邮箱 {#correcting-historical-usernames-and-email-addresses}
 
-## 如何修正之前提交的用户名和邮箱呢？ {#ru-he-xiu-zheng-zhi-qian-ti-jiao-de-yong-hu-ming-he-you-xiang-ne}
-
-git中最猛的后悔药，没有把握慎用。
+若已用错误账户提交代码，可通过 `git filter-branch` 命令修改历史提交记录（**谨慎使用，会改写仓库历史**）：
 
 ```sh
 $ git filter-branch -f --commit-filter '
-  if [ "$GIT_COMMITTER_NAME" = "已提交的用户名" ];
+  if [ "$GIT_COMMITTER_NAME" = "错误用户名" ];
     then
-      GIT_COMMITTER_NAME="想要变成的用户名";
+      GIT_COMMITTER_NAME="目标用户名";
       GIT_AUTHOR_NAME="$GIT_COMMITTER_NAME";
-      GIT_COMMITTER_EMAIL="想要变成的邮箱";
+      GIT_COMMITTER_EMAIL="目标邮箱";
       GIT_AUTHOR_EMAIL="$GIT_COMMITTER_EMAIL";
       git commit-tree "$@";
     else
@@ -157,21 +212,17 @@ $ git filter-branch -f --commit-filter '
   fi' HEAD
 ```
 
-执行命令之后，此时用户名和邮箱都已经修改为想要变成的样子，再执行强制推向远程，要确保已经是最新的HEAD否则会覆盖他人编写的代码。（`HEAD` 可以修改为 `HEAD~5..HEAD` 表示最近的5个提交）
+::: danger
+该命令会改写仓库提交历史，若操作多人协作仓库，务必提前和团队成员沟通，避免覆盖他人提交！
+:::
+
+### 命令说明
+
+- 替换`错误用户名`、`目标用户名`、`目标邮箱`为实际信息。
+- `HEAD` 表示修改所有历史提交，可指定范围，例：`HEAD~5..HEAD` 仅修改最近 5 次提交。
+
+修改完成后，强制推送到远程仓库（确保本地是最新代码，避免覆盖他人提交）：
 
 ```sh
 $ git push --force
 ```
-
-### `git filter-branch` 妙用 {#git-filter-branch-miao-yong}
-
-如果在某次提交时提交了某个大文件或者敏感文件，虽然可以在下次提交中删除该文件，或者把该文件添加到 `.gitignore` 中，但是如果回溯到某个提交时那个文件还是存在，现在想要将所有历史的提交中移出该文件。
-
-```sh
-# 中间引号那一段是shell脚本
-$ git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch path' --prune-empty --tag-name-filter cat -- --all
-
-# 强制推向远程，可能会覆盖他人的提交
-$ git push --force
-```
-
