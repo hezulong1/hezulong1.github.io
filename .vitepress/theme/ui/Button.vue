@@ -25,7 +25,7 @@ const extraClassNames = computed(() => {
   <span v-if="disabled" :class="extraClassNames">
     <slot />
   </span>
-  <Link v-else-if="href" :class="extraClassNames" tabindex="0"><slot /></Link>
+  <Link v-else-if="href" :href :class="extraClassNames" tabindex="0"><slot /></Link>
   <button v-else :class="extraClassNames" :disabled>
     <slot />
   </button>
