@@ -496,7 +496,7 @@ details {
       color: var(--custom-block-#{$type}-text);
 
       code {
-        background-color: var(--vp-custom-block-#{$type}-code-bg);
+        background-color: var(--custom-block-#{$type}-code-bg);
         color: currentColor;
       }
     }
@@ -504,11 +504,6 @@ details {
 
   &-title {
     font-weight: bold;
-  }
-
-  &:not(.details) a {
-    color: inherit;
-    text-decoration: underline;
   }
 }
 

@@ -6,7 +6,7 @@ import { useApp } from '@/utils/hooks';
 import { toLocalDayjs } from '@/utils/logic';
 import ConfigSwitchTheme from './ConfigSwitchTheme.vue';
 
-const { theme } = useApp();
+const { theme, site } = useApp();
 const now = toLocalDayjs();
 const datetime = now.format();
 const year = now.format('YYYY');
@@ -15,7 +15,7 @@ const year = now.format('YYYY');
 <template>
   <footer :class="$style.footer">
     <small>
-      <time :datetime>{{ year }}</time> &copy; HeZulong.
+      <time :datetime>{{ year }}</time> &copy; {{ site.title }}.
     </small>
 
     <div :class="$style.socials">

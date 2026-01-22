@@ -14,7 +14,7 @@ export function normalizePath(path: string): string {
 export function isActivePath(currentPath: string, matchPath?: string, asRegex = false): boolean {
   if (typeof matchPath === 'undefined') return false;
 
-  currentPath = normalizePath(`/${currentPath}`);
+  currentPath = normalizePath(currentPath.startsWith('/') ? currentPath : `/${currentPath}`);
 
   if (asRegex) new RegExp(matchPath).test(currentPath);
   if (normalizePath(matchPath) !== currentPath) return false;

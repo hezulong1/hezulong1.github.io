@@ -28,7 +28,6 @@ const date = computed(() => toLocalDayjs(frontmatter.value.date).format('YYYY年
   hyphens: auto;
 
   > h1 {
-    margin: 0;
     font-size: 2.25rem;
     line-height: 2.5rem;
   }
@@ -37,10 +36,6 @@ const date = computed(() => toLocalDayjs(frontmatter.value.date).format('YYYY年
     display: block;
     color: var(--home-date-color);
     margin-bottom: 2rem;
-  }
-
-  a:not(:global(.header-anchor)):hover {
-    text-decoration: underline;
   }
 
   &:hover .outline {
@@ -71,5 +66,9 @@ const date = computed(() => toLocalDayjs(frontmatter.value.date).format('YYYY年
     opacity: .3;
     transition: opacity .5s;
   }
+}
+
+:global(#post-content a:not(.header-anchor):hover)  {
+  text-decoration: underline;
 }
 </style>
