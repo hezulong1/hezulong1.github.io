@@ -52,6 +52,7 @@ browserClass && document.documentElement.classList.add(browserClass);
     },
     cleanUrls: true,
     metaChunk: true,
+    ignoreDeadLinks: true,
     markdown: {
       codeCopyButtonTitle: '复制代码',
       theme: {
