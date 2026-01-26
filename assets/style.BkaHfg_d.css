@@ -808,7 +808,7 @@ a[href^="#fnref:"] {
   content: "@";
   margin-right: 0.2rem;
   font-size: 0.875rem;
-  vertical-align: 0.2em;
+  vertical-align: 0.1em;
 }
 .hln63f8x {
   text-decoration: underline;
