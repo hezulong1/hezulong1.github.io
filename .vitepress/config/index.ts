@@ -21,8 +21,8 @@ export default <UserConfigExport<ThemeConfig>> function vitepressConfig(env) {
 
       ['link', { rel: 'shortcut icon', href: '/favicon.ico' }],
       ['link', { rel: 'apple-touch-icon-precomposed', sizes: '144*144', href: '/apple-touch-icon-144.png' }],
-      ['link', { rel: 'preconnect', href: 'https://cdn.jsdelivr.net' }],
-      ['link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/inter.min.css' }],
+      ['link', { rel: 'dns-prefetch', href: 'https://cdn.jsdelivr.net' }],
+      ['link', { rel: 'preload', href: 'https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/inter.min.css', as: 'style', onload: `this.onload=null;this.rel='stylesheet'` }],
       [
         'script',
         { id: 'check-browser' },
