@@ -115,7 +115,7 @@ $ git push origin --delete [分支名]
 
 ### 设置本地名称和邮箱 {#set-local-name-and-email}
 
-更加细致可以看 [Git 多账户配置](./git-multiple-account-configuration)
+更加细致可以看[配置 Git 多账户指南](./posts/git-multiple-account-configuration)
 
 ```sh
 $ git config --local user.name "自己的名称（可以是中文）"

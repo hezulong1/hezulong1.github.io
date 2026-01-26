@@ -4,13 +4,13 @@ date: 2026-01-22
 layout: post
 ---
 
-[Vitepress](https://vitepress.dev/zh/) 是一款静态内容生成器(SSG)，它内置了诸多高效 Markdown 扩展特性，可以大幅提升文档编写体验，所以我选择它构建了自己的网络日志。设计风格上参考了 [Lanyon](https://jekyllthemes.io/theme/lanyon) 主题并做了个性化适配，它非常简约，我很喜欢。
+[Vitepress](https://vitepress.dev/zh/) 是一款静态内容生成器(SSG)，它内置了诸多高效 Markdown 扩展特性，可以大幅提升文档编写体验，所以我选择它构建自己的网络日志。设计风格上参考 [Lanyon](https://jekyllthemes.io/theme/lanyon) 主题并做了个性化适配，它非常简约，我很喜欢。
 
 本文梳理了核心特性及实操用法，方便后续复用与查阅。
 
 ## 标题锚点 {#custom-anchors}
 
-标题会自动应用锚点，可以使用 `markdown.anchor` 选项配置锚点的渲染，也可以直接使用自定义描点。
+标题会自动应用锚点，使用 `markdown.anchor` 选项配置锚点的渲染，也可以直接使用自定义锚点。
 
 ```
 # 使用自定义锚点 {#my-anchor}
