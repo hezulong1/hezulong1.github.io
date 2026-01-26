@@ -1,5 +1,5 @@
 import { _ as _export_sfc, o as openBlock, c as createElementBlock, a as createStaticVNode } from "./app.Da10uWFE.js";
-const __pageData = JSON.parse('{"title":"Gist","description":"","frontmatter":{"title":"Gist","layout":"page"},"headers":[],"relativePath":"gist.md","filePath":"gist.md","lastUpdated":1769390952000}');
+const __pageData = JSON.parse('{"title":"Gist","description":"","frontmatter":{"title":"Gist","layout":"page"},"headers":[],"relativePath":"gist.md","filePath":"gist.md","lastUpdated":1769391310000}');
 const _sfc_main = { name: "gist.md" };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", null, [..._cache[0] || (_cache[0] = [
