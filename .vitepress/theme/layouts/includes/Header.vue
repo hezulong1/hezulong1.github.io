@@ -48,9 +48,9 @@ const links = [
 
     &::before {
       content: "@";
-      margin-right: 0.2rem;
+      margin-right: .2rem;
       font-size: .875rem;
-      vertical-align: .2em;
+      vertical-align: .1em;
     }
   }
 }
