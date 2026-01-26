@@ -41,6 +41,7 @@ registerWatchers();
   grid-template-columns: 100%;
   max-width: 38rem;
   min-height: 100vh;
+  min-height: 100dvh;
   padding-right: 1.5rem;
   padding-left: 1.5rem;
   margin-right: auto;
