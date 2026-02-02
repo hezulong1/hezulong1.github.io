@@ -11112,7 +11112,6 @@ function watchPausable(source, cb, options = {}) {
     isActive: isActive2
   };
 }
-const pausableWatch = watchPausable;
 function tryOnMounted(fn6, sync = true, target) {
   if (getLifeCycleTarget()) onMounted(fn6, target);
   else if (sync) fn6();
@@ -11317,7 +11316,7 @@ function useStorage(key, defaults$1, storage, options = {}) {
   const rawInit = toValue$1(defaults$1);
   const type = guessSerializerType(rawInit);
   const serializer = (_options$serializer = options.serializer) !== null && _options$serializer !== void 0 ? _options$serializer : StorageSerializers[type];
-  const { pause: pauseWatch, resume: resumeWatch } = pausableWatch(data2, (newValue) => write2(newValue), {
+  const { pause: pauseWatch, resume: resumeWatch } = watchPausable(data2, (newValue) => write2(newValue), {
     flush,
     deep,
     eventFilter
@@ -12346,7 +12345,7 @@ function registerWatchers() {
     headers.value = getHeaders([2, 3]);
   });
 }
-const data = JSON.parse('[{"url":"/posts/my-blog","title":"我的博客","date":"2026-01-22T00:00:00.000Z","layout":"post"},{"url":"/posts/git-multiple-account-configuration","title":"配置 Git 多账户指南","date":"2022-07-10T00:00:00.000Z","layout":"post"}]');
+const data = JSON.parse('[{"url":"/posts/keep-the-conversation-going-with-everyone","title":"可以与任何人无脑聊下去的方法","date":"2026-02-02 09:06","layout":"post","tags":"人际交往","category":"摘录"},{"url":"/posts/my-blog","title":"我的博客","date":"2026-01-22T00:00:00.000Z","layout":"post"},{"url":"/posts/git-multiple-account-configuration","title":"配置 Git 多账户指南","date":"2022-07-10T00:00:00.000Z","layout":"post"}]');
 function usePostList() {
   return /* @__PURE__ */ readonly(data);
 }
@@ -12413,7 +12412,7 @@ const _sfc_main$i = /* @__PURE__ */ defineComponent({
     const { site } = useApp();
     const links = [
       { href: "/bookmark", text: "Bookmark" },
-      { href: "/gist", text: "gist" }
+      { href: "/gist", text: "Gist" }
     ];
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock("header", {

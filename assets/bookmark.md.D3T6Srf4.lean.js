@@ -1,5 +1,5 @@
-import { _ as _export_sfc, o as openBlock, c as createElementBlock, a as createStaticVNode, b as createBaseVNode, d as createTextVNode } from "./app.Da10uWFE.js";
-const __pageData = JSON.parse('{"title":"Bookmark","description":"","frontmatter":{"title":"Bookmark","layout":"page"},"headers":[],"relativePath":"bookmark.md","filePath":"bookmark.md","lastUpdated":1769405545000}');
+import { _ as _export_sfc, o as openBlock, c as createElementBlock, a as createStaticVNode, b as createBaseVNode, d as createTextVNode } from "./app.BlmqlIp_.js";
+const __pageData = JSON.parse('{"title":"Bookmark","description":"","frontmatter":{"title":"Bookmark","layout":"page"},"headers":[],"relativePath":"bookmark.md","filePath":"bookmark.md","lastUpdated":1770012176000}');
 const _sfc_main = { name: "bookmark.md" };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", null, [..._cache[0] || (_cache[0] = [
