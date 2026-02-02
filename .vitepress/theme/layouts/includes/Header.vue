@@ -9,7 +9,7 @@ const { site } = useApp();
 
 const links = [
   { href: '/bookmark', text: 'Bookmark' },
-  { href: '/gist', text: 'gist' },
+  { href: '/gist', text: 'Gist' },
 ];
 </script>
 
