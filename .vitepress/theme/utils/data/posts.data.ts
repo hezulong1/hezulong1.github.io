@@ -8,7 +8,16 @@ export { data };
 
 export default createContentLoader('./posts/**/*.md', {
   transform: arr => arr
-    .map<Post>(x => ({ url: x.url, ...x.frontmatter }))
+    .map<Post>((x) => {
+      const url = x.url;
+      const meta: Post = { url, ...x.frontmatter };
+
+      if (url.includes('/posts/__')) {
+        meta.isPoetry = true;
+      }
+
+      return meta;
+    })
     .filter(x => x.date)
     .sort((a, b) => dayjs(a.date).isBefore(dayjs(b.date)) ? 1 : -1),
 });

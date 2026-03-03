@@ -6,6 +6,8 @@ export interface ThemeConfig {
 export interface Post {
   url: string;
   title?: string;
+  author?: string;
+  author_dynasty?: string;
   layout?: string;
   summary?: string;
   tags?: string[];
@@ -13,6 +15,7 @@ export interface Post {
   draft?: boolean;
   lastUpdate?: string;
   category?: string;
+  isPoetry?: boolean;
   [k: string]: any;
 }
 

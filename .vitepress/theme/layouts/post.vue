@@ -4,7 +4,6 @@ import { useApp } from '@/utils/hooks';
 import { toLocalDayjs } from '@/utils/logic';
 
 import Outline from './includes/Outline.vue';
-import Pagination from './includes/Pagination.vue';
 
 const { frontmatter } = useApp();
 const datetime = computed(() => toLocalDayjs(frontmatter.value.date).format());
@@ -14,11 +13,14 @@ const date = computed(() => toLocalDayjs(frontmatter.value.date).format('YYYY年
 <template>
   <article :class="$style.post">
     <h1>{{ frontmatter.title }}</h1>
-    <time :datetime>{{ date }}</time>
+    <span v-if="frontmatter.author && frontmatter.author_dynasty" :class="$style.author">
+      <span>{{ frontmatter.author }}</span>
+      <span>{{ frontmatter.author_dynasty }}</span>
+    </span>
+    <time v-else :datetime>{{ date }}</time>
     <Outline :class="$style.outline" />
     <Content id="post-content" />
   </article>
-  <Pagination />
 </template>
 
 <style lang="scss" module>
@@ -32,10 +34,21 @@ const date = computed(() => toLocalDayjs(frontmatter.value.date).format('YYYY年
     line-height: 2.5rem;
   }
 
-  > time {
+  > time,
+  .author {
     display: block;
     color: var(--home-date-color);
     margin-bottom: 2rem;
+  }
+
+  .author > span:last-child {
+    &::before {
+      content: "\3014";
+    }
+
+    &::after {
+      content: "\3015";
+    }
   }
 
   &:hover .outline {

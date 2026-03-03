@@ -606,6 +606,26 @@ export default {
 }
 ```
 
+## 色彩高亮 {#color-highlight}
+
+自动高亮色彩值。
+
+### 颜色名称
+
+这是 white 和 black 颜色。
+
+### 十六进制
+
+#fff，#ff0000，#00ff00，#0000ff，#ff000080
+
+### 颜色函数
+
+rgb(255, 0, 0)，rgba(255, 0, 0, 0.5)，hsl(120, 100%, 50%)，hsla(120, 100%, 50%, 0.5)
+
+### 现代颜色函数
+
+hwb(60deg 0% 0%)，lab(56.29% -10.96 47.62)，lch(56.29% 62.87 132.5)，oklab(0.63 -0.11 0.14)，oklch(0.63 0.18 132.5)，color(display-p3 1 0 0)
+
 ## 高级配置 {#advanced-configuration}
 
 VitePress 使用 [markdown-it](https://github.com/markdown-it/markdown-it) 作为 Markdown 渲染器。上面提到的很多扩展功能都是通过自定义插件实现的。可以使用 `.vitepress/config.js` 中的 `markdown` 选项来进一步自定义 `markdown-it` 实例。

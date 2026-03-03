@@ -78,6 +78,17 @@ code, kbd, samp, pre {
   font-family: var(--code-font);
 }
 
+dfn {
+  font-style: normal;
+  border-bottom: 1px dotted;
+}
+
+u {
+  font-style: normal;
+  border-bottom: 1px solid;
+  text-decoration: none;
+}
+
 summary {
   display: list-item;
 }

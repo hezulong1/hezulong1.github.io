@@ -3,6 +3,10 @@ import { groupIconMdPlugin } from '../plugins/group-icons';
 import getThemeConfig, { type ThemeConfig } from './theme';
 import getViteConfig from './vite';
 
+import footnote_plugin from 'markdown-it-footnote';
+import ruby_plugin from '../plugins/ruby';
+import color_plugin from '../plugins/color';
+
 export default <UserConfigExport<ThemeConfig>> function vitepressConfig(env) {
   const themeConfig = getThemeConfig(env);
   const vite = getViteConfig(env);
@@ -61,6 +65,9 @@ browserClass && document.documentElement.classList.add(browserClass);
       },
       config(md) {
         md.use(groupIconMdPlugin);
+        md.use(color_plugin);
+        md.use(ruby_plugin);
+        md.use(footnote_plugin);
       },
     },
     themeConfig,
