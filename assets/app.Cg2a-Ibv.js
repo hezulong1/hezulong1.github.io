@@ -464,6 +464,7 @@ const hasOwn = (val, key) => hasOwnProperty$1.call(val, key);
 const isArray = Array.isArray;
 const isMap = (val) => toTypeString(val) === "[object Map]";
 const isSet = (val) => toTypeString(val) === "[object Set]";
+const isDate = (val) => toTypeString(val) === "[object Date]";
 const isFunction = (val) => typeof val === "function";
 const isString = (val) => typeof val === "string";
 const isSymbol = (val) => typeof val === "symbol";
@@ -585,6 +586,52 @@ const isSpecialBooleanAttr = /* @__PURE__ */ makeMap(specialBooleanAttrs);
 function includeBooleanAttr(value) {
   return !!value || value === "";
 }
+function looseCompareArrays(a, b) {
+  if (a.length !== b.length) return false;
+  let equal = true;
+  for (let i = 0; equal && i < a.length; i++) {
+    equal = looseEqual(a[i], b[i]);
+  }
+  return equal;
+}
+function looseEqual(a, b) {
+  if (a === b) return true;
+  let aValidType = isDate(a);
+  let bValidType = isDate(b);
+  if (aValidType || bValidType) {
+    return aValidType && bValidType ? a.getTime() === b.getTime() : false;
+  }
+  aValidType = isSymbol(a);
+  bValidType = isSymbol(b);
+  if (aValidType || bValidType) {
+    return a === b;
+  }
+  aValidType = isArray(a);
+  bValidType = isArray(b);
+  if (aValidType || bValidType) {
+    return aValidType && bValidType ? looseCompareArrays(a, b) : false;
+  }
+  aValidType = isObject$2(a);
+  bValidType = isObject$2(b);
+  if (aValidType || bValidType) {
+    if (!aValidType || !bValidType) {
+      return false;
+    }
+    const aKeysCount = Object.keys(a).length;
+    const bKeysCount = Object.keys(b).length;
+    if (aKeysCount !== bKeysCount) {
+      return false;
+    }
+    for (const key in a) {
+      const aHasKey = a.hasOwnProperty(key);
+      const bHasKey = b.hasOwnProperty(key);
+      if (aHasKey && !bHasKey || !aHasKey && bHasKey || !looseEqual(a[key], b[key])) {
+        return false;
+      }
+    }
+  }
+  return String(a) === String(b);
+}
 const isRef$1 = (val) => {
   return !!(val && val["__v_isRef"] === true);
 };
@@ -625,6 +672,7 @@ const stringifySymbol = (v, i = "") => {
 };
 let activeEffectScope;
 class EffectScope {
+  // TODO isolatedDeclarations "__v_skip"
   constructor(detached = false) {
     this.detached = detached;
     this._active = true;
@@ -632,6 +680,7 @@ class EffectScope {
     this.effects = [];
     this.cleanups = [];
     this._isPaused = false;
+    this.__v_skip = true;
     this.parent = activeEffectScope;
     if (!detached && activeEffectScope) {
       this.index = (activeEffectScope.scopes || (activeEffectScope.scopes = [])).push(
@@ -2759,6 +2808,10 @@ function defineComponent(options, extraOptions) {
 function markAsyncBoundary(instance) {
   instance.ids = [instance.ids[0] + instance.ids[2]++ + "-", 0, 0];
 }
+function isTemplateRefKey(refs, key) {
+  let desc;
+  return !!((desc = Object.getOwnPropertyDescriptor(refs, key)) && !desc.configurable);
+}
 const pendingSetRefMap = /* @__PURE__ */ new WeakMap();
 function setRef(rawRef, oldRawRef, parentSuspense, vnode, isUnmount = false) {
   if (isArray(rawRef)) {
@@ -2787,7 +2840,16 @@ function setRef(rawRef, oldRawRef, parentSuspense, vnode, isUnmount = false) {
   const setupState = owner.setupState;
   const rawSetupState = /* @__PURE__ */ toRaw(setupState);
   const canSetSetupRef = setupState === EMPTY_OBJ ? NO : (key) => {
+    if (isTemplateRefKey(refs, key)) {
+      return false;
+    }
     return hasOwn(rawSetupState, key);
+  };
+  const canSetRef = (ref22, key) => {
+    if (key && isTemplateRefKey(refs, key)) {
+      return false;
+    }
+    return true;
   };
   if (oldRef != null && oldRef !== ref3) {
     invalidatePendingSetRef(oldRawRef);
@@ -2797,10 +2859,10 @@ function setRef(rawRef, oldRawRef, parentSuspense, vnode, isUnmount = false) {
         setupState[oldRef] = null;
       }
     } else if (/* @__PURE__ */ isRef(oldRef)) {
-      {
+      const oldRawRefAtom = oldRawRef;
+      if (canSetRef(oldRef, oldRawRefAtom.k)) {
         oldRef.value = null;
       }
-      const oldRawRefAtom = oldRawRef;
       if (oldRawRefAtom.k) refs[oldRawRefAtom.k] = null;
     }
   }
@@ -2812,7 +2874,7 @@ function setRef(rawRef, oldRawRef, parentSuspense, vnode, isUnmount = false) {
     if (_isString || _isRef) {
       const doSet = () => {
         if (rawRef.f) {
-          const existing = _isString ? canSetSetupRef(ref3) ? setupState[ref3] : refs[ref3] : ref3.value;
+          const existing = _isString ? canSetSetupRef(ref3) ? setupState[ref3] : refs[ref3] : canSetRef() || !rawRef.k ? ref3.value : refs[rawRef.k];
           if (isUnmount) {
             isArray(existing) && remove(existing, refValue);
           } else {
@@ -2824,7 +2886,7 @@ function setRef(rawRef, oldRawRef, parentSuspense, vnode, isUnmount = false) {
                 }
               } else {
                 const newVal = [refValue];
-                {
+                if (canSetRef(ref3, rawRef.k)) {
                   ref3.value = newVal;
                 }
                 if (rawRef.k) refs[rawRef.k] = newVal;
@@ -2839,7 +2901,7 @@ function setRef(rawRef, oldRawRef, parentSuspense, vnode, isUnmount = false) {
             setupState[ref3] = value;
           }
         } else if (_isRef) {
-          {
+          if (canSetRef(ref3, rawRef.k)) {
             ref3.value = value;
           }
           if (rawRef.k) refs[rawRef.k] = value;
@@ -4416,7 +4478,7 @@ function shouldUpdateComponent(prevVNode, nextVNode, optimized) {
       const dynamicProps = nextVNode.dynamicProps;
       for (let i = 0; i < dynamicProps.length; i++) {
         const key = dynamicProps[i];
-        if (nextProps[key] !== prevProps[key] && !isEmitListener(emits, key)) {
+        if (hasPropValueChanged(nextProps, prevProps, key) && !isEmitListener(emits, key)) {
           return true;
         }
       }
@@ -4447,11 +4509,19 @@ function hasPropsChanged(prevProps, nextProps, emitsOptions) {
   }
   for (let i = 0; i < nextKeys.length; i++) {
     const key = nextKeys[i];
-    if (nextProps[key] !== prevProps[key] && !isEmitListener(emitsOptions, key)) {
+    if (hasPropValueChanged(nextProps, prevProps, key) && !isEmitListener(emitsOptions, key)) {
       return true;
     }
   }
   return false;
+}
+function hasPropValueChanged(nextProps, prevProps, key) {
+  const nextProp = nextProps[key];
+  const prevProp = prevProps[key];
+  if (key === "style" && isObject$2(nextProp) && isObject$2(prevProp)) {
+    return !looseEqual(nextProp, prevProp);
+  }
+  return nextProp !== prevProp;
 }
 function updateHOCHostEl({ vnode, parent }, el) {
   while (parent) {
@@ -4967,9 +5037,7 @@ function baseCreateRenderer(options, createHydrationFns) {
     } else {
       const el = n2.el = n1.el;
       if (n2.children !== n1.children) {
-        {
-          hostSetText(el, n2.children);
-        }
+        hostSetText(el, n2.children);
       }
     }
   };
@@ -5030,7 +5098,7 @@ function baseCreateRenderer(options, createHydrationFns) {
         optimized
       );
     } else {
-      const customElement = !!(n1.el && n1.el._isVueCE) ? n1.el : null;
+      const customElement = n1.el && n1.el._isVueCE ? n1.el : null;
       try {
         if (customElement) {
           customElement._beginPatch();
@@ -5461,8 +5529,7 @@ function baseCreateRenderer(options, createHydrationFns) {
             hydrateSubTree();
           }
         } else {
-          if (root2.ce && // @ts-expect-error _def is private
-          root2.ce._def.shadowRoot !== false) {
+          if (root2.ce && root2.ce._hasShadowRoot()) {
             root2.ce._injectChildStyle(type);
           }
           const subTree = instance.subTree = renderComponentRoot(instance);
@@ -5502,9 +5569,9 @@ function baseCreateRenderer(options, createHydrationFns) {
               updateComponentPreRender(instance, next, optimized);
             }
             nonHydratedAsyncRoot.asyncDep.then(() => {
-              if (!instance.isUnmounted) {
-                componentUpdateFn();
-              }
+              queuePostRenderEffect(() => {
+                if (!instance.isUnmounted) update();
+              }, parentSuspense);
             });
             return;
           }
@@ -6155,12 +6222,10 @@ function traverseStaticChildren(n1, n2, shallow = false) {
           traverseStaticChildren(c1, c2);
       }
       if (c2.type === Text) {
-        if (c2.patchFlag !== -1) {
-          c2.el = c1.el;
-        } else {
-          c2.__elIndex = i + // take fragment start anchor into account
-          (n1.type === Fragment ? 1 : 0);
+        if (c2.patchFlag === -1) {
+          c2 = ch2[i] = cloneIfMounted(c2);
         }
+        c2.el = c1.el;
       }
       if (c2.type === Comment && !c2.el) {
         c2.el = c1.el;
@@ -6892,7 +6957,7 @@ function h(type, propsOrChildren, children) {
     setBlockTracking(1);
   }
 }
-const version = "3.5.27";
+const version = "3.5.29";
 let policy = void 0;
 const tt = typeof window !== "undefined" && window.trustedTypes;
 if (tt) {
@@ -12345,25 +12410,12 @@ function registerWatchers() {
     headers.value = getHeaders([2, 3]);
   });
 }
-const data = JSON.parse('[{"url":"/posts/keep-the-conversation-going-with-everyone","title":"可以与任何人无脑聊下去的方法","date":"2026-02-02 09:06","layout":"post","tags":"人际交往","category":"摘录"},{"url":"/posts/my-blog","title":"我的博客","date":"2026-01-22T00:00:00.000Z","layout":"post"},{"url":"/posts/git-multiple-account-configuration","title":"配置 Git 多账户指南","date":"2022-07-10T00:00:00.000Z","layout":"post"}]');
+const data = JSON.parse('[{"url":"/posts/__chi-bi-fu","title":"赤壁赋","date":"2026-02-15T12:25","author":"苏轼","author_dynasty":"宋","layout":"post","isPoetry":true},{"url":"/posts/cost-of-meeting","title":"所有关系，“见面成本”就是试金石","date":"2026-02-14T15:20","layout":"post"},{"url":"/posts/__po-yao-fu","title":"破窑赋","date":"2026-02-05T00:00:00.000Z","author":"吕蒙正","author_dynasty":"宋","layout":"post","isPoetry":true},{"url":"/posts/keep-the-conversation-going-with-everyone","title":"可以与任何人无脑聊下去的方法","date":"2026-02-02 09:06","layout":"post","tags":"心理学，人际交往，格物心法","category":"心理学"},{"url":"/posts/my-blog","title":"我的博客","date":"2026-01-22T00:00:00.000Z","layout":"post"},{"url":"/posts/git-multiple-account-configuration","title":"配置 Git 多账户指南","date":"2022-07-10T00:00:00.000Z","layout":"post"}]');
 function usePostList() {
   return /* @__PURE__ */ readonly(data);
 }
-function usePrevNext() {
-  const { page } = useApp();
-  return computed(() => {
-    const candidates = data.filter((x) => !x.draft);
-    const index = candidates.findIndex((x) => isActivePath(page.value.relativePath, x.url));
-    const prev = candidates[index + 1];
-    const next = candidates[index - 1];
-    return [
-      prev ? { title: prev.title, url: prev.url } : null,
-      next ? { title: next.title, url: next.url } : null
-    ];
-  });
-}
 const _hoisted_1$d = ["href", "target", "rel", "tabindex"];
-const _sfc_main$j = /* @__PURE__ */ defineComponent({
+const _sfc_main$i = /* @__PURE__ */ defineComponent({
   __name: "Link",
   props: {
     href: {},
@@ -12387,7 +12439,7 @@ const _sfc_main$j = /* @__PURE__ */ defineComponent({
   }
 });
 const inherit = "kze9qsvl";
-const style0$c = {
+const style0$b = {
   inherit
 };
 const _export_sfc = (sfc, props2) => {
@@ -12397,15 +12449,15 @@ const _export_sfc = (sfc, props2) => {
   }
   return target;
 };
-const cssModules$c = {
-  "$style": style0$c
+const cssModules$b = {
+  "$style": style0$b
 };
-const Link2 = /* @__PURE__ */ _export_sfc(_sfc_main$j, [["__cssModules", cssModules$c]]);
+const Link2 = /* @__PURE__ */ _export_sfc(_sfc_main$i, [["__cssModules", cssModules$b]]);
 const _hoisted_1$c = {
   href: "/",
   title: "Home"
 };
-const _sfc_main$i = /* @__PURE__ */ defineComponent({
+const _sfc_main$h = /* @__PURE__ */ defineComponent({
   __name: "Header",
   setup(__props) {
     const route = useRoute();
@@ -12452,17 +12504,17 @@ const header = "ngecjshw";
 const logo = "kbcnmp21";
 const active = "hln63f8x";
 const breadcrumb = "rdvnksp5";
-const style0$b = {
+const style0$a = {
   header,
   logo,
   active,
   breadcrumb
 };
-const cssModules$b = {
-  "$style": style0$b
+const cssModules$a = {
+  "$style": style0$a
 };
-const Header = /* @__PURE__ */ _export_sfc(_sfc_main$i, [["__cssModules", cssModules$b]]);
-const _sfc_main$h = {};
+const Header = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["__cssModules", cssModules$a]]);
+const _sfc_main$g = {};
 const _hoisted_1$b = {
   xmlns: "http://www.w3.org/2000/svg",
   "data-category": "Carbon",
@@ -12482,8 +12534,8 @@ function _sfc_render$6(_ctx, _cache) {
     }, null, -1)
   ])]);
 }
-const Cnblog = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["render", _sfc_render$6]]);
-const _sfc_main$g = {};
+const Cnblog = /* @__PURE__ */ _export_sfc(_sfc_main$g, [["render", _sfc_render$6]]);
+const _sfc_main$f = {};
 const _hoisted_1$a = {
   xmlns: "http://www.w3.org/2000/svg",
   "data-category": "Lucide",
@@ -12505,8 +12557,8 @@ function _sfc_render$5(_ctx, _cache) {
     ], -1)
   ])]);
 }
-const Github = /* @__PURE__ */ _export_sfc(_sfc_main$g, [["render", _sfc_render$5]]);
-const _sfc_main$f = {};
+const Github = /* @__PURE__ */ _export_sfc(_sfc_main$f, [["render", _sfc_render$5]]);
+const _sfc_main$e = {};
 const _hoisted_1$9 = {
   xmlns: "http://www.w3.org/2000/svg",
   "data-category": "Lucide",
@@ -12532,8 +12584,8 @@ function _sfc_render$4(_ctx, _cache) {
     ], -1)
   ])]);
 }
-const Sun = /* @__PURE__ */ _export_sfc(_sfc_main$f, [["render", _sfc_render$4]]);
-const _sfc_main$e = {};
+const Sun = /* @__PURE__ */ _export_sfc(_sfc_main$e, [["render", _sfc_render$4]]);
+const _sfc_main$d = {};
 const _hoisted_1$8 = {
   xmlns: "http://www.w3.org/2000/svg",
   "data-category": "Lucide",
@@ -12553,9 +12605,9 @@ function _sfc_render$3(_ctx, _cache) {
     }, null, -1)
   ])]);
 }
-const Moon = /* @__PURE__ */ _export_sfc(_sfc_main$e, [["render", _sfc_render$3]]);
+const Moon = /* @__PURE__ */ _export_sfc(_sfc_main$d, [["render", _sfc_render$3]]);
 const _hoisted_1$7 = ["disabled"];
-const _sfc_main$d = /* @__PURE__ */ defineComponent({
+const _sfc_main$c = /* @__PURE__ */ defineComponent({
   __name: "Button",
   props: {
     disabled: { type: Boolean },
@@ -12599,15 +12651,15 @@ const _sfc_main$d = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const root$5 = "kal8uqjs";
-const style0$a = {
-  root: root$5
+const root$4 = "kal8uqjs";
+const style0$9 = {
+  root: root$4
 };
-const cssModules$a = {
-  "$style": style0$a
+const cssModules$9 = {
+  "$style": style0$9
 };
-const Button = /* @__PURE__ */ _export_sfc(_sfc_main$d, [["__cssModules", cssModules$a]]);
-const _sfc_main$c = /* @__PURE__ */ defineComponent({
+const Button = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["__cssModules", cssModules$9]]);
+const _sfc_main$b = /* @__PURE__ */ defineComponent({
   __name: "ConfigSwitchTheme",
   setup(__props) {
     const { isDark } = useApp();
@@ -12643,16 +12695,16 @@ const _sfc_main$c = /* @__PURE__ */ defineComponent({
 });
 const moon = "vluk93lh";
 const sun = "taak5gam";
-const style0$9 = {
+const style0$8 = {
   moon,
   sun
 };
-const cssModules$9 = {
-  "$style": style0$9
+const cssModules$8 = {
+  "$style": style0$8
 };
-const SwitchTheme = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["__cssModules", cssModules$9]]);
+const SwitchTheme = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["__cssModules", cssModules$8]]);
 const _hoisted_1$6 = ["datetime"];
-const _sfc_main$b = /* @__PURE__ */ defineComponent({
+const _sfc_main$a = /* @__PURE__ */ defineComponent({
   __name: "Footer",
   setup(__props) {
     const { theme: theme2, site } = useApp();
@@ -12699,16 +12751,16 @@ const _sfc_main$b = /* @__PURE__ */ defineComponent({
 const footer = "vut2zd8q";
 const socials = "jbzb3bsf";
 const theme = "etrcwlwr";
-const style0$8 = {
+const style0$7 = {
   footer,
   socials,
   theme
 };
-const cssModules$8 = {
-  "$style": style0$8
+const cssModules$7 = {
+  "$style": style0$7
 };
-const Footer = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["__cssModules", cssModules$8]]);
-const _sfc_main$a = {};
+const Footer = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["__cssModules", cssModules$7]]);
+const _sfc_main$9 = {};
 const _hoisted_1$5 = {
   xmlns: "http://www.w3.org/2000/svg",
   width: "1em",
@@ -12723,8 +12775,8 @@ function _sfc_render$2(_ctx, _cache) {
     }, null, -1)
   ])]);
 }
-const ArrowUp = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["render", _sfc_render$2]]);
-const _sfc_main$9 = /* @__PURE__ */ defineComponent({
+const ArrowUp = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$2]]);
+const _sfc_main$8 = /* @__PURE__ */ defineComponent({
   __name: "ConfigBackToTop",
   setup(__props) {
     function toTop() {
@@ -12751,15 +12803,15 @@ const _sfc_main$9 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const root$4 = "phgu1s4d";
-const style0$7 = {
-  root: root$4
+const root$3 = "phgu1s4d";
+const style0$6 = {
+  root: root$3
 };
-const cssModules$7 = {
-  "$style": style0$7
+const cssModules$6 = {
+  "$style": style0$6
 };
-const BackToTop = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["__cssModules", cssModules$7]]);
-const _sfc_main$8 = /* @__PURE__ */ defineComponent({
+const BackToTop = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["__cssModules", cssModules$6]]);
+const _sfc_main$7 = /* @__PURE__ */ defineComponent({
   __name: "Config",
   setup(__props) {
     return (_ctx, _cache) => {
@@ -12772,15 +12824,15 @@ const _sfc_main$8 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const root$3 = "pae0gb7q";
-const style0$6 = {
-  root: root$3
+const root$2 = "pae0gb7q";
+const style0$5 = {
+  root: root$2
 };
-const cssModules$6 = {
-  "$style": style0$6
+const cssModules$5 = {
+  "$style": style0$5
 };
-const Config = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["__cssModules", cssModules$6]]);
-const _sfc_main$7 = {};
+const Config = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["__cssModules", cssModules$5]]);
+const _sfc_main$6 = {};
 function _sfc_render$1(_ctx, _cache) {
   return openBlock(), createElementBlock("div", null, [..._cache[0] || (_cache[0] = [
     createBaseVNode("h1", { "data-i18n-en": "404: Page not found" }, "404：页面未找到", -1),
@@ -12791,10 +12843,10 @@ function _sfc_render$1(_ctx, _cache) {
     ], -1)
   ])]);
 }
-const NotFound = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["render", _sfc_render$1]]);
+const NotFound = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["render", _sfc_render$1]]);
 const _hoisted_1$4 = ["href"];
 const _hoisted_2 = ["datetime"];
-const _sfc_main$6 = /* @__PURE__ */ defineComponent({
+const _sfc_main$5 = /* @__PURE__ */ defineComponent({
   __name: "home",
   setup(__props) {
     const postList = usePostList().filter((x) => !x.draft).map((x) => {
@@ -12809,7 +12861,7 @@ const _sfc_main$6 = /* @__PURE__ */ defineComponent({
         month,
         date,
         url: x.url,
-        title: x.title
+        title: x.title + (x.isPoetry ? ` ─ ${x.author}〔${x.author_dynasty}〕` : "")
       };
     });
     return (_ctx, _cache) => {
@@ -12843,18 +12895,18 @@ const _sfc_main$6 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const root$2 = "wnbgn8g5";
+const root$1 = "wnbgn8g5";
 const dot = "lowthjtg";
-const style0$5 = {
-  root: root$2,
+const style0$4 = {
+  root: root$1,
   dot
 };
-const cssModules$5 = {
-  "$style": style0$5
+const cssModules$4 = {
+  "$style": style0$4
 };
-const Home = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["__cssModules", cssModules$5]]);
+const Home = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["__cssModules", cssModules$4]]);
 const _hoisted_1$3 = ["href", "title"];
-const _sfc_main$5 = /* @__PURE__ */ defineComponent({
+const _sfc_main$4 = /* @__PURE__ */ defineComponent({
   __name: "OutlineItem",
   props: {
     headers: {},
@@ -12888,17 +12940,17 @@ const _sfc_main$5 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const item$1 = "kgc8n5lu";
+const item = "kgc8n5lu";
 const link$1 = "woz9u05i";
-const style0$4 = {
-  item: item$1,
+const style0$3 = {
+  item,
   link: link$1
 };
-const cssModules$4 = {
-  "$style": style0$4
+const cssModules$3 = {
+  "$style": style0$3
 };
-const OutlineItem = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["__cssModules", cssModules$4]]);
-const _sfc_main$4 = {};
+const OutlineItem = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__cssModules", cssModules$3]]);
+const _sfc_main$3 = {};
 const _hoisted_1$2 = {
   xmlns: "http://www.w3.org/2000/svg",
   width: "1em",
@@ -12913,8 +12965,8 @@ function _sfc_render(_ctx, _cache) {
     }, null, -1)
   ])]);
 }
-const TableOfContents = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render]]);
-const _sfc_main$3 = /* @__PURE__ */ defineComponent({
+const TableOfContents = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["render", _sfc_render]]);
+const _sfc_main$2 = /* @__PURE__ */ defineComponent({
   __name: "Outline",
   setup(__props) {
     const container2 = /* @__PURE__ */ ref();
@@ -12954,64 +13006,20 @@ const _sfc_main$3 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const root$1 = "lbc6a3hv";
+const root = "lbc6a3hv";
 const title = "gx941hbb";
 const content = "mdxy9x7r";
 const marker = "bv99p137";
-const style0$3 = {
-  root: root$1,
+const style0$2 = {
+  root,
   title,
   content,
   marker
 };
-const cssModules$3 = {
-  "$style": style0$3
-};
-const Outline = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__cssModules", cssModules$3]]);
-const _sfc_main$2 = /* @__PURE__ */ defineComponent({
-  __name: "Pagination",
-  setup(__props) {
-    const control = usePrevNext();
-    const prev = computed(() => control.value[0]);
-    const next = computed(() => control.value[1]);
-    return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div", {
-        class: normalizeClass(_ctx.$style.root)
-      }, [
-        createVNode(Button, {
-          class: normalizeClass([_ctx.$style.item, "older"]),
-          disabled: !prev.value,
-          href: prev.value?.url
-        }, {
-          default: withCtx(() => [..._cache[0] || (_cache[0] = [
-            createTextVNode("Prev", -1)
-          ])]),
-          _: 1
-        }, 8, ["class", "disabled", "href"]),
-        createVNode(Button, {
-          class: normalizeClass([_ctx.$style.item, "newer"]),
-          disabled: !next.value,
-          href: next.value?.url
-        }, {
-          default: withCtx(() => [..._cache[1] || (_cache[1] = [
-            createTextVNode("Next", -1)
-          ])]),
-          _: 1
-        }, 8, ["class", "disabled", "href"])
-      ], 2);
-    };
-  }
-});
-const root = "cxmyf8y7";
-const item = "bz8snivf";
-const style0$2 = {
-  root,
-  item
-};
 const cssModules$2 = {
   "$style": style0$2
 };
-const Pagination = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__cssModules", cssModules$2]]);
+const Outline = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__cssModules", cssModules$2]]);
 const _hoisted_1$1 = ["datetime"];
 const _sfc_main$1 = /* @__PURE__ */ defineComponent({
   __name: "post",
@@ -13021,26 +13029,34 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
     const date = computed(() => toLocalDayjs(frontmatter.value.date).format("YYYY年MM月DD日"));
     return (_ctx, _cache) => {
       const _component_Content = resolveComponent("Content");
-      return openBlock(), createElementBlock(Fragment, null, [
-        createBaseVNode("article", {
-          class: normalizeClass(_ctx.$style.post)
+      return openBlock(), createElementBlock("article", {
+        class: normalizeClass(_ctx.$style.post)
+      }, [
+        createBaseVNode("h1", null, toDisplayString(unref(frontmatter).title), 1),
+        unref(frontmatter).author && unref(frontmatter).author_dynasty ? (openBlock(), createElementBlock("span", {
+          key: 0,
+          class: normalizeClass(_ctx.$style.author)
         }, [
-          createBaseVNode("h1", null, toDisplayString(unref(frontmatter).title), 1),
-          createBaseVNode("time", { datetime: datetime.value }, toDisplayString(date.value), 9, _hoisted_1$1),
-          createVNode(Outline, {
-            class: normalizeClass(_ctx.$style.outline)
-          }, null, 8, ["class"]),
-          createVNode(_component_Content, { id: "post-content" })
-        ], 2),
-        createVNode(Pagination)
-      ], 64);
+          createBaseVNode("span", null, toDisplayString(unref(frontmatter).author), 1),
+          createBaseVNode("span", null, toDisplayString(unref(frontmatter).author_dynasty), 1)
+        ], 2)) : (openBlock(), createElementBlock("time", {
+          key: 1,
+          datetime: datetime.value
+        }, toDisplayString(date.value), 9, _hoisted_1$1)),
+        createVNode(Outline, {
+          class: normalizeClass(_ctx.$style.outline)
+        }, null, 8, ["class"]),
+        createVNode(_component_Content, { id: "post-content" })
+      ], 2);
     };
   }
 });
 const post = "lkvw5g3c";
+const author = "gz7wq1md";
 const outline = "uxo0kl0v";
 const style0$1 = {
   post,
+  author,
   outline
 };
 const cssModules$1 = {

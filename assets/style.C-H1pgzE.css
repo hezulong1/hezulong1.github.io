@@ -317,6 +317,17 @@ code, kbd, samp, pre {
   font-family: var(--code-font);
 }
 
+dfn {
+  font-style: normal;
+  border-bottom: 1px dotted;
+}
+
+u {
+  font-style: normal;
+  border-bottom: 1px solid;
+  text-decoration: none;
+}
+
 summary {
   display: list-item;
 }
@@ -788,6 +799,25 @@ a[href^="#fnref:"] {
   display: inline-block;
   margin-left: 0.1rem;
   font-weight: bold;
+}
+
+.color-wrapper {
+  --size: .875rem;
+  --border: #000;
+  position: relative;
+}
+
+.dark .color-wrapper,
+.color-wrapper.dark {
+  --border: #fff;
+}
+
+.color-indicator {
+  display: inline-block;
+  width: var(--size);
+  height: var(--size);
+  border: 1px solid var(--border);
+  margin-right: 0.25rem;
 }.kze9qsvl {
   color: inherit;
 }
@@ -999,39 +1029,6 @@ a[href^="#fnref:"] {
   height: 18px;
   background-color: var(--accent-color);
   transition: top 0.25s cubic-bezier(0, 1, 0.5, 1), background-color 0.5s, opacity 0.25s;
-}.cxmyf8y7 {
-  margin: 0 -1.5rem 1rem;
-  overflow: hidden;
-}
-.bz8snivf {
-  display: flex;
-  padding: 1rem;
-  border: solid var(--border-color);
-  border-width: 1px 0;
-  border-radius: 0;
-}
-.bz8snivf:first-child {
-  margin-bottom: -1px;
-}
-@media (min-width: 560px) {
-.cxmyf8y7 {
-    margin: 3rem 0;
-}
-.bz8snivf {
-    float: left;
-    width: 50%;
-    border-width: 1px;
-}
-.bz8snivf:first-child {
-    margin-bottom: 0;
-    border-top-left-radius: 0.25rem;
-    border-bottom-left-radius: 0.25rem;
-}
-.bz8snivf:last-child {
-    margin-left: -1px;
-    border-top-right-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
-}
 }.lkvw5g3c {
   margin-bottom: 4em;
   word-break: break-word;
@@ -1041,10 +1038,17 @@ a[href^="#fnref:"] {
   font-size: 2.25rem;
   line-height: 2.5rem;
 }
-.lkvw5g3c > time {
+.lkvw5g3c > time,
+.lkvw5g3c .gz7wq1md {
   display: block;
   color: var(--home-date-color);
   margin-bottom: 2rem;
+}
+.lkvw5g3c .gz7wq1md > span:last-child::before {
+  content: "〔";
+}
+.lkvw5g3c .gz7wq1md > span:last-child::after {
+  content: "〕";
 }
 .lkvw5g3c:hover .uxo0kl0v [role=heading] > *,
 .lkvw5g3c:hover .uxo0kl0v > div {
