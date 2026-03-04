@@ -1,5 +1,5 @@
 ---
-title: 为什么使用虚拟 DOM ？
+title: 为什么使用虚拟 DOM
 date: 2026-03-04T10:52
 layout: post
 ---
