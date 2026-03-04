@@ -1,5 +1,5 @@
-import { _ as _export_sfc, o as openBlock, c as createElementBlock, a as createStaticVNode } from "./app.0BlytyvY.js";
-const __pageData = JSON.parse('{"title":"可以与任何人无脑聊下去的方法","description":"","frontmatter":{"title":"可以与任何人无脑聊下去的方法","date":"2026-02-02 09:06","layout":"post","tags":"心理学，人际交往，格物心法","category":"心理学"},"headers":[],"relativePath":"posts/keep-the-conversation-going-with-everyone.md","filePath":"posts/keep-the-conversation-going-with-everyone.md","lastUpdated":1772604665000}');
+import { _ as _export_sfc, o as openBlock, c as createElementBlock, a as createStaticVNode } from "./app.Du4GBOph.js";
+const __pageData = JSON.parse('{"title":"可以与任何人无脑聊下去的方法","description":"","frontmatter":{"title":"可以与任何人无脑聊下去的方法","date":"2026-02-02 09:06","layout":"post","tags":"心理学，人际交往，格物心法","category":"心理学"},"headers":[],"relativePath":"posts/keep-the-conversation-going-with-everyone.md","filePath":"posts/keep-the-conversation-going-with-everyone.md","lastUpdated":1772605277000}');
 const _sfc_main = { name: "posts/keep-the-conversation-going-with-everyone.md" };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", null, [..._cache[0] || (_cache[0] = [
