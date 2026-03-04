@@ -143,7 +143,7 @@ export function useActiveAnchor(container: Ref<HTMLElement>, marker: Ref<HTMLEle
 
   function activateLink(hash: string | null) {
     prevActiveLink?.classList.remove('active');
-    prevActiveLink = hash == null ? null : container.value.querySelector(`a[href="${decodeURIComponent(hash)}"]`);
+    prevActiveLink = hash == null ? null : container.value ? container.value.querySelector(`a[href="${decodeURIComponent(hash)}"]`) : null;
 
     const activeLink = prevActiveLink;
     const baseOffset = (/* activeLink.offsetHeight */ 24 - /* marker.value.offsetHeight */ 18) / 2;

@@ -54,6 +54,8 @@ useActiveAnchor(container, marker);
   position: sticky;
   top: 0;
   background-color: var(--body-bg);
+  cursor: default;
+  user-select: none;
 }
 
 .content {
