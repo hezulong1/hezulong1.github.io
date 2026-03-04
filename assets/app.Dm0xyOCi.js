@@ -12340,7 +12340,7 @@ function useActiveAnchor(container2, marker2) {
   }
   function activateLink(hash2) {
     prevActiveLink?.classList.remove("active");
-    prevActiveLink = hash2 == null ? null : container2.value.querySelector(`a[href="${decodeURIComponent(hash2)}"]`);
+    prevActiveLink = hash2 == null ? null : container2.value ? container2.value.querySelector(`a[href="${decodeURIComponent(hash2)}"]`) : null;
     const activeLink = prevActiveLink;
     const baseOffset = (
       /* activeLink.offsetHeight */
@@ -12410,7 +12410,7 @@ function registerWatchers() {
     headers.value = getHeaders([2, 3]);
   });
 }
-const data = JSON.parse('[{"url":"/posts/__chi-bi-fu","title":"赤壁赋","date":"2026-02-15T12:25","author":"苏轼","author_dynasty":"宋","layout":"post","isPoetry":true},{"url":"/posts/cost-of-meeting","title":"所有关系，“见面成本”就是试金石","date":"2026-02-14T15:20","layout":"post"},{"url":"/posts/__po-yao-fu","title":"破窑赋","date":"2026-02-05T00:00:00.000Z","author":"吕蒙正","author_dynasty":"宋","layout":"post","isPoetry":true},{"url":"/posts/keep-the-conversation-going-with-everyone","title":"可以与任何人无脑聊下去的方法","date":"2026-02-02 09:06","layout":"post","tags":"心理学，人际交往，格物心法","category":"心理学"},{"url":"/posts/my-blog","title":"我的博客","date":"2026-01-22T00:00:00.000Z","layout":"post"},{"url":"/posts/git-multiple-account-configuration","title":"配置 Git 多账户指南","date":"2022-07-10T00:00:00.000Z","layout":"post"}]');
+const data = JSON.parse('[{"url":"/posts/why-use-virtual-dom","title":"为什么使用虚拟 DOM ？","date":"2026-03-04T10:52","layout":"post"},{"url":"/posts/optimize-web-image","title":"优化浏览器图片资源","date":"2026-03-03T14:19","layout":"post"},{"url":"/posts/__chi-bi-fu","title":"赤壁赋","date":"2026-02-15T12:25","author":"苏轼","author_dynasty":"宋","layout":"post","isPoetry":true},{"url":"/posts/cost-of-meeting","title":"所有关系，“见面成本”就是试金石","date":"2026-02-14T15:20","layout":"post"},{"url":"/posts/__po-yao-fu","title":"破窑赋","date":"2026-02-05T00:00:00.000Z","author":"吕蒙正","author_dynasty":"宋","layout":"post","isPoetry":true},{"url":"/posts/keep-the-conversation-going-with-everyone","title":"可以与任何人无脑聊下去的方法","date":"2026-02-02 09:06","layout":"post","tags":"心理学，人际交往，格物心法","category":"心理学"},{"url":"/posts/my-blog","title":"我的博客","date":"2026-01-22T00:00:00.000Z","layout":"post"},{"url":"/posts/git-multiple-account-configuration","title":"配置 Git 多账户指南","date":"2022-07-10T00:00:00.000Z","layout":"post"}]');
 function usePostList() {
   return /* @__PURE__ */ readonly(data);
 }

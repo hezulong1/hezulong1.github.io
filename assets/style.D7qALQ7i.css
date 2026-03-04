@@ -1014,6 +1014,8 @@ a[href^="#fnref:"] {
   position: sticky;
   top: 0;
   background-color: var(--body-bg);
+  cursor: default;
+  user-select: none;
 }
 .mdxy9x7r {
   position: relative;
