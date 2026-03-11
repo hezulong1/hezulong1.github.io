@@ -1420,10 +1420,17 @@ function apply(self2, method, fn6, thisArg, wrappedRetFn, args) {
 }
 function reduce(self2, method, fn6, args) {
   const arr = shallowReadArray(self2);
+  const needsWrap = arr !== self2 && !/* @__PURE__ */ isShallow(self2);
   let wrappedFn = fn6;
+  let wrapInitialAccumulator = false;
   if (arr !== self2) {
-    if (!/* @__PURE__ */ isShallow(self2)) {
+    if (needsWrap) {
+      wrapInitialAccumulator = args.length === 0;
       wrappedFn = function(acc, item2, index) {
+        if (wrapInitialAccumulator) {
+          wrapInitialAccumulator = false;
+          acc = toWrapped(self2, acc);
+        }
         return fn6.call(this, acc, toWrapped(self2, item2), index, self2);
       };
     } else if (fn6.length > 3) {
@@ -1432,7 +1439,8 @@ function reduce(self2, method, fn6, args) {
       };
     }
   }
-  return arr[method](wrappedFn, ...args);
+  const result = arr[method](wrappedFn, ...args);
+  return wrapInitialAccumulator ? toWrapped(self2, result) : result;
 }
 function searchProxy(self2, method, args) {
   const arr = /* @__PURE__ */ toRaw(self2);
@@ -1695,15 +1703,14 @@ function createInstrumentations(readonly2, shallow) {
       clear: createReadonlyMethod("clear")
     } : {
       add(value) {
-        if (!shallow && !/* @__PURE__ */ isShallow(value) && !/* @__PURE__ */ isReadonly(value)) {
-          value = /* @__PURE__ */ toRaw(value);
-        }
         const target = /* @__PURE__ */ toRaw(this);
         const proto = getProto(target);
-        const hadKey = proto.has.call(target, value);
+        const rawValue = /* @__PURE__ */ toRaw(value);
+        const valueToAdd = !shallow && !/* @__PURE__ */ isShallow(value) && !/* @__PURE__ */ isReadonly(value) ? rawValue : value;
+        const hadKey = proto.has.call(target, valueToAdd) || hasChanged(value, valueToAdd) && proto.has.call(target, value) || hasChanged(rawValue, valueToAdd) && proto.has.call(target, rawValue);
         if (!hadKey) {
-          target.add(value);
-          trigger(target, "add", value, value);
+          target.add(valueToAdd);
+          trigger(target, "add", valueToAdd, valueToAdd);
         }
         return this;
       },
@@ -3571,9 +3578,11 @@ function renderList(source, renderItem, cache, index) {
       );
     }
   } else if (typeof source === "number") {
-    ret = new Array(source);
-    for (let i = 0; i < source; i++) {
-      ret[i] = renderItem(i + 1, i, void 0, cached);
+    {
+      ret = new Array(source);
+      for (let i = 0; i < source; i++) {
+        ret[i] = renderItem(i + 1, i, void 0, cached);
+      }
     }
   } else if (isObject$2(source)) {
     if (source[Symbol.iterator]) {
@@ -5530,7 +5539,10 @@ function baseCreateRenderer(options, createHydrationFns) {
           }
         } else {
           if (root2.ce && root2.ce._hasShadowRoot()) {
-            root2.ce._injectChildStyle(type);
+            root2.ce._injectChildStyle(
+              type,
+              instance.parent ? instance.parent.type : void 0
+            );
           }
           const subTree = instance.subTree = renderComponentRoot(instance);
           patch(
@@ -6957,7 +6969,7 @@ function h(type, propsOrChildren, children) {
     setBlockTracking(1);
   }
 }
-const version = "3.5.29";
+const version = "3.5.30";
 let policy = void 0;
 const tt = typeof window !== "undefined" && window.trustedTypes;
 if (tt) {
@@ -7302,7 +7314,9 @@ const patchProp = (el, key, prevValue, nextValue, namespace, parentComponent) =>
     }
   } else if (
     // #11081 force set props for possible async custom element
-    el._isVueCE && (/[A-Z]/.test(key) || !isString(nextValue))
+    el._isVueCE && // #12408 check if it's declared prop or it's async custom element
+    (shouldSetAsPropForVueCE(el, key) || // @ts-expect-error _def is private
+    el._def.__asyncLoader && (/[A-Z]/.test(key) || !isString(nextValue)))
   ) {
     patchDOMProp(el, camelize(key), nextValue, parentComponent, key);
   } else {
@@ -7349,6 +7363,17 @@ function shouldSetAsProp(el, key, value, isSVG) {
     return false;
   }
   return key in el;
+}
+function shouldSetAsPropForVueCE(el, key) {
+  const props2 = (
+    // @ts-expect-error _def is private
+    el._def.props
+  );
+  if (!props2) {
+    return false;
+  }
+  const camelKey = camelize(key);
+  return Array.isArray(props2) ? props2.some((prop) => camelize(prop) === camelKey) : Object.keys(props2).some((prop) => camelize(prop) === camelKey);
 }
 function useCssModule(name = "$style") {
   {
@@ -12410,7 +12435,7 @@ function registerWatchers() {
     headers.value = getHeaders([2, 3]);
   });
 }
-const data = JSON.parse('[{"url":"/posts/why-use-virtual-dom","title":"为什么使用虚拟 DOM","date":"2026-03-04T10:52","layout":"post"},{"url":"/posts/optimize-web-image","title":"优化浏览器图片资源","date":"2026-03-03T14:19","layout":"post"},{"url":"/posts/__chi-bi-fu","title":"赤壁赋","date":"2026-02-15T12:25","author":"苏轼","author_dynasty":"宋","layout":"post","isPoetry":true},{"url":"/posts/cost-of-meeting","title":"所有关系，“见面成本”就是试金石","date":"2026-02-14T15:20","layout":"post"},{"url":"/posts/__po-yao-fu","title":"破窑赋","date":"2026-02-05T00:00:00.000Z","author":"吕蒙正","author_dynasty":"宋","layout":"post","isPoetry":true},{"url":"/posts/keep-the-conversation-going-with-everyone","title":"可以与任何人无脑聊下去的方法","date":"2026-02-02 09:06","layout":"post","tags":"心理学，人际交往，格物心法","category":"心理学"},{"url":"/posts/git-multiple-account-configuration","title":"配置 Git 多账户指南","date":"2022-07-10T00:00:00.000Z","layout":"post"},{"url":"/posts/my-blog","title":"我的博客","date":"2022-02-23T00:00:00.000Z","update_date":"2026-01-22T00:00:00.000Z","layout":"post"}]');
+const data = JSON.parse('[{"url":"/posts/reduce-async-contagion","title":"消除异步传染性","date":"2026-03-11T10:53","layout":"post"},{"url":"/posts/why-use-virtual-dom","title":"为什么使用虚拟 DOM","date":"2026-03-04T10:52","layout":"post"},{"url":"/posts/optimize-web-image","title":"优化浏览器图片资源","date":"2026-03-03T14:19","layout":"post"},{"url":"/posts/__chi-bi-fu","title":"赤壁赋","date":"2026-02-15T12:25","author":"苏轼","author_dynasty":"宋","layout":"post","isPoetry":true},{"url":"/posts/cost-of-meeting","title":"所有关系，“见面成本”就是试金石","date":"2026-02-14T15:20","layout":"post"},{"url":"/posts/__po-yao-fu","title":"破窑赋","date":"2026-02-05T00:00:00.000Z","author":"吕蒙正","author_dynasty":"宋","layout":"post","isPoetry":true},{"url":"/posts/keep-the-conversation-going-with-everyone","title":"可以与任何人无脑聊下去的方法","date":"2026-02-02 09:06","layout":"post","tags":"心理学，人际交往，格物心法","category":"心理学"},{"url":"/posts/git-multiple-account-configuration","title":"配置 Git 多账户指南","date":"2022-07-10T00:00:00.000Z","layout":"post"},{"url":"/posts/my-blog","title":"我的博客","date":"2022-02-23T00:00:00.000Z","update_date":"2026-01-22T00:00:00.000Z","layout":"post"}]');
 function usePostList() {
   return /* @__PURE__ */ readonly(data);
 }
