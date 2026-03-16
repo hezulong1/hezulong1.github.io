@@ -1,5 +1,5 @@
-import { _ as _export_sfc, o as openBlock, c as createElementBlock, a as createStaticVNode } from "./app.DOLFT2Vc.js";
-const __pageData = JSON.parse('{"title":"优化浏览器图片资源","description":"","frontmatter":{"title":"优化浏览器图片资源","date":"2026-03-03T14:19","layout":"post"},"headers":[],"relativePath":"posts/optimize-web-image.md","filePath":"posts/optimize-web-image.md","lastUpdated":1773218925000}');
+import { _ as _export_sfc, o as openBlock, c as createElementBlock, a as createStaticVNode } from "./app.Db6VHVrF.js";
+const __pageData = JSON.parse('{"title":"优化浏览器图片资源","description":"","frontmatter":{"title":"优化浏览器图片资源","date":"2026-03-03T14:19","layout":"post"},"headers":[],"relativePath":"posts/optimize-web-image.md","filePath":"posts/optimize-web-image.md","lastUpdated":1773630417000}');
 const _sfc_main = { name: "posts/optimize-web-image.md" };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", null, [..._cache[0] || (_cache[0] = [
