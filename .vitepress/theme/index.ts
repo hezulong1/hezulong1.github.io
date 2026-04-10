@@ -7,6 +7,7 @@ import vueTippy from 'vue-tippy';
 import 'virtual:group-icons.css';
 import '@/style/index.scss';
 import Layout from './app.vue';
+import globalUi from './ui/global';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -14,6 +15,7 @@ dayjs.extend(timezone);
 export default {
   Layout,
   enhanceApp({ app, router, siteData }) {
+    app.use(globalUi);
     app.use(vueTippy, {
       defaultProps: {
         animation: 'scale-subtle',
