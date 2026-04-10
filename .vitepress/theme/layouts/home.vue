@@ -14,7 +14,7 @@ const postList = usePostList().filter(x => !x.draft).map((x) => {
     month,
     date,
     url: x.url,
-    title: x.title + (x.isPoetry ? ` ─ ${x.author}\u3014${x.author_dynasty}\u3015` : ''),
+    title: x.title + (x.author && x.author_dynasty ? ` ─ ${x.author}\u3014${x.author_dynasty}\u3015` : ''),
   };
 });
 </script>

@@ -6,16 +6,11 @@ declare const data: Post[];
 
 export { data };
 
-export default createContentLoader('./posts/**/*.md', {
+export default createContentLoader(['./posts/**/*.md', './quotations/**/*.md'], {
   transform: arr => arr
     .map<Post>((x) => {
       const url = x.url;
       const meta: Post = { url, ...x.frontmatter };
-
-      if (url.includes('/posts/__')) {
-        meta.isPoetry = true;
-      }
-
       return meta;
     })
     .filter(x => x.date)
