@@ -1,5 +1,5 @@
 {
-  "typescript.tsdk": "node_modules/typescript/lib",
+  "js/ts.tsdk.path": "node_modules/typescript/lib",
   // https://cn.vite.dev/config/#debugging-the-config-file-on-vs-code
   "debug.javascript.terminalOptions": {
     "resolveSourceMapLocations": [

@@ -13,9 +13,9 @@ const $style = useCssModule();
 const extraClassNames = computed(() => {
   const classNames = [$style.root];
 
-  if (props.square) classNames.push('square');
-  if (props.active) classNames.push('active');
-  if (props.disabled) classNames.push('disabled');
+  if (props.square) classNames.push($style.square);
+  if (props.active) classNames.push($style.active);
+  if (props.disabled) classNames.push($style.disabled);
 
   return classNames;
 });
@@ -46,14 +46,14 @@ const extraClassNames = computed(() => {
   outline: none;
   cursor: pointer;
 
-  &:not(:global(.disabled)) {
+  &:not(.disabled) {
     &:focus-visible {
       outline: 2px solid var(--accent-color);
       outline-offset: 2px;
     }
 
     &:hover,
-    &:global(.active) {
+    &.active {
       background: var(--fill-color);
     }
   }
@@ -62,11 +62,11 @@ const extraClassNames = computed(() => {
     color: inherit;
   }
 
-  &:global(.square) {
+  &.square {
     padding: .25rem;
   }
 
-  &:global(.disabled) {
+  &.disabled {
     cursor: default !important;
     color: #ccc !important;
     pointer-events: none !important;

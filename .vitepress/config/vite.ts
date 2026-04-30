@@ -5,7 +5,19 @@ import { groupIconVitePlugin } from '../plugins/group-icons';
 type ViteConfig = UserConfig['vite'];
 
 export default function getViteConfig(env: ConfigEnv): ViteConfig {
+  let counter = 0;
+
+  const cache = new Map<string, string>();
   const isDev = env.mode === 'development';
+  const CHARS = 'abcdefghijklmnopqrstuvwxyz';
+  const generate = (n: number) => {
+    let s = '';
+    do {
+      s = CHARS[n % CHARS.length] + s;
+      n = Math.floor(n / CHARS.length) - 1;
+    } while (n >= 0);
+    return s;
+  };
 
   return {
     publicDir: '../public',
@@ -37,7 +49,17 @@ export default function getViteConfig(env: ConfigEnv): ViteConfig {
     },
     css: {
       modules: {
-        generateScopedName: (isDev ? `[local]_` : ``) + '[hash:base26:2][hash:base36:6]',
+        generateScopedName(name, filename) {
+          const id = name + '$$$' + filename;
+
+          let hash = cache.get(id);
+          if (!hash) {
+            hash = generate(counter++);
+            cache.set(id, hash);
+          }
+
+          return isDev ? `${name}_${hash}` : hash;
+        },
       },
       preprocessorOptions: {
         scss: {
