@@ -12496,7 +12496,7 @@ function registerWatchers() {
     headers.value = getHeaders([2, 3]);
   });
 }
-const data = JSON.parse('[{"url":"/posts/flip","title":"FLIP 动画","date":"2026-04-30T16:28","layout":"post"},{"url":"/quotations/song-dong-yang-ma-sheng-xu","title":"送东阳马生序","date":"2026-04-10T09:30","author":"宋濂","author_dynasty":"元末明初","layout":"post"},{"url":"/posts/how-to-write-component","title":"如何封装组件","date":"2026-03-16T08:56","layout":"post"},{"url":"/posts/reduce-async-contagion","title":"消除异步传染性","date":"2026-03-11T10:53","layout":"post"},{"url":"/posts/why-use-virtual-dom","title":"为什么使用虚拟 DOM","date":"2026-03-04T10:52","update_date":"2026-03-11T16:29","layout":"post"},{"url":"/posts/optimize-web-image","title":"优化浏览器图片资源","date":"2026-03-03T14:19","layout":"post"},{"url":"/quotations/chi-bi-fu","title":"赤壁赋","date":"2026-02-15T12:25","author":"苏轼","author_dynasty":"宋","layout":"post"},{"url":"/quotations/cost-of-meeting","title":"所有关系，“见面成本”就是试金石","date":"2026-02-14T15:20","layout":"post"},{"url":"/quotations/po-yao-fu","title":"破窑赋","date":"2026-02-05T00:00:00.000Z","author":"吕蒙正","author_dynasty":"宋","layout":"post"},{"url":"/quotations/keep-the-conversation-going-with-everyone","title":"可以与任何人无脑聊下去的方法","date":"2026-02-02 09:06","layout":"post","tags":"心理学，人际交往，格物心法","category":"心理学"},{"url":"/posts/git-multiple-account-configuration","title":"配置 Git 多账户指南","date":"2022-07-10T00:00:00.000Z","layout":"post"},{"url":"/posts/my-blog","title":"我的博客","date":"2022-02-23T00:00:00.000Z","update_date":"2026-01-22T00:00:00.000Z","layout":"post"}]');
+const data = JSON.parse('[{"url":"/quotations/song-dong-yang-ma-sheng-xu","title":"送东阳马生序","date":"2026-04-10T09:30","author":"宋濂","author_dynasty":"元末明初","layout":"post"},{"url":"/posts/how-to-write-component","title":"如何封装组件","date":"2026-03-16T08:56","layout":"post"},{"url":"/posts/reduce-async-contagion","title":"消除异步传染性","date":"2026-03-11T10:53","layout":"post"},{"url":"/posts/why-use-virtual-dom","title":"为什么使用虚拟 DOM","date":"2026-03-04T10:52","update_date":"2026-03-11T16:29","layout":"post"},{"url":"/posts/optimize-web-image","title":"优化浏览器图片资源","date":"2026-03-03T14:19","layout":"post"},{"url":"/quotations/chi-bi-fu","title":"赤壁赋","date":"2026-02-15T12:25","author":"苏轼","author_dynasty":"宋","layout":"post"},{"url":"/quotations/cost-of-meeting","title":"所有关系，“见面成本”就是试金石","date":"2026-02-14T15:20","layout":"post"},{"url":"/quotations/po-yao-fu","title":"破窑赋","date":"2026-02-05T00:00:00.000Z","author":"吕蒙正","author_dynasty":"宋","layout":"post"},{"url":"/quotations/keep-the-conversation-going-with-everyone","title":"可以与任何人无脑聊下去的方法","date":"2026-02-02 09:06","layout":"post","tags":"心理学，人际交往，格物心法","category":"心理学"},{"url":"/posts/git-multiple-account-configuration","title":"配置 Git 多账户指南","date":"2022-07-10T00:00:00.000Z","layout":"post"},{"url":"/posts/my-blog","title":"我的博客","date":"2022-02-23T00:00:00.000Z","update_date":"2026-01-22T00:00:00.000Z","layout":"post"}]');
 function usePostList() {
   return /* @__PURE__ */ readonly(data);
 }
@@ -13623,7 +13623,5 @@ export {
   createTextVNode as d,
   createVNode as e,
   openBlock as o,
-  resolveComponent as r,
-  unref as u,
-  withCtx as w
+  resolveComponent as r
 };
