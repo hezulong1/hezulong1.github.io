@@ -26,7 +26,7 @@ export function isActivePath(currentPath: string, matchPath?: string, asRegex = 
 }
 
 export function toLocalDayjs(date?: dayjs.ConfigType) {
-  return dayjs(date).tz('Asia/Shanghai');
+  return dayjs.tz(date, 'Asia/Shanghai');
 }
 
 export function throttleAndDebounce(fn: () => void, delay: number): () => void {
