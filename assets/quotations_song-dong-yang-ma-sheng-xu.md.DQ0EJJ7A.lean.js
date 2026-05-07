@@ -1,5 +1,5 @@
-import { _ as _export_sfc, r as resolveComponent, o as openBlock, c as createElementBlock, e as createVNode, a as createStaticVNode } from "./app.Cvbbcn3b.js";
-const __pageData = JSON.parse('{"title":"送东阳马生序","description":"","frontmatter":{"title":"送东阳马生序","date":"2026-04-10T09:30","author":"宋濂","author_dynasty":"元末明初","layout":"post"},"headers":[],"relativePath":"quotations/song-dong-yang-ma-sheng-xu.md","filePath":"quotations/song-dong-yang-ma-sheng-xu.md","lastUpdated":1778117685000}');
+import { _ as _export_sfc, r as resolveComponent, o as openBlock, c as createElementBlock, e as createVNode, a as createStaticVNode } from "./app.BPDkhGp-.js";
+const __pageData = JSON.parse('{"title":"送东阳马生序","description":"","frontmatter":{"title":"送东阳马生序","date":"2026-04-10T09:30","author":"宋濂","author_dynasty":"元末明初","layout":"post"},"headers":[],"relativePath":"quotations/song-dong-yang-ma-sheng-xu.md","filePath":"quotations/song-dong-yang-ma-sheng-xu.md","lastUpdated":1778118068000}');
 const _sfc_main = { name: "quotations/song-dong-yang-ma-sheng-xu.md" };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_OpenLink = resolveComponent("OpenLink");
