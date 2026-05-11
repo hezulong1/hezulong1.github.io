@@ -4,6 +4,8 @@ import h21 from 'eslint-config-h21';
 export default h21({
   ignores: [
     'public',
+    'backup',
+    'scripts',
   ],
   globals: {
     ...globals.browser,
@@ -17,7 +19,16 @@ export default h21({
   },
   ts: true,
   jsx: true,
-  style: true,
+  style: {
+    overrides: {
+      '@stylistic/template-curly-spacing': [2, 'never'],
+    },
+  },
+  unicorn: {
+    overrides: {
+      'unicorn/numeric-separators-style': 0,
+    },
+  },
   vue: {
     version: 3,
     a11y: false,

@@ -33,6 +33,7 @@ export default function ruby_plugin(md: Markdown, options = {}) {
     let devPos: number | undefined; // Position of delimiter '|'
     let closePos: number | undefined; // Position of closing character '}'
     let token: Token | undefined;
+    // eslint-disable-next-line no-useless-assignment
     let tokens: Token[] = [];
 
     state.pos = start + 1;

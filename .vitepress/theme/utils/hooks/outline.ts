@@ -188,6 +188,7 @@ function buildTree(
   const result: DefaultTheme.OutlineItem[] = [];
   const stack: (
     | DefaultTheme.OutlineItem
+    // eslint-disable-next-line @stylistic/operator-linebreak
     | { level: number; shouldIgnore: true }
   )[] = [];
 

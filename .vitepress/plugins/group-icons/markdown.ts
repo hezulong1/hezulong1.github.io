@@ -28,7 +28,7 @@ export function groupIconMdPlugin(md: Markdown, options?: MdPluginOptions) {
 
   // replace named icon in label content
   const namedIconLabelMatchRegex = /(<label[^>]*>)(.*?)(~[^~]+~)(.*?)(<\/label>)/g;
-  md.renderer.rules['container_code-group_open']! = (...args) => {
+  md.renderer.rules['container_code-group_open'] = (...args) => {
     const code = codeGroupOpenRule!(...args);
     return code.replace(
       namedIconLabelMatchRegex,
