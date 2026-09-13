@@ -27,7 +27,7 @@
     "markdown-it-footnote": "^4.0.0",
     "sass-embedded": "^1.90.0",
     "typescript": "^5.9.2",
-    "vitepress": "^2.0.0-alpha.15",
+    "vitepress": "2.0.0-alpha.15",
     "vue-eslint-parser": "^10.4.0"
   },
   "engines": {
