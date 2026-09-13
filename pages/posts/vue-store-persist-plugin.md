@@ -28,7 +28,7 @@ import persistPlugin from './persistPlugin.js';
 
 const store = createStore({
   modules: {...},
-  plugins: [persistPlugin], // [!!code highlight]
+  plugins: [persistPlugin], // [!code highlight]
 });
 
 export default store;
@@ -41,7 +41,7 @@ const STORAGE_KEY = 'vuex-store';
 export default (store) => {
   // 存储
   window.addEventListener('beforeupload', () => {
-    const state = store.state; // [!!code highlight]
+    const state = store.state; // [!code highlight]
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   });
 
@@ -50,7 +50,7 @@ export default (store) => {
   if (savedState) {
     try {
       const parsedState = JSON.parse(savedState);
-      store.replaceState(parsedState); // [!!code highlight]
+      store.replaceState(parsedState); // [!code highlight]
     } catch (err) {
       console.error('Failed to parse saved state:', err);
     }
@@ -73,7 +73,7 @@ import App from './App.vue';
 import persistPlugin from './persistPlugin.js';
 
 const pinia = createPinia();
-pinia.use(persistPlugin); // [!!code highlight]
+pinia.use(persistPlugin); // [!code highlight]
 
 const app = createApp(App);
 app.use(pinia);
@@ -90,7 +90,7 @@ export default (context) => {
 
   // 存储
   window.addEventListener('beforeupload', () => {
-    const state = context.store.$state; // [!!code highlight]
+    const state = context.store.$state; // [!code highlight]
     localStorage.setItem(key, JSON.stringify(state));
   });
 
@@ -99,7 +99,7 @@ export default (context) => {
   if (savedState) {
     try {
       const parsedState = JSON.parse(savedState);
-      context.store.$patch(parsedState); // [!!code highlight]
+      context.store.$patch(parsedState); // [!code highlight]
     } catch (err) {
       console.error('Failed to parse saved state:', err);
     }
