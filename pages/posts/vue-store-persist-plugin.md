@@ -1,6 +1,6 @@
 ---
 title: Vue 状态仓库持久化
-date: 2026-09-13-03T22:42
+date: 2026-09-13T22:42
 layout: post
 ---
 
@@ -104,6 +104,7 @@ export default (context) => {
     }
   }
 }
+
 ```
 
 :::
