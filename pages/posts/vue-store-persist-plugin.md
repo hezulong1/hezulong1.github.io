@@ -4,19 +4,20 @@ date: 2026-09-13T22:42
 layout: post
 ---
 
-以插件的形式让 Vuex 和 Pinia 的数据仓库持久化。在 npm 中已经存在这样的插件（可以搜索关键字：`pinia persist` / `vuex persist`），这里更多是学习为主。
+以插件的形式让 Vuex 和 Pinia 的数据仓库持久化。在 npm 中已经存在这样的插件（可以搜索关键字：[`pinia persist`](https://www.npmjs.com/search?q=pinia%20persist) / [`vuex persist`](https://www.npmjs.com/search?q=vuex%20persist)），这里更多是学习为主。
 
 本地存储分 2 种形式：
 
-- 以实时为主，优点是同步性非常好，缺点就是读写 localstorage 是一个 io 操作，过于频繁会造成卡顿；
+- 以实时为主，优点是同步性非常好，缺点就是读写 localStorage 是一个 IO 操作，过于频繁会造成卡顿；
 
 - 以效率为主，即我们在进入页面时**读取**，离开页面时**存储**，缺点就是准确性未必高，还有因为以 `beforeupload` 事件为主，未必会每次都触发。
 
-记住，无论那种都是服务于实际项目，如何取舍需要来自主判断。
+总之，无论选择哪一种，都要按实际项目来。
 
-下面以第二种做示例代码：
+下面以第二种形式做示例：
 
 <br>
+
 __Vuex__
 
 ::: code-group
@@ -27,7 +28,7 @@ import persistPlugin from './persistPlugin.js';
 
 const store = createStore({
   modules: {...},
-  plugins: [persistPlugin],
+  plugins: [persistPlugin], // [!!code highlight]
 });
 
 export default store;
@@ -40,7 +41,7 @@ const STORAGE_KEY = 'vuex-store';
 export default (store) => {
   // 存储
   window.addEventListener('beforeupload', () => {
-    const state = store.state;
+    const state = store.state; // [!!code highlight]
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   });
 
@@ -49,7 +50,7 @@ export default (store) => {
   if (savedState) {
     try {
       const parsedState = JSON.parse(savedState);
-      store.replaceState(parsedState);
+      store.replaceState(parsedState); // [!!code highlight]
     } catch (err) {
       console.error('Failed to parse saved state:', err);
     }
@@ -59,8 +60,8 @@ export default (store) => {
 ```
 :::
 
-
 <br>
+
 __Pinia__
 
 ::: code-group
@@ -72,7 +73,7 @@ import App from './App.vue';
 import persistPlugin from './persistPlugin.js';
 
 const pinia = createPinia();
-pinia.use(persistPlugin);
+pinia.use(persistPlugin); // [!!code highlight]
 
 const app = createApp(App);
 app.use(pinia);
@@ -89,7 +90,7 @@ export default (context) => {
 
   // 存储
   window.addEventListener('beforeupload', () => {
-    const state = context.store.$state;
+    const state = context.store.$state; // [!!code highlight]
     localStorage.setItem(key, JSON.stringify(state));
   });
 
@@ -98,7 +99,7 @@ export default (context) => {
   if (savedState) {
     try {
       const parsedState = JSON.parse(savedState);
-      context.store.$patch(parsedState);
+      context.store.$patch(parsedState); // [!!code highlight]
     } catch (err) {
       console.error('Failed to parse saved state:', err);
     }
